@@ -1,6 +1,7 @@
 [gd_scene load_steps=2 format=3 uid="uid://4rj458y6rmwd"]
 
-[ext_resource type="Script" path="res://scripts/SceneLoader.cs" id="1_vn8ju"]
+[ext_resource type="PackedScene" uid="uid://b322g3xvsscq6" path="res://scenes/game_world.tscn" id="1_ub8nq"]
 
 [node name="Main" type="Node2D"]
-script = ExtResource("1_vn8ju")
+
+[node name="Game_World" parent="." instance=ExtResource("1_ub8nq")]
