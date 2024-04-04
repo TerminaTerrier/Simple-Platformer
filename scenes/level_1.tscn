@@ -1,6 +1,26 @@
-[gd_scene format=3 uid="uid://djyr15x5sbqis"]
+[gd_scene load_steps=4 format=3 uid="uid://djyr15x5sbqis"]
+
+[ext_resource type="Texture2D" uid="uid://i1liu36s7vyf" path="res://assets/art/level1tilemap.png" id="1_34j8q"]
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_ltjpw"]
+texture = ExtResource("1_34j8q")
+0:0/0 = 0
+0:0/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+0:0/0/physics_layer_0/angular_velocity = 0.0
+0:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+1:0/0 = 0
+1:0/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+1:0/0/physics_layer_0/angular_velocity = 0.0
+2:0/0 = 0
+2:0/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+2:0/0/physics_layer_0/angular_velocity = 0.0
+
+[sub_resource type="TileSet" id="TileSet_fui4f"]
+physics_layer_0/collision_layer = 1
+sources/0 = SubResource("TileSetAtlasSource_ltjpw")
 
 [node name="Level_1" type="Node"]
 
 [node name="TileMap" type="TileMap" parent="."]
+tile_set = SubResource("TileSet_fui4f")
 format = 2

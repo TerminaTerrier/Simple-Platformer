@@ -1,11 +1,14 @@
-[gd_scene load_steps=4 format=3 uid="uid://4rj458y6rmwd"]
+[gd_scene load_steps=5 format=3 uid="uid://4rj458y6rmwd"]
 
 [ext_resource type="Script" path="res://scripts/SceneLoader.cs" id="1_vn8ju"]
 [ext_resource type="PackedScene" uid="uid://eeiagxgmf31u" path="res://scenes/game_world.tscn" id="2_pd430"]
+[ext_resource type="PackedScene" uid="uid://162pp1102oln" path="res://scenes/signal_bus.tscn" id="2_qh156"]
 [ext_resource type="PackedScene" uid="uid://tn6k1uctwaw5" path="res://scenes/player.tscn" id="3_l2108"]
 
 [node name="Main" type="Node2D"]
 script = ExtResource("1_vn8ju")
+
+[node name="Signal_Bus" parent="." instance=ExtResource("2_qh156")]
 
 [node name="Camera2D" type="Camera2D" parent="."]
 
