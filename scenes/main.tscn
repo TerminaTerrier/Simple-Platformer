@@ -1,7 +1,14 @@
-[gd_scene load_steps=2 format=3 uid="uid://4rj458y6rmwd"]
+[gd_scene load_steps=4 format=3 uid="uid://4rj458y6rmwd"]
 
-[ext_resource type="PackedScene" uid="uid://b322g3xvsscq6" path="res://scenes/game_world.tscn" id="1_ub8nq"]
+[ext_resource type="Script" path="res://scripts/SceneLoader.cs" id="1_vn8ju"]
+[ext_resource type="PackedScene" uid="uid://eeiagxgmf31u" path="res://scenes/game_world.tscn" id="2_pd430"]
+[ext_resource type="PackedScene" uid="uid://tn6k1uctwaw5" path="res://scenes/player.tscn" id="3_l2108"]
 
 [node name="Main" type="Node2D"]
+script = ExtResource("1_vn8ju")
 
-[node name="Game_World" parent="." instance=ExtResource("1_ub8nq")]
+[node name="Camera2D" type="Camera2D" parent="."]
+
+[node name="Game_World" parent="." instance=ExtResource("2_pd430")]
+
+[node name="Player" parent="Game_World" instance=ExtResource("3_l2108")]
