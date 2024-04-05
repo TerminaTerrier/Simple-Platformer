@@ -1,4 +1,6 @@
-[gd_scene format=3 uid="uid://can7xup13c2bm"]
+[gd_scene load_steps=2 format=3 uid="uid://can7xup13c2bm"]
+
+[ext_resource type="Script" path="res://scripts/MainMenu.cs" id="1_v7rqy"]
 
 [node name="Main_Menu" type="Control"]
 layout_mode = 3
@@ -7,3 +9,33 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("1_v7rqy")
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.405
+anchor_top = 0.019
+anchor_right = 0.614
+anchor_bottom = 0.145
+offset_left = -0.560028
+offset_top = -0.312001
+offset_right = -0.328003
+offset_bottom = 0.0399933
+text = "Simple Platformer"
+horizontal_alignment = 1
+
+[node name="Button" type="Button" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.449
+anchor_top = 0.4
+anchor_right = 0.601
+anchor_bottom = 0.591
+offset_left = -0.248047
+offset_top = -16.2
+offset_right = 18.648
+offset_bottom = 0.0319824
+text = "Click to Start"
+
+[connection signal="pressed" from="Button" to="." method="OnButtonPressed"]

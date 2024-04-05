@@ -7,7 +7,6 @@ texture = ExtResource("1_34j8q")
 0:0/0 = 0
 0:0/0/physics_layer_0/linear_velocity = Vector2(0, 0)
 0:0/0/physics_layer_0/angular_velocity = 0.0
-0:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
 1:0/0 = 0
 1:0/0/physics_layer_0/linear_velocity = Vector2(0, 0)
 1:0/0/physics_layer_0/angular_velocity = 0.0
@@ -24,3 +23,4 @@ sources/0 = SubResource("TileSetAtlasSource_ltjpw")
 [node name="TileMap" type="TileMap" parent="."]
 tile_set = SubResource("TileSet_fui4f")
 format = 2
+layer_0/tile_data = PackedInt32Array(65535, 0, 0, 0, 0, 0, 1, 0, 0, 65534, 0, 0)
