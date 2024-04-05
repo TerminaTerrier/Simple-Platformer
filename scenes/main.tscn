@@ -6,6 +6,4 @@
 [node name="Main" type="Node2D"]
 script = ExtResource("1_vn8ju")
 
-[node name="Camera2D" type="Camera2D" parent="."]
-
 [node name="Game_World" parent="." instance=ExtResource("2_pd430")]
