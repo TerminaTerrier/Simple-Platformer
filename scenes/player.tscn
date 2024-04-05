@@ -1,4 +1,7 @@
-[gd_scene load_steps=3 format=3 uid="uid://tn6k1uctwaw5"]
+[gd_scene load_steps=5 format=3 uid="uid://tn6k1uctwaw5"]
+
+[ext_resource type="Script" path="res://scripts/player.cs" id="1_540tw"]
+[ext_resource type="PackedScene" uid="uid://dpd3l8k3cqynj" path="res://scenes/player_controller.tscn" id="2_g8khw"]
 
 [sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_8d4ts"]
 
@@ -6,6 +9,7 @@
 size = Vector2(8, 10.25)
 
 [node name="Player" type="CharacterBody2D"]
+script = ExtResource("1_540tw")
 
 [node name="PlayerCamera" type="Camera2D" parent="."]
 zoom = Vector2(1.5, 1.5)
@@ -17,3 +21,5 @@ texture = SubResource("PlaceholderTexture2D_8d4ts")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, -0.125)
 shape = SubResource("RectangleShape2D_yylyp")
+
+[node name="PlayerController" parent="." instance=ExtResource("2_g8khw")]
