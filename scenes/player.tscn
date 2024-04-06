@@ -1,15 +1,18 @@
-[gd_scene load_steps=5 format=3 uid="uid://tn6k1uctwaw5"]
+[gd_scene load_steps=6 format=3 uid="uid://tn6k1uctwaw5"]
 
 [ext_resource type="Script" path="res://scripts/player.cs" id="1_540tw"]
 [ext_resource type="PackedScene" uid="uid://dpd3l8k3cqynj" path="res://scenes/player_controller.tscn" id="2_g8khw"]
+[ext_resource type="PackedScene" uid="uid://cj61p2pt0xi67" path="res://scenes/velocity_component.tscn" id="3_l5ety"]
 
 [sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_8d4ts"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_yylyp"]
 size = Vector2(8, 10.25)
 
-[node name="Player" type="CharacterBody2D"]
+[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("velocityComponent", "playerController")]
 script = ExtResource("1_540tw")
+velocityComponent = NodePath("VelocityComponent")
+playerController = NodePath("PlayerController")
 
 [node name="PlayerCamera" type="Camera2D" parent="."]
 zoom = Vector2(1.5, 1.5)
@@ -23,3 +26,5 @@ position = Vector2(0, -0.125)
 shape = SubResource("RectangleShape2D_yylyp")
 
 [node name="PlayerController" parent="." instance=ExtResource("2_g8khw")]
+
+[node name="VelocityComponent" parent="." instance=ExtResource("3_l5ety")]

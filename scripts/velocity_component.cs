@@ -3,13 +3,22 @@ using System;
 
 public partial class velocity_component : Node2D
 {
-	// Called when the node enters the scene tree for the first time.
+	[Export]
+	private float maxSpeed = 100;
+	public Vector2 Velocity {get; set;}
 	public override void _Ready()
 	{
 	}
 
-	// Called every frame. 'delta' is the elapsed time since the previous frame.
-	public override void _Process(double delta)
+	public void GetVelocity(Vector2 direction)
 	{
+		Velocity = direction * maxSpeed;
 	}
+	public void Move(CharacterBody2D characterBody2D)
+	{
+		characterBody2D.Velocity = Velocity;
+		characterBody2D.MoveAndSlide();
+	}
+
+	
 }

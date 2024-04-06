@@ -3,7 +3,7 @@ using System;
 
 public partial class player_controller : Node2D
 {
-	public Vector2 direction;
+	public Vector2 direction {get; private set;}
 	
 	public override void _Ready()
 	{
