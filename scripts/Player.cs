@@ -1,12 +1,12 @@
 using Godot;
 using System;
 
-public partial class player : CharacterBody2D
+public partial class Player : CharacterBody2D
 {
 	[Export]
-	velocity_component velocityComponent;
+	VelocityComponent velocityComponent;
 	[Export]
-	player_controller playerController;
+	PlayerController playerController;
 	public override void _Ready()
 	{
 

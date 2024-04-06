@@ -1,7 +1,7 @@
 using Godot;
 using System;
 
-public partial class player_controller : Node2D
+public partial class PlayerController : Node2D
 {
 	public Vector2 direction {get; private set;}
 	

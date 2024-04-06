@@ -1,7 +1,7 @@
 using Godot;
 using System;
 
-public partial class velocity_component : Node2D
+public partial class VelocityComponent : Node2D
 {
 	[Export]
 	private float maxSpeed = 100;
