@@ -7,14 +7,15 @@ public partial class Player : CharacterBody2D
 	VelocityComponent velocityComponent;
 	[Export]
 	PlayerController playerController;
+	StateMachine stateMachine = new();
 	public override void _Ready()
 	{
-
+		stateMachine.AddState(RegularState);
 	}
 
     public override void _Process(double delta)
     {
-        RegularState();
+        stateMachine.Update();
     }
 
 	public void RegularState()
