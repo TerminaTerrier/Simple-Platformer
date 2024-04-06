@@ -6,6 +6,7 @@ public partial class StateMachine : Node
 	public Action currentState;
 	public void Enter()
 	{
+		
 	}
 
 	
