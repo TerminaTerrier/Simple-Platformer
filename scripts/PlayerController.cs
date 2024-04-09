@@ -13,12 +13,12 @@ public partial class PlayerController : Node2D
     public override void _Process(double delta)
     {
 
-		if(Input.IsActionPressed("InputUp") == false || Input.IsActionPressed("InputDown") == false || Input.IsActionPressed("InputLeft") == false || Input.IsActionPressed("InputRight") == false)
+		if(Input.IsActionJustPressed("InputUp") == false || Input.IsActionPressed("InputDown") == false || Input.IsActionPressed("InputLeft") == false || Input.IsActionPressed("InputRight") == false)
 		{
 			direction = Vector2.Zero;
 		}
 
-        if(Input.IsActionPressed("InputUp"))
+        if(Input.IsActionJustPressed("InputUp"))
 		{
 			direction = Vector2.Up;
 		}

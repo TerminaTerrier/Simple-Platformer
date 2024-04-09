@@ -1,9 +1,14 @@
-[gd_scene load_steps=3 format=3 uid="uid://4rj458y6rmwd"]
+[gd_scene load_steps=4 format=3 uid="uid://4rj458y6rmwd"]
 
-[ext_resource type="Script" path="res://scripts/SceneLoader.cs" id="1_vn8ju"]
+[ext_resource type="PackedScene" uid="uid://b0r4itsd3cwb2" path="res://scenes/menu_space.tscn" id="1_050nw"]
+[ext_resource type="Script" path="res://scripts/SceneData.cs" id="1_u6rp2"]
 [ext_resource type="PackedScene" uid="uid://eeiagxgmf31u" path="res://scenes/game_world.tscn" id="2_pd430"]
 
 [node name="Main" type="Node2D"]
-script = ExtResource("1_vn8ju")
+script = ExtResource("1_u6rp2")
 
-[node name="Game_World" parent="." instance=ExtResource("2_pd430")]
+[node name="Menu_Space" parent="." node_paths=PackedStringArray("sceneData") instance=ExtResource("1_050nw")]
+sceneData = NodePath("..")
+
+[node name="Game_World" parent="." node_paths=PackedStringArray("sceneData") instance=ExtResource("2_pd430")]
+sceneData = NodePath("..")

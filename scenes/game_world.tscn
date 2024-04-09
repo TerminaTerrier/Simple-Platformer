@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://eeiagxgmf31u"]
 
-[ext_resource type="Script" path="res://scripts/LevelLoader.cs" id="1_rrock"]
+[ext_resource type="Script" path="res://scripts/GameObjectLoader.cs" id="1_wbr6a"]
 
 [node name="Game_World" type="Node2D"]
-script = ExtResource("1_rrock")
+script = ExtResource("1_wbr6a")
