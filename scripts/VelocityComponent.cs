@@ -10,14 +10,23 @@ public partial class VelocityComponent : Node2D
 	{
 	}
 
-	public void GetVelocity(Vector2 direction)
+	public void AccelerateInDirection(Vector2 direction)
 	{
-		Velocity = direction * maxSpeed;
+		AccelerateVelocity(direction * maxSpeed);
+	}
+	public void AccelerateVelocity(Vector2 velocity)
+	{
+		Velocity = Velocity.Lerp(velocity, 0.15f);
+	}
+	public void Decelerate()
+	{
+		AccelerateVelocity(Vector2.Zero);
 	}
 	public void Move(CharacterBody2D characterBody2D)
 	{
 		characterBody2D.Velocity = Velocity;
 		characterBody2D.MoveAndSlide();
+		GD.Print(Velocity);
 	}
 
 	

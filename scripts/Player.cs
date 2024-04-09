@@ -13,14 +13,22 @@ public partial class Player : CharacterBody2D
 		stateMachine.AddState(RegularState);
 	}
 
-    public override void _Process(double delta)
+    public override void _PhysicsProcess(double delta)
     {
         stateMachine.Update();
     }
 
 	public void RegularState()
 	{
-		velocityComponent.GetVelocity(playerController.direction);
+		if(playerController.PressFlag == false)
+		{
+			velocityComponent.Decelerate();
+		}
+		else
+		{
+		velocityComponent.AccelerateInDirection(playerController.direction);
+		}
+		
 		velocityComponent.Move(this);
 	}
 }
