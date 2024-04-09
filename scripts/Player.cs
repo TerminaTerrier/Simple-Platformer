@@ -7,6 +7,8 @@ public partial class Player : CharacterBody2D
 	VelocityComponent velocityComponent;
 	[Export]
 	PlayerController playerController;
+	[Export]
+	GravityComponent gravityComponent;
 	StateMachine stateMachine = new();
 	public override void _Ready()
 	{
@@ -26,9 +28,13 @@ public partial class Player : CharacterBody2D
 		}
 		else
 		{
-		velocityComponent.AccelerateInDirection(playerController.direction);
+			velocityComponent.AccelerateInDirection(playerController.direction);
 		}
+
+		gravityComponent.CalculateGravity();
 		
+		velocityComponent.AccelerateWithGravity();
+
 		velocityComponent.Move(this);
 	}
 }

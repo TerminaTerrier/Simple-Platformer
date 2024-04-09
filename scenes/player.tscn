@@ -1,17 +1,19 @@
-[gd_scene load_steps=6 format=3 uid="uid://sp4vq5xtmla7"]
+[gd_scene load_steps=7 format=3 uid="uid://sp4vq5xtmla7"]
 
 [ext_resource type="Script" path="res://scripts/Player.cs" id="1_g76b5"]
 [ext_resource type="PackedScene" uid="uid://dpd3l8k3cqynj" path="res://scenes/player_controller.tscn" id="2_g8khw"]
 [ext_resource type="PackedScene" uid="uid://cj61p2pt0xi67" path="res://scenes/velocity_component.tscn" id="3_l5ety"]
+[ext_resource type="PackedScene" uid="uid://brp0di8jh3n5c" path="res://scenes/gravity_component.tscn" id="4_565jc"]
 
 [sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_4awkr"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_4w5ce"]
 
-[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("velocityComponent", "playerController")]
+[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("velocityComponent", "playerController", "gravityComponent")]
 script = ExtResource("1_g76b5")
-velocityComponent = NodePath("VelocityComponent")
-playerController = NodePath("PlayerController")
+velocityComponent = NodePath("Velocity_Component")
+playerController = NodePath("Player_Controller")
+gravityComponent = NodePath("Gravity_Component")
 
 [node name="Camera2D" type="Camera2D" parent="."]
 zoom = Vector2(1.5, 1.5)
@@ -24,6 +26,10 @@ texture = SubResource("PlaceholderTexture2D_4awkr")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_4w5ce")
 
-[node name="VelocityComponent" parent="." instance=ExtResource("3_l5ety")]
+[node name="Player_Controller" parent="." instance=ExtResource("2_g8khw")]
 
-[node name="PlayerController" parent="." instance=ExtResource("2_g8khw")]
+[node name="Velocity_Component" parent="." node_paths=PackedStringArray("gravityComponent") instance=ExtResource("3_l5ety")]
+gravityComponent = NodePath("../Gravity_Component")
+
+[node name="Gravity_Component" parent="." instance=ExtResource("4_565jc")]
+Mass = 3.0
