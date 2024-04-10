@@ -7,10 +7,6 @@ public partial class GravityComponent : Node2D
 	[Export]
 	public float Mass;
 	private Vector2 Gravity;
-	public override void _Ready()
-	{
-
-	}
 
 	public void CalculateGravity()
 	{

@@ -4,9 +4,12 @@ using System;
 public partial class VelocityComponent : Node2D
 {
 	[Export]
-	private float maxSpeed = 100;
-	[Export]
 	GravityComponent gravityComponent;
+	[Export]
+	private float maxSpeed = 100;	
+	public float speedMultiplier { get; set; } = 1f;
+	public float targetSpeed => maxSpeed * speedMultiplier;
+	public float accelerationWeight;
 	public Vector2 Velocity {get; set;}
 	public override void _Ready()
 	{
@@ -14,11 +17,11 @@ public partial class VelocityComponent : Node2D
 
 	public void AccelerateInDirection(Vector2 direction)
 	{
-		AccelerateVelocity(direction * maxSpeed);
+		AccelerateVelocity(direction * targetSpeed);
 	}
 	public void AccelerateVelocity(Vector2 velocity)
 	{
-		Velocity = Velocity.Lerp(velocity, 0.045f);
+		Velocity = Velocity.Lerp(velocity, accelerationWeight);
 	}
 	public void Decelerate()
 	{
@@ -27,7 +30,8 @@ public partial class VelocityComponent : Node2D
 
 	public void AccelerateWithGravity()
 	{
-		Velocity = gravityComponent.ApplyGravity(Velocity);
+		var velocity = gravityComponent.ApplyGravity(Velocity);
+		AccelerateVelocity(velocity);
 	}
 
 	public void Move(CharacterBody2D characterBody2D)
