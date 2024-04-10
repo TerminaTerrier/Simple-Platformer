@@ -42,12 +42,24 @@ public partial class PlayerController : Node2D
 			PressFlag = true;
 		}
 		
+		if(Input.IsActionPressed("InputLeft") && Input.IsActionPressed("InputUp") && IsJumping == false)
+		{
+			direction = new Vector2(-1f,-1f);
+			PressFlag = true;
+		}
 
 		if(Input.IsActionPressed("InputRight"))
 		{
 			direction = Vector2.Right;
 			PressFlag = true;
 		}
+		
+		if(Input.IsActionPressed("InputRight") &&  Input.IsActionPressed("InputUp") && IsJumping == false)
+		{
+			direction = new Vector2(1,-1);
+			PressFlag = true;
+		}
+		
 		
 		//GD.Print(direction);
 		//GD.Print(PressFlag);
