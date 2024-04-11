@@ -29,8 +29,11 @@ texture = SubResource("PlaceholderTexture2D_4awkr")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_4w5ce")
 
-[node name="Player_Controller" parent="." node_paths=PackedStringArray("raycastComponent") instance=ExtResource("2_g8khw")]
+[node name="Player_Controller" parent="." node_paths=PackedStringArray("velocityComponent", "raycastComponent") instance=ExtResource("2_g8khw")]
+velocityComponent = NodePath("../Velocity_Component")
 raycastComponent = NodePath("../Raycast_Component")
+JumpStrength = 175.0
+MoveSpeed = 0.075
 
 [node name="Raycast_Component" parent="." instance=ExtResource("5_o3g6s")]
 
@@ -38,4 +41,4 @@ raycastComponent = NodePath("../Raycast_Component")
 gravityComponent = NodePath("../Gravity_Component")
 
 [node name="Gravity_Component" parent="." instance=ExtResource("4_565jc")]
-Mass = 35.0
+Mass = 45.0

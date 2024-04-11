@@ -18,12 +18,6 @@ public partial class RaycastComponent : Node2D
 		return result;
 	}
 
-    public override void _PhysicsProcess(double delta)
-    {
-        
-		
-    }
-
     public void SetRaycastParamaters(Vector2 from, Vector2 to)
 	{
 		raycastFrom = from;

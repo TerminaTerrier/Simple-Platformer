@@ -9,8 +9,6 @@ public partial class Player : CharacterBody2D
 	PlayerController playerController;
 	[Export]
 	GravityComponent gravityComponent;
-	[Export]
-	RaycastComponent raycastComponent;
 	StateMachine stateMachine = new();
 	public override void _Ready()
 	{
@@ -35,13 +33,8 @@ public partial class Player : CharacterBody2D
 			velocityComponent.AccelerateInDirection(playerController.direction);
 		}
 
-		if(playerController.direction == Vector2.Up)
-		{
-			velocityComponent.accelerationWeight = 0.5f;
-			
-		}
 
-		playerController.JumpCheck(this.GlobalPosition, this.GlobalPosition + new Vector2(0, 25));
+		playerController.JumpCheck(this.GlobalPosition, this.GlobalPosition + new Vector2(0, 15));
 
 		gravityComponent.CalculateGravity();
 
