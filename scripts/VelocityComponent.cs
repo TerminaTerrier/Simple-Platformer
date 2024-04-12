@@ -4,8 +4,7 @@ using System;
 
 public partial class VelocityComponent : Node2D
 {
-	[Export]
-	GravityComponent gravityComponent;
+	
 	[Export]
 	private float maxSpeed = 100;	
 	[Export]
@@ -25,10 +24,9 @@ public partial class VelocityComponent : Node2D
 		AccelerateVelocity(direction * targetSpeed);
 	}
 
-	public void ApplyGravity()
+	public void AccelerateInDirectionWithGravity(Vector2 direction, Vector2 gravity)
 	{
-		//var velocity = Velocity + gravityComponent.CalculateGravity();
-		//AccelerateVelocity(velocity);
+		AccelerateVelocity((direction * targetSpeed) + gravity);
 	}
 
 	public void AccelerateVelocity(Vector2 velocity)
@@ -40,6 +38,11 @@ public partial class VelocityComponent : Node2D
 	public void Decelerate()
 	{
 		AccelerateVelocity(Vector2.Zero);
+	}
+
+	public void DecelerateWithGravity(Vector2 gravity)
+	{
+		AccelerateVelocity(Vector2.Zero + gravity);
 	}
 
 	public void SetMaxSpeed(float newSpeed)

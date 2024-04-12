@@ -9,7 +9,7 @@ public partial class GravityComponent : Node2D
 	public float Mass;
 	private Vector2 Gravity;
 
-    public Vector2 CalculateGravity()
+    public Vector2 CalculatedGravity()
 	{
 		return Vector2.Down * Mass;
 	}
