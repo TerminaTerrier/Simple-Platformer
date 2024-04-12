@@ -32,8 +32,6 @@ shape = SubResource("RectangleShape2D_4w5ce")
 [node name="Player_Controller" parent="." node_paths=PackedStringArray("velocityComponent", "raycastComponent") instance=ExtResource("2_g8khw")]
 velocityComponent = NodePath("../Velocity_Component")
 raycastComponent = NodePath("../Raycast_Component")
-JumpStrength = 175.0
-MoveSpeed = 0.075
 
 [node name="Raycast_Component" parent="." instance=ExtResource("5_o3g6s")]
 

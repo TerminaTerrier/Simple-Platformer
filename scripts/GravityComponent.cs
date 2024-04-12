@@ -1,6 +1,7 @@
 using Godot;
 using System;
 using System.Reflection.Metadata.Ecma335;
+using System.Runtime.CompilerServices;
 
 public partial class GravityComponent : Node2D
 {
@@ -8,13 +9,10 @@ public partial class GravityComponent : Node2D
 	public float Mass;
 	private Vector2 Gravity;
 
-	public void CalculateGravity()
+    public Vector2 CalculateGravity()
 	{
-		Gravity = Vector2.Down * Mass;
+		return Vector2.Down * Mass;
 	}
 
-	public Vector2 ApplyGravity(Vector2 velocity)
-	{
-		return velocity + Gravity;
-	}
+	
 }

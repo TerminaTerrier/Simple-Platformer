@@ -8,38 +8,38 @@ public partial class VelocityComponent : Node2D
 	GravityComponent gravityComponent;
 	[Export]
 	private float maxSpeed = 100;	
+	[Export]
+	private float accelerationRate = 0.045f;
 	public float speedMultiplier { get; set; } = 1f;
 	private float speedModifier = 1f;
 	public float targetSpeed => maxSpeed * speedModifier * speedMultiplier;
-	private float accelerationWeight = 0.045f;
-	private float decelerationWeight = 0.045f;
-	
 	public Vector2 Velocity {get; set;}
 	public override void _Ready()
 	{
+	
 	}
 
+	
 	public void AccelerateInDirection(Vector2 direction)
 	{
 		AccelerateVelocity(direction * targetSpeed);
 	}
-	public void AccelerateVelocity(Vector2 velocity)
+
+	public void ApplyGravity()
 	{
-		Velocity = Velocity.Lerp(velocity, accelerationWeight); //should use accelerationWeight as  a parameter when fully implemented
-	}
-	public void BurstAccelerate(Vector2 velocity)
-	{
-		Velocity = Velocity + velocity;
-	}
-	public void Decelerate()
-	{
-		Velocity = Velocity.Lerp(Vector2.Zero, decelerationWeight);
+		//var velocity = Velocity + gravityComponent.CalculateGravity();
+		//AccelerateVelocity(velocity);
 	}
 
-	public void AccelerateWithGravity()
+	public void AccelerateVelocity(Vector2 velocity)
 	{
-		var velocity = gravityComponent.ApplyGravity(Velocity);
-		AccelerateVelocity(velocity);
+		Velocity = Velocity.Lerp(velocity, accelerationRate); 
+	}
+	
+	//deceleration conflicts with gravity, declerating while no input is given causes gravity to decelerate given that they affect the same velocity
+	public void Decelerate()
+	{
+		AccelerateVelocity(Vector2.Zero);
 	}
 
 	public void SetMaxSpeed(float newSpeed)
@@ -52,9 +52,9 @@ public partial class VelocityComponent : Node2D
 		speedModifier = newModifier;
 	}
 
-	public void SetAccelerationWeight(float newWeight)
+	public void SetAccelerationRate(float newRate)
 	{
-		accelerationWeight = newWeight;
+		accelerationRate = newRate;
 	}
 
 	public void Move(CharacterBody2D characterBody2D)

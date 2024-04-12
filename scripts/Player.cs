@@ -23,9 +23,11 @@ public partial class Player : CharacterBody2D
 
 	public void RegularState()
 	{
-		
+		velocityComponent.ApplyGravity();
+
 		if(playerController.PressFlag == false)
 		{
+			//constant deceleration while there is no input!
 			velocityComponent.Decelerate();
 		}
 		else
@@ -33,12 +35,9 @@ public partial class Player : CharacterBody2D
 			velocityComponent.AccelerateInDirection(playerController.direction);
 		}
 
+		
 
 		playerController.JumpCheck(this.GlobalPosition, this.GlobalPosition + new Vector2(0, 15));
-
-		gravityComponent.CalculateGravity();
-
-		velocityComponent.AccelerateWithGravity();
 
 		velocityComponent.Move(this);
 	}

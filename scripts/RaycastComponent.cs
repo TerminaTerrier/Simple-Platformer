@@ -14,7 +14,7 @@ public partial class RaycastComponent : Node2D
 		var spaceState = GetWorld2D().DirectSpaceState;
     	var query = PhysicsRayQueryParameters2D.Create(raycastFrom, raycastTo);
     	var result = spaceState.IntersectRay(query);
-		GD.Print(result.Values);
+		//GD.Print(result.Values);
 		return result;
 	}
 
@@ -22,6 +22,6 @@ public partial class RaycastComponent : Node2D
 	{
 		raycastFrom = from;
 		raycastTo = to;
-		GD.Print(raycastFrom, raycastTo);
+		//GD.Print(raycastFrom, raycastTo);
 	}
 }
