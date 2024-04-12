@@ -29,7 +29,8 @@ texture = SubResource("PlaceholderTexture2D_4awkr")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_4w5ce")
 
-[node name="Player_Controller" parent="." node_paths=PackedStringArray("velocityComponent", "raycastComponent") instance=ExtResource("2_g8khw")]
+[node name="Player_Controller" parent="." node_paths=PackedStringArray("player", "velocityComponent", "raycastComponent") instance=ExtResource("2_g8khw")]
+player = NodePath("..")
 velocityComponent = NodePath("../Velocity_Component")
 raycastComponent = NodePath("../Raycast_Component")
 

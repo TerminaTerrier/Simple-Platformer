@@ -5,6 +5,8 @@ using System.Collections.Generic;
 public partial class PlayerController : Node2D
 {
 	[Export]
+	private CharacterBody2D player;
+	[Export]
 	private VelocityComponent velocityComponent;
 	[Export]
 	private RaycastComponent raycastComponent;
@@ -73,36 +75,18 @@ public partial class PlayerController : Node2D
 
 	private void Jump()
 	{
-		 
-		if(IsJumping == false)
+		raycastComponent.SetRaycastParamaters(player.GlobalPosition, player.GlobalPosition + new Vector2(0, 15)); //consider making a more complicated formula so that the raycast parameters adapt to the size of the character body
+		
+		if(raycastComponent.GetRayCastQuery().Count != 0)
 		{
 			direction = Vector2.Up;
 			//velocityComponent.SetMaxSpeed(300);
 			velocityComponent.SetAccelerationRate(1f);
-		   PressFlag = true;
-		}
-
-		if(IsJumping == true)
-		{
-			velocityComponent.SetAccelerationRate(0.045f);
+		    PressFlag = true;
 		}
 		//velocityComponent.SetAccelerationRate(0.045f);
 	}
 
-	public void JumpCheck(Vector2 from, Vector2 to)
-	{
-		raycastComponent.SetRaycastParamaters(from, to);
-
-		if(raycastComponent.GetRayCastQuery().Count != 0)
-		{
-			IsJumping = false;
-		}
-		else
-		{
-			IsJumping = true;
-		}
-		//GD.Print(raycastComponent.GetRayCastQuery() != null);
-	}
 
 
 }

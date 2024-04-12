@@ -35,10 +35,6 @@ public partial class Player : CharacterBody2D
 			velocityComponent.AccelerateInDirection(playerController.direction);
 		}
 
-		
-
-		playerController.JumpCheck(this.GlobalPosition, this.GlobalPosition + new Vector2(0, 15));
-
 		velocityComponent.Move(this);
 	}
 }
