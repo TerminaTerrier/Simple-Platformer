@@ -35,8 +35,9 @@ raycastComponent = NodePath("../Raycast_Component")
 
 [node name="Raycast_Component" parent="." instance=ExtResource("5_o3g6s")]
 
-[node name="Velocity_Component" parent="." node_paths=PackedStringArray("gravityComponent") instance=ExtResource("3_l5ety")]
+[node name="Velocity_Component" parent="." node_paths=PackedStringArray("gravityComponent", "raycastComponent") instance=ExtResource("3_l5ety")]
 gravityComponent = NodePath("../Gravity_Component")
+raycastComponent = NodePath("../Raycast_Component")
 
 [node name="Gravity_Component" parent="." node_paths=PackedStringArray("velocityComponent") instance=ExtResource("4_565jc")]
 velocityComponent = NodePath("../Velocity_Component")

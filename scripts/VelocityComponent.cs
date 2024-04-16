@@ -7,6 +7,8 @@ public partial class VelocityComponent : Node2D
 	[Export]
 	GravityComponent gravityComponent;
 	[Export]
+	RaycastComponent raycastComponent;
+	[Export]
 	private float maxSpeed = 100;	
 	[Export]
 	private double accelerationRate = 0.05;
@@ -19,8 +21,18 @@ public partial class VelocityComponent : Node2D
 	
 	}
 
-	public void OpposingForceCheck()
+	public Vector2 OpposingForceCheck(Vector2 from, Vector2 to) //will need to be able to differentiate between collision objects in the future
 	{
+		raycastComponent.SetRaycastParamaters(from, to);
+
+		if(raycastComponent.GetRayCastQuery().Count != 0)
+		{
+			return new Vector2(0, 45);
+		}
+		else
+		{
+			return new Vector2(0,0);
+		}
 		
 	}
 	
@@ -30,10 +42,10 @@ public partial class VelocityComponent : Node2D
 	}
 
 	//it still takes a second to get to max speed for gravity
-	public void AccelerateInDirectionWithGravity(Vector2 direction)
+	public void AccelerateInDirectionWithGravity(Vector2 direction, Vector2 opposingForce)
 	{
-		AccelerateVelocity((direction + gravityComponent.GetGravity()) * targetSpeed);
-		GD.Print((direction + gravityComponent.GetGravity()) * targetSpeed);
+		AccelerateVelocity(((direction + gravityComponent.GetGravity()) * targetSpeed) - opposingForce); //- opposing force
+		//GD.Print(((direction + gravityComponent.GetGravity()) * targetSpeed) - opposingForce);
 	}
 
 	public void AccelerateVelocity(Vector2 velocity)
@@ -51,9 +63,9 @@ public partial class VelocityComponent : Node2D
 		AccelerateVelocity(Vector2.Zero);
 	}
 
-	public void DecelerateWithGravity()
+	public void DecelerateWithGravity(Vector2 opposingForce)
 	{
-		AccelerateVelocity(gravityComponent.GetGravity() * targetSpeed);
+		AccelerateVelocity((gravityComponent.GetGravity() * targetSpeed) - opposingForce );
 	}
 
 	public void SetMaxSpeed(float newSpeed)
