@@ -38,7 +38,7 @@ public partial class PlayerController : Node2D
 
 		if(Input.IsActionPressed("InputDown"))
 		{
-			direction = Vector2.Down;
+		//	direction = Vector2.Down;
 			PressFlag = true;
 		}
 		
@@ -79,9 +79,8 @@ public partial class PlayerController : Node2D
 		
 		if(raycastComponent.GetRayCastQuery().Count != 0)
 		{
-			direction = Vector2.Up;
 			//velocityComponent.SetMaxSpeed(300);
-			velocityComponent.SetAccelerationRate(1f);
+			velocityComponent.Velocity += new Vector2(0,-100f);
 		    PressFlag = true;
 		}
 		//velocityComponent.SetAccelerationRate(0.045f);

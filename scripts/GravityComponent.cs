@@ -8,17 +8,17 @@ public partial class GravityComponent : Node2D
 	[Export]
 	VelocityComponent velocityComponent;
 	[Export]
-	public float Mass;
-	private Vector2 Gravity;
+	private float Mass;
+	private Vector2 Gravity =>  Vector2.Down * Mass;
 
-    public void CalculatedGravity()
+	public void SetMass(float newMass)
 	{
-		Gravity = Vector2.Down * Mass;
+		Mass = newMass;
 	}
 
-	public void ApplyGravity()
+	public Vector2 GetGravity()
 	{
-		//velocityComponent.AccelerateInDirection()
+		return Gravity;
 	}
 
 	
