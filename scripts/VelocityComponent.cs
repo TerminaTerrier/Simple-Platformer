@@ -19,9 +19,9 @@ public partial class VelocityComponent : Node2D
 	
 	}
 
-	public void ApplyGravityToVelocity()
+	public void OpposingForceCheck()
 	{
-		AccelerateVelocity(gravityComponent.GetGravity());
+		
 	}
 	
 	public void AccelerateInDirection(Vector2 direction)
@@ -29,6 +29,7 @@ public partial class VelocityComponent : Node2D
 		AccelerateVelocity(direction * targetSpeed);
 	}
 
+	//it still takes a second to get to max speed for gravity
 	public void AccelerateInDirectionWithGravity(Vector2 direction)
 	{
 		AccelerateVelocity((direction + gravityComponent.GetGravity()) * targetSpeed);
@@ -44,7 +45,7 @@ public partial class VelocityComponent : Node2D
 	}
 	
 	
-	//deceleration conflicts with gravity, declerating while no input is given causes gravity to decelerate given that they affect the same velocity
+	
 	public void Decelerate()
 	{
 		AccelerateVelocity(Vector2.Zero);

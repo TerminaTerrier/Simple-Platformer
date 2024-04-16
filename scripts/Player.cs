@@ -7,8 +7,6 @@ public partial class Player : CharacterBody2D
 	VelocityComponent velocityComponent;
 	[Export]
 	PlayerController playerController;
-	[Export]
-	GravityComponent gravityComponent;
 	StateMachine stateMachine = new();
 	public override void _Ready()
 	{
@@ -23,15 +21,14 @@ public partial class Player : CharacterBody2D
 
 	public void RegularState()
 	{
-		///velocityComponent.ApplyGravityToVelocity();
-
 		if(playerController.PressFlag == false)
 		{
-			//constant deceleration while there is no input!
+			velocityComponent.SetAccelerationRate(0.005f);
 			velocityComponent.DecelerateWithGravity();
 		}
 		else
 		{
+			velocityComponent.SetAccelerationRate(0.005f);
 			velocityComponent.AccelerateInDirectionWithGravity(playerController.direction);
 		}
 

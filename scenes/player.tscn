@@ -10,13 +10,12 @@
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_4w5ce"]
 
-[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("velocityComponent", "playerController", "gravityComponent")]
+[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("velocityComponent", "playerController")]
 collision_layer = 2
 collision_mask = 3
 script = ExtResource("1_g76b5")
 velocityComponent = NodePath("Velocity_Component")
 playerController = NodePath("Player_Controller")
-gravityComponent = NodePath("Gravity_Component")
 
 [node name="Camera2D" type="Camera2D" parent="."]
 zoom = Vector2(1.5, 1.5)

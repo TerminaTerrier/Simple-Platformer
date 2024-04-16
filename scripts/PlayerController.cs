@@ -75,12 +75,12 @@ public partial class PlayerController : Node2D
 
 	private void Jump()
 	{
-		raycastComponent.SetRaycastParamaters(player.GlobalPosition, player.GlobalPosition + new Vector2(0, 15)); //consider making a more complicated formula so that the raycast parameters adapt to the size of the character body
+		raycastComponent.SetRaycastParamaters(player.GlobalPosition, player.GlobalPosition + new Vector2(0, 12)); //consider making a more complicated formula so that the raycast parameters adapt to the size of the character body
 		
 		if(raycastComponent.GetRayCastQuery().Count != 0)
 		{
 			//velocityComponent.SetMaxSpeed(300);
-			velocityComponent.Velocity += new Vector2(0,-100f);
+			velocityComponent.Velocity += new Vector2(0,-120f);
 		    PressFlag = true;
 		}
 		//velocityComponent.SetAccelerationRate(0.045f);
