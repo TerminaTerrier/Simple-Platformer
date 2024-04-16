@@ -6,12 +6,19 @@ using System.Runtime.CompilerServices;
 public partial class GravityComponent : Node2D
 {
 	[Export]
+	VelocityComponent velocityComponent;
+	[Export]
 	public float Mass;
 	private Vector2 Gravity;
 
-    public Vector2 CalculatedGravity()
+    public void CalculatedGravity()
 	{
-		return Vector2.Down * Mass;
+		Gravity = Vector2.Down * Mass;
+	}
+
+	public void ApplyGravity()
+	{
+		//velocityComponent.AccelerateInDirection()
 	}
 
 	

@@ -28,11 +28,11 @@ public partial class Player : CharacterBody2D
 		if(playerController.PressFlag == false)
 		{
 			//constant deceleration while there is no input!
-			velocityComponent.DecelerateWithGravity(gravityComponent.CalculatedGravity());
+			velocityComponent.Decelerate();
 		}
 		else
 		{
-			velocityComponent.AccelerateInDirectionWithGravity(playerController.direction, gravityComponent.CalculatedGravity());
+			velocityComponent.AccelerateInDirection(playerController.direction);
 		}
 
 		velocityComponent.Move(this);

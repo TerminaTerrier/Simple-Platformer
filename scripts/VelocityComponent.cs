@@ -8,7 +8,7 @@ public partial class VelocityComponent : Node2D
 	[Export]
 	private float maxSpeed = 100;	
 	[Export]
-	private float accelerationRate = 0.045f;
+	private double accelerationRate = 0.05;
 	public float speedMultiplier { get; set; } = 1f;
 	private float speedModifier = 1f;
 	public float targetSpeed => maxSpeed * speedModifier * speedMultiplier;
@@ -26,13 +26,18 @@ public partial class VelocityComponent : Node2D
 
 	public void AccelerateInDirectionWithGravity(Vector2 direction, Vector2 gravity)
 	{
-		AccelerateVelocity((direction * targetSpeed) + gravity);
+		AccelerateVelocity(direction * targetSpeed);
+		
 	}
 
 	public void AccelerateVelocity(Vector2 velocity)
 	{
-		Velocity = Velocity.Lerp(velocity, accelerationRate); 
+		
+		Velocity = Velocity.Lerp(velocity, 1f - (float)Math.Pow(accelerationRate, GetProcessDeltaTime())); 
+		//GD.Print((float)Math.Pow(accelerationRate, GetProcessDeltaTime())); 
+		//GD.Print(GetProcessDeltaTime());
 	}
+	
 	
 	//deceleration conflicts with gravity, declerating while no input is given causes gravity to decelerate given that they affect the same velocity
 	public void Decelerate()
@@ -42,7 +47,7 @@ public partial class VelocityComponent : Node2D
 
 	public void DecelerateWithGravity(Vector2 gravity)
 	{
-		AccelerateVelocity(Vector2.Zero + gravity);
+		AccelerateVelocity(Vector2.Zero);
 	}
 
 	public void SetMaxSpeed(float newSpeed)
