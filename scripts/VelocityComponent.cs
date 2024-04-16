@@ -10,8 +10,7 @@ public partial class VelocityComponent : Node2D
 	RaycastComponent raycastComponent;
 	[Export]
 	private float maxSpeed = 100;	
-	[Export]
-	private double accelerationRate = 0.05;
+	private double accelerationRate;
 	public float speedMultiplier { get; set; } = 1f;
 	private float speedModifier = 1f;
 	public float targetSpeed => maxSpeed * speedModifier * speedMultiplier;
@@ -27,7 +26,7 @@ public partial class VelocityComponent : Node2D
 
 		if(raycastComponent.GetRayCastQuery().Count != 0)
 		{
-			return new Vector2(0, 45);
+			return new Vector2(0, 45); //this must be a modifiable value based on gravity
 		}
 		else
 		{
@@ -41,7 +40,7 @@ public partial class VelocityComponent : Node2D
 		AccelerateVelocity(direction * targetSpeed);
 	}
 
-	//it still takes a second to get to max speed for gravity
+	//it still takes a second to get to max speed for gravity, this can cause the player to jump very high at random intervals
 	public void AccelerateInDirectionWithGravity(Vector2 direction, Vector2 opposingForce)
 	{
 		AccelerateVelocity(((direction + gravityComponent.GetGravity()) * targetSpeed) - opposingForce); //- opposing force

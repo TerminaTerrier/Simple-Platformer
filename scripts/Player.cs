@@ -23,15 +23,17 @@ public partial class Player : CharacterBody2D
 	{
 		if(playerController.PressFlag == false)
 		{
-			velocityComponent.SetAccelerationRate(0.003f);
+			velocityComponent.SetAccelerationRate(0.0003f);
 			velocityComponent.DecelerateWithGravity(velocityComponent.OpposingForceCheck(GlobalPosition, GlobalPosition + new Vector2(0, 12)));
 		}
 		else
 		{
-			velocityComponent.SetAccelerationRate(0.0005f);
+			velocityComponent.SetAccelerationRate(0.0000005f);
 			velocityComponent.AccelerateInDirectionWithGravity(playerController.direction, velocityComponent.OpposingForceCheck(GlobalPosition, GlobalPosition + new Vector2(0, 12)));
 		}
 
 		velocityComponent.Move(this);
+
+		GD.Print(Engine.GetFramesPerSecond());
 	}
 }

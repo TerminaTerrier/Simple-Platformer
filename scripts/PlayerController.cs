@@ -16,7 +16,7 @@ public partial class PlayerController : Node2D
 	private Dictionary<string, bool> actionStates = new();
 
     //the first jump is always the highest as gravity hasn't fully accelerated
-    //diagonal movement seems to jump higher
+    
 
 
     public override void _Input(InputEvent @event)
@@ -34,13 +34,6 @@ public partial class PlayerController : Node2D
 		{
 			PressFlag = false;
 		}
-
-
-		if(Input.IsActionPressed("InputDown"))
-		{
-		//	direction = Vector2.Down;
-			PressFlag = true;
-		}
 		
 
 		if(Input.IsActionPressed("InputLeft"))
@@ -49,11 +42,11 @@ public partial class PlayerController : Node2D
 			PressFlag = true;
 		}
 		
-		if(Input.IsActionPressed("InputLeft") && Input.IsActionJustPressed("InputUp") && IsJumping == false)
-		{
-			direction = new Vector2(-1f,-1f);
-			PressFlag = true;
-		}
+		//if(Input.IsActionPressed("InputLeft") && Input.IsActionJustPressed("InputUp") && IsJumping == false)
+		//{
+		//	direction = new Vector2(-1f,-1f);
+	//		PressFlag = true;
+	//	}
 
 		if(Input.IsActionPressed("InputRight"))
 		{
@@ -61,11 +54,11 @@ public partial class PlayerController : Node2D
 			PressFlag = true;
 		}
 
-		if(Input.IsActionPressed("InputRight") &&  Input.IsActionJustPressed("InputUp") && IsJumping == false)
-		{
-			direction = new Vector2(1,-1);
-			PressFlag = true;
-		}
+		//if(Input.IsActionPressed("InputRight") &&  Input.IsActionJustPressed("InputUp") && IsJumping == false)
+	//	{
+		//	direction = new Vector2(1,-1);
+		//	PressFlag = true;
+		//}
 		
 		
 		//GD.Print(direction);
@@ -80,7 +73,7 @@ public partial class PlayerController : Node2D
 		if(raycastComponent.GetRayCastQuery().Count != 0)
 		{
 			//velocityComponent.SetMaxSpeed(300);
-			velocityComponent.Velocity += new Vector2(0,-120f);
+			velocityComponent.Velocity += new Vector2(0,-200f);
 		    PressFlag = true;
 		}
 		//velocityComponent.SetAccelerationRate(0.045f);
