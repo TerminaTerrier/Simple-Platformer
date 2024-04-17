@@ -51,7 +51,7 @@ public partial class VelocityComponent : Node2D
 		AccelerateVelocity(direction * targetSpeed);
 	}
 
-	//it still takes a second to get to max speed for gravity, this can cause the player to jump very high at random intervals
+	
 	public void AccelerateInDirectionWithGravity(Vector2 direction, Vector2 opposingForce)
 	{
 		AccelerateVelocity(((direction + gravityComponent.GetGravity()) * targetSpeed) - opposingForce); //- opposing force

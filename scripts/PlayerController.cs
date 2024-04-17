@@ -22,7 +22,7 @@ public partial class PlayerController : Node2D
     public override void _Input(InputEvent @event)
     {
         
-        if(Input.IsActionJustPressed("InputUp"))
+        if(@event.IsActionPressed("InputUp"))
 		{	
 			Jump();
 		}
@@ -65,18 +65,19 @@ public partial class PlayerController : Node2D
 		GD.Print(PressFlag);
 		//GD.Print(IsJumping);
     }
-
+	//player randomly jumps at almost twice the maximum height - does not seem related to speed of acceleration
 	private void Jump()
 	{
 		raycastComponent.SetRaycastParamaters(player.GlobalPosition, player.GlobalPosition + new Vector2(0, 12)); //consider making a more complicated formula so that the raycast parameters adapt to the size of the character body
 		
 		if(raycastComponent.GetRayCastQuery().Count != 0)
 		{
+			PressFlag = true;
 			//velocityComponent.SetMaxSpeed(300);
 			//velocityComponent.SetAccelerationRate(0.0000001f);
 			velocityComponent.Velocity += new Vector2(0,-300f);
 			
-		    PressFlag = true;
+		    
 		}
 		//velocityComponent.SetAccelerationRate(0.045f);
 	}
