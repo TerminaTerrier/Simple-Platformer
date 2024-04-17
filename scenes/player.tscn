@@ -41,4 +41,4 @@ raycastComponent = NodePath("../Raycast_Component")
 
 [node name="Gravity_Component" parent="." node_paths=PackedStringArray("velocityComponent") instance=ExtResource("4_565jc")]
 velocityComponent = NodePath("../Velocity_Component")
-Mass = 0.45
+Mass = 0.95

@@ -73,7 +73,9 @@ public partial class PlayerController : Node2D
 		if(raycastComponent.GetRayCastQuery().Count != 0)
 		{
 			//velocityComponent.SetMaxSpeed(300);
-			velocityComponent.Velocity += new Vector2(0,-200f);
+			//velocityComponent.SetAccelerationRate(0.0000001f);
+			velocityComponent.Velocity += new Vector2(0,-300f);
+			
 		    PressFlag = true;
 		}
 		//velocityComponent.SetAccelerationRate(0.045f);

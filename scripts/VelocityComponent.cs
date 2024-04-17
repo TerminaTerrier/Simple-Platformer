@@ -20,13 +20,24 @@ public partial class VelocityComponent : Node2D
 	
 	}
 
-	public Vector2 OpposingForceCheck(Vector2 from, Vector2 to) //will need to be able to differentiate between collision objects in the future
+	public Vector2 OpposingForceCheck(Vector2 from, Vector2 to) 
 	{
 		raycastComponent.SetRaycastParamaters(from, to);
-
-		if(raycastComponent.GetRayCastQuery().Count != 0)
+		var raycastResult = raycastComponent.GetRayCastQuery();
+		
+		if(raycastResult.Count != 0)
 		{
-			return new Vector2(0, 45); //this must be a modifiable value based on gravity
+			GodotObject collider = (GodotObject)raycastResult["collider"];
+			string level1MetaData = (string)collider.GetMeta("LVL1_TileMap");
+
+			if(level1MetaData == "PhysicsEnabled")
+			{
+			return new Vector2(0, gravityComponent.GetGravity().Y * targetSpeed); 
+			}
+			else
+			{
+				return Vector2.Zero;
+			}
 		}
 		else
 		{

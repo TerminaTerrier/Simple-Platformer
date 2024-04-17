@@ -28,7 +28,7 @@ public partial class Player : CharacterBody2D
 		}
 		else
 		{
-			velocityComponent.SetAccelerationRate(0.0000005f);
+			velocityComponent.SetAccelerationRate(0.0005f);
 			velocityComponent.AccelerateInDirectionWithGravity(playerController.direction, velocityComponent.OpposingForceCheck(GlobalPosition, GlobalPosition + new Vector2(0, 12)));
 		}
 

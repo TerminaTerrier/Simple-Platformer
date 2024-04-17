@@ -14,12 +14,17 @@ public partial class RaycastComponent : Node2D
 		var spaceState = GetWorld2D().DirectSpaceState;
     	var query = PhysicsRayQueryParameters2D.Create(raycastFrom, raycastTo);
     	var result = spaceState.IntersectRay(query);
-		//GD.Print(result.Values);
+		if(result.Count > 0)
+		{
+		  GodotObject collider = (GodotObject)result["collider"];
+		  GD.Print(collider.GetMeta("LVL1_TileMap"));
+		}
 		return result;
 	}
 
     public void SetRaycastParamaters(Vector2 from, Vector2 to)
 	{
+		
 		raycastFrom = from;
 		raycastTo = to;
 		//GD.Print(raycastFrom, raycastTo);
