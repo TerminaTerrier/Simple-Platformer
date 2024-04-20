@@ -1,5 +1,6 @@
 using Godot;
 using System;
+using System.Net.NetworkInformation;
 
 public partial class Player : CharacterBody2D
 {
@@ -10,7 +11,8 @@ public partial class Player : CharacterBody2D
 	StateMachine stateMachine = new();
 	public override void _Ready()
 	{
-		stateMachine.AddState(RegularState);
+		stateMachine.AddState(WalkState);
+		stateMachine.Enter();
 	}
 
     public override void _PhysicsProcess(double delta)
@@ -19,21 +21,38 @@ public partial class Player : CharacterBody2D
 		
     }
 
-	public void RegularState()
+	public void IdleState()
 	{
+		velocityComponent.ApplyGravity();
+
 		if(playerController.PressFlag == false)
 		{
-			velocityComponent.SetAccelerationRate(0.0003f);
-			velocityComponent.DecelerateWithGravity(velocityComponent.OpposingForceCheck(GlobalPosition, GlobalPosition + new Vector2(0, 12)));
+			velocityComponent.Decelerate(-playerController.direction, 1f);
 		}
 		else
 		{
-			velocityComponent.SetAccelerationRate(0.0005f);
-			velocityComponent.AccelerateInDirectionWithGravity(playerController.direction, velocityComponent.OpposingForceCheck(GlobalPosition, GlobalPosition + new Vector2(0, 12)));
+			stateMachine.AddState(WalkState);
+			stateMachine.Enter();
 		}
 
 		velocityComponent.Move(this);
-
-		GD.Print(Engine.GetFramesPerSecond());
 	}
+	public void WalkState()
+	{
+		velocityComponent.ApplyGravity();
+
+		if(playerController.PressFlag == false)
+		{
+			stateMachine.AddState(IdleState);
+			stateMachine.Enter();
+		}
+		else if(playerController.PressFlag == true)
+		{
+			velocityComponent.AccelerateInDirection(playerController.direction, 10f);
+		}
+		
+		velocityComponent.Move(this);
+	}
+
+	
 }

@@ -9,16 +9,11 @@ public partial class GravityComponent : Node2D
 	VelocityComponent velocityComponent;
 	[Export]
 	private float Mass;
-	private Vector2 Gravity =>  Vector2.Down * Mass;
+	private Vector2 Gravity =>  new Vector2(0, 9.8f);
 
-	public void SetMass(float newMass)
+	public override void _PhysicsProcess(double delta)
 	{
-		Mass = newMass;
-	}
-
-	public Vector2 GetGravity()
-	{
-		return Gravity;
+		
 	}
 
 	

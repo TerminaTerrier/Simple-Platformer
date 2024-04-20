@@ -14,6 +14,7 @@ public partial class PlayerController : Node2D
 	public bool PressFlag {get; private set;}
 	private bool IsJumping;
 	private Dictionary<string, bool> actionStates = new();
+	double gravity;
 
     //the first jump is always the highest as gravity hasn't fully accelerated
     
@@ -75,7 +76,7 @@ public partial class PlayerController : Node2D
 			PressFlag = true;
 			//velocityComponent.SetMaxSpeed(300);
 			//velocityComponent.SetAccelerationRate(0.0000001f);
-			velocityComponent.Velocity += new Vector2(0,-300f);
+			velocityComponent.Velocity += new Vector2(0,-400f);
 			
 		    
 		}

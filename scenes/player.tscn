@@ -38,7 +38,10 @@ raycastComponent = NodePath("../Raycast_Component")
 [node name="Velocity_Component" parent="." node_paths=PackedStringArray("gravityComponent", "raycastComponent") instance=ExtResource("3_l5ety")]
 gravityComponent = NodePath("../Gravity_Component")
 raycastComponent = NodePath("../Raycast_Component")
+maxSpeed = 200.0
+mass = 10.0
+includeGravity = true
 
 [node name="Gravity_Component" parent="." node_paths=PackedStringArray("velocityComponent") instance=ExtResource("4_565jc")]
 velocityComponent = NodePath("../Velocity_Component")
-Mass = 0.2
+Mass = 0.35

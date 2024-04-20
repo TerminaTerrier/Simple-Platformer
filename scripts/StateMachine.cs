@@ -1,12 +1,14 @@
 using Godot;
 using System;
+using System.Collections;
 
 public partial class StateMachine : Node
 {
 	public Action currentState;
+	Stack statesStack = new Stack();
 	public void Enter()
 	{
-		
+		currentState = (Action)statesStack.Peek();
 	}
 
 	
@@ -17,6 +19,11 @@ public partial class StateMachine : Node
 
 	public void AddState(Action state)
 	{
-		currentState = state;
+		statesStack.Push(state);
+	}
+
+	public void Exit()
+	{
+		statesStack.Clear();
 	}
 }
