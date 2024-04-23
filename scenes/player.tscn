@@ -34,6 +34,7 @@ shape = SubResource("RectangleShape2D_4w5ce")
 player = NodePath("..")
 velocityComponent = NodePath("../Velocity_Component")
 raycastComponent = NodePath("../Raycast_Component")
+jumpStrength = 19
 
 [node name="Raycast_Component" parent="." instance=ExtResource("5_o3g6s")]
 
@@ -41,7 +42,7 @@ raycastComponent = NodePath("../Raycast_Component")
 raycastComponent = NodePath("../Raycast_Component")
 maxSpeed = 200.0
 mass = 10.0
-includeGravity = true
+friction = 4.5
 
 [node name="Area2D" type="Area2D" parent="."]
 

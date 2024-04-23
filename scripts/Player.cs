@@ -61,7 +61,7 @@ public partial class Player : CharacterBody2D
 		}
 		else if(playerController.PressFlag == true)
 		{
-			velocityComponent.AccelerateInDirection(playerController.direction, 10f);
+			velocityComponent.AccelerateInDirection(playerController.direction, 15f);
 		}
 		
 		velocityComponent.Move(this);

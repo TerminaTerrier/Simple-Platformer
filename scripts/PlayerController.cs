@@ -11,19 +11,14 @@ public partial class PlayerController : Node2D
 	private VelocityComponent velocityComponent;
 	[Export]
 	private RaycastComponent raycastComponent;
+	[Export]
+	private int jumpStrength = 200;
 	public Vector2 direction {get; private set;}
 	public bool PressFlag {get; private set;}
-	private bool IsJumping;
-	private Dictionary<string, bool> actionStates = new();
-	double gravity;
-
-    //the first jump is always the highest as gravity hasn't fully accelerated
-    
-
+	
 
     public override void _Input(InputEvent @event)
     {
-        
         if(@event.IsActionPressed("InputUp"))
 		{	
 			Jump();
@@ -44,11 +39,6 @@ public partial class PlayerController : Node2D
 			PressFlag = true;
 		}
 		
-		//if(Input.IsActionPressed("InputLeft") && Input.IsActionJustPressed("InputUp") && IsJumping == false)
-		//{
-		//	direction = new Vector2(-1f,-1f);
-	//		PressFlag = true;
-	//	}
 
 		if(Input.IsActionPressed("InputRight"))
 		{
@@ -56,18 +46,9 @@ public partial class PlayerController : Node2D
 			PressFlag = true;
 		}
 
-		//if(Input.IsActionPressed("InputRight") &&  Input.IsActionJustPressed("InputUp") && IsJumping == false)
-	//	{
-		//	direction = new Vector2(1,-1);
-		//	PressFlag = true;
-		//}
-		
-		
-		//GD.Print(direction);
-		//GD.Print(PressFlag);
-		//GD.Print(IsJumping);
+	
     }
-	//player randomly jumps at almost twice the maximum height - does not seem related to speed of acceleration
+	
 	private void Jump()
 	{
 		raycastComponent.SetRaycastParamaters(player.GlobalPosition, player.GlobalPosition + new Vector2(0, 12)); //consider making a more complicated formula so that the raycast parameters adapt to the size of the character body
@@ -75,14 +56,8 @@ public partial class PlayerController : Node2D
 		if(raycastComponent.GetRayCastQuery().Count != 0)
 		{
 			PressFlag = true;
-
-			//velocityComponent.SetMaxSpeed(300);
-			//velocityComponent.SetAccelerationRate(0.0000001f);
-			velocityComponent.AccelerateInDirection(Vector2.Up, 1500);
-			
-		    
+			velocityComponent.AccelerateInDirection(Vector2.Up, jumpStrength * 100);
 		}
-		//velocityComponent.SetAccelerationRate(0.045f);
 	}
 
 

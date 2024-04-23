@@ -7,14 +7,12 @@ using System;
 public partial class VelocityComponent : Node2D
 {
 	[Export]
-	RaycastComponent raycastComponent;
-	[Export]
 	private float maxSpeed = 100;	
 	[Export]
 	private float mass = 1;
 	[Export]
-	private bool includeGravity = false;
-    Vector2 gravity = new Vector2 (0f, 10f);
+	private float friction = 6f;
+    Vector2 gravity = new Vector2 (0f, 15f);
 	public float speedMultiplier { get; set; } = 1f;
 	private float speedModifier = 1f;
 	public float targetSpeed => maxSpeed * speedModifier * speedMultiplier;
@@ -29,7 +27,7 @@ public partial class VelocityComponent : Node2D
 
 	public void ApplyGravity()
 	{
-			SumForce(gravity);
+			AddForce(gravity);
 	}
 
 	public void CollisionCheck(KinematicCollision2D collisionData)
@@ -82,49 +80,23 @@ public partial class VelocityComponent : Node2D
 
 	public void AccelerateInDirection(Vector2 direction, float accScalar)
 	{
-		SumForce(direction * accScalar);
+		AddForce(direction * accScalar);
 	}
 
-	
-	//combining gravity with direction leads to jump strength varying depending on whether the player is moving or idle
-	public void AccelerateInDirectionWithGravity(Vector2 direction, Vector2 opposingForce)
-	{
-		//AccelerateVelocity(((direction + gravityComponent.GetGravity()) * targetSpeed) - opposingForce); //- opposing force
-		//GD.Print(((direction + gravityComponent.GetGravity()) * targetSpeed) - opposingForce);
-		//GD.Print(600 * GetProcessDeltaTime());
-	}
-
-	public void SumForce(Vector2 acceleration)
+	public void AddForce(Vector2 acceleration)
 	{
 		calculatedVelocity += (acceleration * mass) * (float)GetProcessDeltaTime();
-		
 	}
-	public void AccelerateVelocity(Vector2 velocity, float accelerationRate)
-	{
-		
-		//Velocity = Velocity.MoveToward(velocity, accelerationRate * (float)GetProcessDeltaTime());
-		//GD.Print(Velocity.Lerp(velocity, 1f - (float)Math.Pow(accelerationRate, GetProcessDeltaTime()))); 
-		//GD.Print(GetProcessDeltaTime());
-		
-	}
-	
-	
-	
-	
+
 	public void Decelerate()
 	{	
 		var speed = calculatedVelocity.X;
 		
 		if(Mathf.Max(speed, 0) > 0 | Mathf.Min(speed, 0) < 0)
 		{
-			calculatedVelocity.X *= (5.5f * (float)GetProcessDeltaTime()) * mass;
+			calculatedVelocity.X *= (friction * (float)GetProcessDeltaTime()) * mass;
 		}
 		//GD.Print(GetProcessDeltaTime());
-	}
-
-	public void DecelerateWithGravity(Vector2 opposingForce)
-	{
-		///AccelerateVelocity((gravityComponent.GetGravity() * targetSpeed) - opposingForce );
 	}
 
 	public void SetMaxSpeed(float newSpeed)
@@ -138,10 +110,6 @@ public partial class VelocityComponent : Node2D
 		speedModifier = newModifier;
 	}
 
-	public void SetAccelerationRate(float newRate)
-	{
-		//accelerationRate = newRate;
-	}
 
 	public void Move(CharacterBody2D characterBody2D)
 	{
@@ -149,7 +117,6 @@ public partial class VelocityComponent : Node2D
 		characterBody2D.Velocity = Velocity;
 		characterBody2D.MoveAndSlide();
 		GD.Print(Velocity);
-
 	}
 
 	
