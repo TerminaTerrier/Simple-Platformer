@@ -3,12 +3,14 @@
 [ext_resource type="Script" path="res://scripts/Player.cs" id="1_g76b5"]
 [ext_resource type="PackedScene" uid="uid://dpd3l8k3cqynj" path="res://scenes/player_controller.tscn" id="2_g8khw"]
 [ext_resource type="PackedScene" uid="uid://cj61p2pt0xi67" path="res://scenes/velocity_component.tscn" id="3_l5ety"]
-[ext_resource type="PackedScene" uid="uid://brp0di8jh3n5c" path="res://scenes/gravity_component.tscn" id="4_565jc"]
 [ext_resource type="PackedScene" uid="uid://d3icphik8drdp" path="res://scenes/raycast_component.tscn" id="5_o3g6s"]
 
 [sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_4awkr"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_4w5ce"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_me3t4"]
+size = Vector2(22.5, 21.5)
 
 [node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("velocityComponent", "playerController")]
 collision_layer = 2
@@ -35,13 +37,13 @@ raycastComponent = NodePath("../Raycast_Component")
 
 [node name="Raycast_Component" parent="." instance=ExtResource("5_o3g6s")]
 
-[node name="Velocity_Component" parent="." node_paths=PackedStringArray("gravityComponent", "raycastComponent") instance=ExtResource("3_l5ety")]
-gravityComponent = NodePath("../Gravity_Component")
+[node name="Velocity_Component" parent="." node_paths=PackedStringArray("raycastComponent") instance=ExtResource("3_l5ety")]
 raycastComponent = NodePath("../Raycast_Component")
 maxSpeed = 200.0
 mass = 10.0
 includeGravity = true
 
-[node name="Gravity_Component" parent="." node_paths=PackedStringArray("velocityComponent") instance=ExtResource("4_565jc")]
-velocityComponent = NodePath("../Velocity_Component")
-Mass = 0.35
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("RectangleShape2D_me3t4")

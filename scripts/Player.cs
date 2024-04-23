@@ -23,11 +23,15 @@ public partial class Player : CharacterBody2D
 
 	public void IdleState()
 	{
-		velocityComponent.ApplyGravity();
-
+		if(GetSlideCollisionCount() != 0)
+		{
+		 	velocityComponent.CollisionCheck(GetLastSlideCollision());
+			velocityComponent.NormalForceCheck(GetLastSlideCollision());
+		}
+		
 		if(playerController.PressFlag == false)
 		{
-			velocityComponent.Decelerate(-playerController.direction, 1f);
+			velocityComponent.Decelerate();
 		}
 		else
 		{
@@ -36,11 +40,20 @@ public partial class Player : CharacterBody2D
 		}
 
 		velocityComponent.Move(this);
+		//gravity must be called last to avoid it being added to velocity before a normal force check is completed
+		velocityComponent.ApplyGravity();
+		
 	}
 	public void WalkState()
 	{
-		velocityComponent.ApplyGravity();
-
+		if(GetSlideCollisionCount() != 0)
+		{
+			velocityComponent.CollisionCheck(GetLastSlideCollision());
+			velocityComponent.NormalForceCheck(GetLastSlideCollision());
+		}
+	
+		
+		
 		if(playerController.PressFlag == false)
 		{
 			stateMachine.AddState(IdleState);
@@ -52,6 +65,8 @@ public partial class Player : CharacterBody2D
 		}
 		
 		velocityComponent.Move(this);
+		velocityComponent.ApplyGravity();
+		
 	}
 
 	

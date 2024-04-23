@@ -2,6 +2,7 @@ using Godot;
 using System;
 using System.Collections.Generic;
 
+
 public partial class PlayerController : Node2D
 {
 	[Export]
@@ -63,7 +64,7 @@ public partial class PlayerController : Node2D
 		
 		
 		//GD.Print(direction);
-		GD.Print(PressFlag);
+		//GD.Print(PressFlag);
 		//GD.Print(IsJumping);
     }
 	//player randomly jumps at almost twice the maximum height - does not seem related to speed of acceleration
@@ -74,9 +75,10 @@ public partial class PlayerController : Node2D
 		if(raycastComponent.GetRayCastQuery().Count != 0)
 		{
 			PressFlag = true;
+
 			//velocityComponent.SetMaxSpeed(300);
 			//velocityComponent.SetAccelerationRate(0.0000001f);
-			velocityComponent.Velocity += new Vector2(0,-400f);
+			velocityComponent.AccelerateInDirection(Vector2.Up, 1500);
 			
 		    
 		}
