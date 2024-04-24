@@ -56,31 +56,34 @@ public partial class VelocityComponent : Node2D
 		 switch (collisionAngle)
 		 {
 			  case 0:
-				if(tile == new Vector2I(0, 0) | tile == new Vector2I(1, 0) | tile == new Vector2I(2, 0))
+				if(tile == new Vector2I(0, 0) | tile == new Vector2I(1, 0) | tile == new Vector2I(2, 0) | tile == new Vector2I(10, 7))
 				{
 					
 					calculatedVelocity.Y *= 0.4f;
+					GD.Print(tile);
 				}
 				break;
 			  case 3:
-			    if(tile == new Vector2I(0, 0) | tile == new Vector2I(1, 0) | tile == new Vector2I(2, 0) | tile == new Vector2I(-1,-1))
+			    if(tile == new Vector2I(0, 0) | tile == new Vector2I(1, 0) | tile == new Vector2I(2, 0) | tile == new Vector2I(-1,-1) | tile == new Vector2I(10, 7))
 				{
 					
 					calculatedVelocity.Y += 50f;
+					GD.Print(tile);
 				}
 				break;
 			  case 2:
-				if(tile == new Vector2I(0, 0) | tile == new Vector2I(1, 0) | tile == new Vector2I(2, 0) | tile == new Vector2I(-1,-1))
+				if(tile == new Vector2I(0, 0) | tile == new Vector2I(1, 0) | tile == new Vector2I(2, 0) | tile == new Vector2I(-1,-1) | tile == new Vector2I(10, 7))
 				{
 					calculatedVelocity.X *= 0.4f;
+					GD.Print(tile);
 				}
 				break;
-			  
+			   
 		}
 		}
 		//GD.Print(collisionAngle);
-		//GD.Print(tilePosition);
-		//GD.Print(tile);
+		GD.Print(collisionPosition);
+		
 	}
 	
 

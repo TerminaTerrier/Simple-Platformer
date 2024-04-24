@@ -30,6 +30,6 @@ public partial class PathfindComponent : Node2D
 		navAgent.SetVelocityForced(velocityComponent.Velocity);
 
 		//GD.Print(GlobalPosition);
-		GD.Print(navAgent.GetNextPathPosition());
+		//GD.Print(navAgent.GetNextPathPosition());
 	}
 }
