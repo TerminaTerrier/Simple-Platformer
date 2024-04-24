@@ -122,7 +122,7 @@ public partial class VelocityComponent : Node2D
 		Velocity = calculatedVelocity.Clamp(new Vector2(-maxSpeed, -maxSpeed), new Vector2(maxSpeed, maxSpeed));
 		characterBody2D.Velocity = Velocity;
 		characterBody2D.MoveAndSlide();
-		GD.Print(Velocity);
+		//GD.Print(Velocity);
 	}
 
 	

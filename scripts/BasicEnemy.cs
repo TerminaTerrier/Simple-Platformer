@@ -21,8 +21,23 @@ public partial class BasicEnemy : CharacterBody2D
 
 	private void NormalState()
 	{
-		var target = GlobalPosition + Vector2.Right;
-		pathfindComponent.CallDeferred("SetTargetPosition", target);
+		//bool directionSwitch = false;
+		//if(GetLastSlideCollision() != null && directionSwitch == false)
+		//{
+		   var target = new Vector2(140, -4);
+		   pathfindComponent.CallDeferred("SetTargetPosition", target);
+		//	directionSwitch = true;
+		//	GD.Print(target);
+		//}
+		//else if(GetLastSlideCollision() != null && directionSwitch == true)
+		//{
+		//	var target = GlobalPosition + Vector2.Left;
+		//	pathfindComponent.CallDeferred("SetTargetPosition", target);
+		//	directionSwitch = false;
+		//	GD.Print(target);
+		//}
+
+		
 		pathfindComponent.FollowPath();
 
 		if(GetSlideCollisionCount() != 0)
@@ -33,5 +48,6 @@ public partial class BasicEnemy : CharacterBody2D
 	
 		velocityComponent.Move(this);
 		velocityComponent.ApplyGravity();
+		//GD.Print(target);
 	}
 }
