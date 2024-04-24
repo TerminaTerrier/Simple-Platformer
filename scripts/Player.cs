@@ -11,7 +11,7 @@ public partial class Player : CharacterBody2D
 	StateMachine stateMachine = new();
 	public override void _Ready()
 	{
-		stateMachine.AddState(WalkState);
+		stateMachine.AddState(IdleState);
 		stateMachine.Enter();
 	}
 
@@ -21,7 +21,7 @@ public partial class Player : CharacterBody2D
 		
     }
 
-	public void IdleState()
+	private void IdleState()
 	{
 		if(GetSlideCollisionCount() != 0)
 		{
@@ -44,7 +44,7 @@ public partial class Player : CharacterBody2D
 		velocityComponent.ApplyGravity();
 		
 	}
-	public void WalkState()
+	private void WalkState()
 	{
 		if(GetSlideCollisionCount() != 0)
 		{

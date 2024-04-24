@@ -38,8 +38,7 @@ jumpStrength = 19
 
 [node name="Raycast_Component" parent="." instance=ExtResource("5_o3g6s")]
 
-[node name="Velocity_Component" parent="." node_paths=PackedStringArray("raycastComponent") instance=ExtResource("3_l5ety")]
-raycastComponent = NodePath("../Raycast_Component")
+[node name="Velocity_Component" parent="." instance=ExtResource("3_l5ety")]
 maxSpeed = 200.0
 mass = 10.0
 friction = 4.5

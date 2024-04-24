@@ -1,8 +1,31 @@
-[gd_scene load_steps=2 format=3 uid="uid://prdnxngxvcv4"]
+[gd_scene load_steps=6 format=3 uid="uid://prdnxngxvcv4"]
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_85d5k"]
+[ext_resource type="Script" path="res://scripts/BasicEnemy.cs" id="1_aqww8"]
+[ext_resource type="PackedScene" uid="uid://cj61p2pt0xi67" path="res://scenes/velocity_component.tscn" id="2_35kfb"]
+[ext_resource type="PackedScene" uid="uid://c35byt6vairv6" path="res://scenes/pathfind_component.tscn" id="3_xtlm4"]
 
-[node name="Basic_Enemy" type="CharacterBody2D"]
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_pnmfp"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_hrify"]
+size = Vector2(9, 8)
+
+[node name="Basic_Enemy" type="CharacterBody2D" node_paths=PackedStringArray("velocityComponent", "pathfindComponent")]
+script = ExtResource("1_aqww8")
+velocityComponent = NodePath("Velocity_Component")
+pathfindComponent = NodePath("Pathfind_Component")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(0, 2.38419e-07)
+scale = Vector2(9.5, 8.5)
+texture = SubResource("PlaceholderTexture2D_pnmfp")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-shape = SubResource("CircleShape2D_85d5k")
+shape = SubResource("RectangleShape2D_hrify")
+
+[node name="Velocity_Component" parent="." instance=ExtResource("2_35kfb")]
+
+[node name="Pathfind_Component" parent="." node_paths=PackedStringArray("velocityComponent", "navAgent") instance=ExtResource("3_xtlm4")]
+velocityComponent = NodePath("../Velocity_Component")
+navAgent = NodePath("../NavigationAgent2D")
+
+[node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
