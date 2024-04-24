@@ -33,19 +33,25 @@ public partial class VelocityComponent : Node2D
 	public void CollisionCheck(KinematicCollision2D collisionData)
 	{
 		var collisionVelocity = collisionData.GetColliderVelocity();
-		calculatedVelocity += collisionVelocity;
+		calculatedVelocity -= collisionVelocity;
+		//GD.Print(collisionVelocity);
+		return;
 	}
 	
 	public void NormalForceCheck(KinematicCollision2D collisionData)  
 	{
 		//I should think of a way to make it so that this class is not responsible for detecting the tilemap
+		
 		var collisionObject = collisionData.GetCollider();
 		var collisionPosition = collisionData.GetPosition();
 		var collisionAngle = Mathf.Round(collisionData.GetAngle());
 
+		if(collisionObject.HasMeta("LVL1_TileMap"))
+		{
 		var tileMap = (TileMap)collisionObject;
 		var tilePosition = tileMap.LocalToMap(tileMap.ToLocal(collisionPosition));
 		var tile = tileMap.GetCellAtlasCoords(0, tilePosition);
+		
 
 		 switch (collisionAngle)
 		 {
@@ -71,10 +77,10 @@ public partial class VelocityComponent : Node2D
 				break;
 			  
 		}
-
+		}
 		//GD.Print(collisionAngle);
 		//GD.Print(tilePosition);
-		GD.Print(tile);
+		//GD.Print(tile);
 	}
 	
 

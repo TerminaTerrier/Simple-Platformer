@@ -23,6 +23,8 @@ texture = SubResource("PlaceholderTexture2D_pnmfp")
 shape = SubResource("RectangleShape2D_hrify")
 
 [node name="Velocity_Component" parent="." instance=ExtResource("2_35kfb")]
+mass = 10.0
+friction = 5.5
 
 [node name="Pathfind_Component" parent="." node_paths=PackedStringArray("velocityComponent", "navAgent") instance=ExtResource("3_xtlm4")]
 velocityComponent = NodePath("../Velocity_Component")

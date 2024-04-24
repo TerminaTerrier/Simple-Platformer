@@ -21,10 +21,17 @@ public partial class BasicEnemy : CharacterBody2D
 
 	private void NormalState()
 	{
-		var target = GlobalPosition + Vector2.Left;
+		var target = GlobalPosition + Vector2.Right;
 		pathfindComponent.CallDeferred("SetTargetPosition", target);
 		pathfindComponent.FollowPath();
 
+		if(GetSlideCollisionCount() != 0)
+		{
+			velocityComponent.CollisionCheck(GetLastSlideCollision());
+			velocityComponent.NormalForceCheck(GetLastSlideCollision());
+		}
+	
 		velocityComponent.Move(this);
+		velocityComponent.ApplyGravity();
 	}
 }
