@@ -45,7 +45,7 @@ public partial class VelocityComponent : Node2D
 		var collisionObject = collisionData.GetCollider();
 		var collisionPosition = collisionData.GetPosition();
 		var collisionAngle = Mathf.Round(collisionData.GetAngle());
-
+		
 		if(collisionObject.HasMeta("LVL1_TileMap"))
 		{
 		var tileMap = (TileMap)collisionObject;
@@ -60,7 +60,7 @@ public partial class VelocityComponent : Node2D
 				{
 					
 					calculatedVelocity.Y *= 0.4f;
-					GD.Print(tile);
+					//GD.Print(tile);
 				}
 				break;
 			  case 3:
@@ -68,21 +68,25 @@ public partial class VelocityComponent : Node2D
 				{
 					
 					calculatedVelocity.Y += 50f;
-					GD.Print(tile);
+					//GD.Print(tile);
 				}
 				break;
 			  case 2:
 				if(tile == new Vector2I(0, 0) | tile == new Vector2I(1, 0) | tile == new Vector2I(2, 0) | tile == new Vector2I(-1,-1) | tile == new Vector2I(10, 7))
 				{
 					calculatedVelocity.X *= 0.4f;
-					GD.Print(tile);
+					//GD.Print(tile);
 				}
 				break;
 			   
 		}
 		}
+		else
+		{
+			return;
+		}
 		//GD.Print(collisionAngle);
-		GD.Print(collisionPosition);
+		//GD.Print(collisionPosition);
 		
 	}
 	
@@ -125,7 +129,7 @@ public partial class VelocityComponent : Node2D
 		Velocity = calculatedVelocity.Clamp(new Vector2(-maxSpeed, -maxSpeed), new Vector2(maxSpeed, maxSpeed));
 		characterBody2D.Velocity = Velocity;
 		characterBody2D.MoveAndSlide();
-		//GD.Print(Velocity);
+		GD.Print(Velocity);
 	}
 
 	
