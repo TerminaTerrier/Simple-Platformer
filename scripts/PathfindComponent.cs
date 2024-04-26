@@ -25,11 +25,11 @@ public partial class PathfindComponent : Node2D
 			velocityComponent.Decelerate();
 		}
 		
-		var direction = navAgent.GetNextPathPosition().Normalized();
+		var direction = (navAgent.GetNextPathPosition() - GlobalPosition).Normalized();
 		velocityComponent.AccelerateInDirection(direction, 1f);
 		navAgent.SetVelocityForced(velocityComponent.Velocity);
 
-		//GD.Print(GlobalPosition);
+		//GD.Print(navAgent.IsNavigationFinished());
 		//GD.Print(navAgent.GetNextPathPosition());
 	}
 }

@@ -1,18 +1,20 @@
-[gd_scene load_steps=6 format=3 uid="uid://prdnxngxvcv4"]
+[gd_scene load_steps=7 format=3 uid="uid://prdnxngxvcv4"]
 
 [ext_resource type="Script" path="res://scripts/BasicEnemy.cs" id="1_aqww8"]
 [ext_resource type="PackedScene" uid="uid://cj61p2pt0xi67" path="res://scenes/velocity_component.tscn" id="2_35kfb"]
 [ext_resource type="PackedScene" uid="uid://c35byt6vairv6" path="res://scenes/pathfind_component.tscn" id="3_xtlm4"]
+[ext_resource type="PackedScene" uid="uid://bfpoog15n78th" path="res://scenes/collision_handler.tscn" id="4_f0ohc"]
 
 [sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_pnmfp"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_hrify"]
 size = Vector2(9, 8)
 
-[node name="Basic_Enemy" type="CharacterBody2D" node_paths=PackedStringArray("velocityComponent", "pathfindComponent")]
+[node name="Basic_Enemy" type="CharacterBody2D" node_paths=PackedStringArray("velocityComponent", "pathfindComponent", "collisionHandler")]
 script = ExtResource("1_aqww8")
 velocityComponent = NodePath("Velocity_Component")
 pathfindComponent = NodePath("Pathfind_Component")
+collisionHandler = NodePath("Collision_Handler")
 metadata/Basic_Enemy = "PhysicsEnabled"
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
@@ -25,10 +27,15 @@ shape = SubResource("RectangleShape2D_hrify")
 
 [node name="Velocity_Component" parent="." instance=ExtResource("2_35kfb")]
 mass = 10.0
-friction = 5.5
+friction = 4.5
 
 [node name="Pathfind_Component" parent="." node_paths=PackedStringArray("velocityComponent", "navAgent") instance=ExtResource("3_xtlm4")]
 velocityComponent = NodePath("../Velocity_Component")
 navAgent = NodePath("../NavigationAgent2D")
 
 [node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
+path_desired_distance = 2.0
+target_desired_distance = 2.0
+debug_enabled = true
+
+[node name="Collision_Handler" parent="." instance=ExtResource("4_f0ohc")]

@@ -3,7 +3,7 @@
 [ext_resource type="Texture2D" uid="uid://bexyih7m8rtbh" path="res://assets/art/level1tilemap.png" id="1_34j8q"]
 [ext_resource type="PackedScene" uid="uid://prdnxngxvcv4" path="res://scenes/basic_enemy.tscn" id="2_2bvs8"]
 
-[sub_resource type="NavigationPolygon" id="NavigationPolygon_j1740"]
+[sub_resource type="NavigationPolygon" id="NavigationPolygon_6pu4j"]
 vertices = PackedVector2Array(8, 8, -8, 8, -8, -8, 8, -8)
 polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3)])
 outlines = Array[PackedVector2Array]([PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)])
@@ -27,7 +27,7 @@ texture = ExtResource("1_34j8q")
 10:7/0 = 0
 10:7/0/physics_layer_0/linear_velocity = Vector2(0, 0)
 10:7/0/physics_layer_0/angular_velocity = 0.0
-10:7/0/navigation_layer_0/polygon = SubResource("NavigationPolygon_j1740")
+10:7/0/navigation_layer_0/polygon = SubResource("NavigationPolygon_6pu4j")
 
 [sub_resource type="TileSet" id="TileSet_fui4f"]
 physics_layer_0/collision_layer = 1
@@ -43,4 +43,4 @@ layer_0/tile_data = PackedInt32Array(65535, 0, 0, 0, 0, 0, 1, 0, 0, 65534, 0, 0,
 metadata/LVL1_TileMap = "PhysicsEnabled"
 
 [node name="Basic_Enemy" parent="." instance=ExtResource("2_2bvs8")]
-position = Vector2(129, -5)
+position = Vector2(66, -4)
