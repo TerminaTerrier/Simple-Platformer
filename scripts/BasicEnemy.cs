@@ -1,5 +1,6 @@
 using Godot;
 using System;
+using System.Reflection.Metadata.Ecma335;
 
 public partial class BasicEnemy : CharacterBody2D
 {
@@ -9,6 +10,9 @@ public partial class BasicEnemy : CharacterBody2D
 	PathfindComponent pathfindComponent;
 	[Export]
 	CollisionHandler collisionHandler;
+	[Export]
+	RaycastComponent raycastComponent;
+	bool directionSwitch = true;	
 	StateMachine stateMachine = new();
 	public override void _Ready()
 	{
@@ -23,38 +27,41 @@ public partial class BasicEnemy : CharacterBody2D
 
 	private void NormalState()
 	{
-		bool directionSwitch = false;
-
-		if(GetLastSlideCollision() != null)
-		{
-		var collisionObject = collisionHandler.GetCollisionObject(GetLastSlideCollision());
-
-		GD.Print(collisionHandler.CheckCollisionObjectType(collisionObject, typeof(CharacterBody2D)));
-
-		//var tileMap = collisionHandler.CastCollisionObject<TileMap>(collisionObject);
-
-		//GD.Print(tileMap is TileMap);
-		}
 		
+
+			
 
 		 if(GetLastSlideCollision() != null)
 		 {
-		 var collisionAngle = collisionHandler.GetCollisionAngle(GetLastSlideCollision());
+		 	var collisionAngle = collisionHandler.GetCollisionAngle(GetLastSlideCollision());
 		 
-	     if(collisionAngle == 2 && directionSwitch == false)
-		 {
-		   var target = GlobalPosition + Vector2.Right;
-		   pathfindComponent.CallDeferred("SetTargetPosition", target);
-		   directionSwitch = true;
-		//	GD.Print(target);
-		 }
-		 else if(collisionAngle == 2 && directionSwitch == true)
-		 {
-			var target = GlobalPosition + Vector2.Left;
-		 	pathfindComponent.CallDeferred("SetTargetPosition", target);
-		    directionSwitch = false;
-		 	//GD.Print(target);
-		 }
+	     	if(directionSwitch == false)
+		 	{
+		 		var target = GlobalPosition +  new Vector2(100, 0);
+		  	    pathfindComponent.CallDeferred("SetTargetPosition", target);
+				raycastComponent.SetRaycastParamaters(GlobalPosition, GlobalPosition + new Vector2(12, 0));
+				if(raycastComponent.GetRayCastQuery().Count != 0)
+				{
+		    		directionSwitch = true;
+				}
+		
+		    	GD.Print(raycastComponent.GetRayCastQuery().Count);
+		 	}
+		 	
+			if(directionSwitch == true)
+		 	{
+				var target = GlobalPosition + new Vector2(-100, 0);
+		 		pathfindComponent.CallDeferred("SetTargetPosition", target);
+				raycastComponent.SetRaycastParamaters(GlobalPosition, GlobalPosition + new Vector2(-12, 0));
+				if(raycastComponent.GetRayCastQuery().Count != 0)
+				{
+		    		directionSwitch = false;
+				}
+				
+		 		GD.Print(raycastComponent.GetRayCastQuery().Count);
+		 	}
+			GD.Print(directionSwitch);
+			
 		 }
 		
 		pathfindComponent.FollowPath();
@@ -62,7 +69,10 @@ public partial class BasicEnemy : CharacterBody2D
 		if(GetSlideCollisionCount() != 0)
 		{
 			velocityComponent.CollisionCheck(GetLastSlideCollision());
+			if(collisionHandler.CheckCollisionObjectType(collisionHandler.GetCollisionObject(GetLastSlideCollision()), typeof(TileMap)))
+			{
 			velocityComponent.NormalForceCheck(collisionHandler.GetCollisionObject(GetLastSlideCollision()), collisionHandler.GetCollisionPosition(GetLastSlideCollision()), collisionHandler.GetCollisionAngle(GetLastSlideCollision()));
+			}
 		}
 	
 		velocityComponent.Move(this);

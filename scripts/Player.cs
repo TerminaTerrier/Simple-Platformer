@@ -27,7 +27,7 @@ public partial class Player : CharacterBody2D
 	{
 		if(GetSlideCollisionCount() != 0)
 		{	
-			if(collisionHandler.CheckCollisionObjectType(GetLastSlideCollision(), typeof(TileMap)))
+			if(collisionHandler.CheckCollisionObjectType(collisionHandler.GetCollisionObject(GetLastSlideCollision()), typeof(TileMap)))
 			{
 				velocityComponent.NormalForceCheck(collisionHandler.GetCollisionObject(GetLastSlideCollision()), collisionHandler.GetCollisionPosition(GetLastSlideCollision()), collisionHandler.GetCollisionAngle(GetLastSlideCollision()));
 			}
@@ -47,21 +47,20 @@ public partial class Player : CharacterBody2D
 		velocityComponent.Move(this);
 		//gravity must be called last to avoid it being added to velocity before a normal force check is completed
 		velocityComponent.ApplyGravity();
+		GD.Print(velocityComponent.GetVelocity());
 		
 	}
 	private void WalkState()
 	{
 		if(GetSlideCollisionCount() != 0)
 		{
-			if(collisionHandler.CheckCollisionObjectType(GetLastSlideCollision(), typeof(TileMap)))
+			if(collisionHandler.CheckCollisionObjectType(collisionHandler.GetCollisionObject(GetLastSlideCollision()), typeof(TileMap)))
 			{
 				velocityComponent.NormalForceCheck(collisionHandler.GetCollisionObject(GetLastSlideCollision()), collisionHandler.GetCollisionPosition(GetLastSlideCollision()), collisionHandler.GetCollisionAngle(GetLastSlideCollision()));
 			}
 			velocityComponent.CollisionCheck(GetLastSlideCollision());
 		}
 	
-		
-		
 		if(playerController.PressFlag == false)
 		{
 			stateMachine.AddState(IdleState);
@@ -74,7 +73,7 @@ public partial class Player : CharacterBody2D
 		
 		velocityComponent.Move(this);
 		velocityComponent.ApplyGravity();
-		
+		GD.Print(velocityComponent.GetVelocity());
 	}
 
 	

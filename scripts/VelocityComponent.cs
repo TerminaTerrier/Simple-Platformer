@@ -25,10 +25,7 @@ public partial class VelocityComponent : Node2D
 		
 	}
 
-	public void ApplyGravity()
-	{
-			AddForce(gravity);
-	}
+	
 
 	public void CollisionCheck(KinematicCollision2D collisionData)
 	{
@@ -41,7 +38,8 @@ public partial class VelocityComponent : Node2D
 	public void NormalForceCheck(GodotObject collisionObject, Vector2 collisionPosition, float collisionAngle)  
 	{
 		//I should think of a way to make it so that this class is not responsible for detecting the tilemap
-	
+		//GD.Print(collisionAngle);
+		
 		var tileMap = (TileMap)collisionObject;
 		var tilePosition = tileMap.LocalToMap(tileMap.ToLocal(collisionPosition));
 		var tile = tileMap.GetCellAtlasCoords(0, tilePosition);
@@ -54,7 +52,8 @@ public partial class VelocityComponent : Node2D
 				{
 					
 					calculatedVelocity.Y *= 0.4f;
-					//GD.Print(tile);
+					//GD.Print("true");
+					GD.Print(tile);
 				}
 				break;
 			  case 3:
@@ -80,7 +79,10 @@ public partial class VelocityComponent : Node2D
 		
 	}
 	
-
+	public void ApplyGravity()
+	{
+			AddForce(gravity);
+	}
 	public void AccelerateInDirection(Vector2 direction, float accScalar)
 	{
 		AddForce(direction * accScalar);
@@ -113,14 +115,18 @@ public partial class VelocityComponent : Node2D
 		speedModifier = newModifier;
 	}
 
-
+	
 	public void Move(CharacterBody2D characterBody2D)
 	{
 		Velocity = calculatedVelocity.Clamp(new Vector2(-maxSpeed, -maxSpeed), new Vector2(maxSpeed, maxSpeed));
 		characterBody2D.Velocity = Velocity;
 		characterBody2D.MoveAndSlide();
-		GD.Print(Velocity);
+		//GD.Print(Velocity);
 	}
 
+	public Vector2 GetVelocity()
+	{
+		return Velocity;
+	}
 	
 }
