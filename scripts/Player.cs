@@ -8,6 +8,8 @@ public partial class Player : CharacterBody2D
 	VelocityComponent velocityComponent;
 	[Export]
 	PlayerController playerController;
+	[Export]
+	CollisionHandler collisionHandler;
 	StateMachine stateMachine = new();
 	public override void _Ready()
 	{
@@ -24,9 +26,12 @@ public partial class Player : CharacterBody2D
 	private void IdleState()
 	{
 		if(GetSlideCollisionCount() != 0)
-		{
-		 	velocityComponent.CollisionCheck(GetLastSlideCollision());
-			velocityComponent.NormalForceCheck(GetLastSlideCollision());
+		{	
+			if(collisionHandler.CheckCollisionObjectType(GetLastSlideCollision(), typeof(TileMap)))
+			{
+				velocityComponent.NormalForceCheck(collisionHandler.GetCollisionObject(GetLastSlideCollision()), collisionHandler.GetCollisionPosition(GetLastSlideCollision()), collisionHandler.GetCollisionAngle(GetLastSlideCollision()));
+			}
+			velocityComponent.CollisionCheck(GetLastSlideCollision());
 		}
 		
 		if(playerController.PressFlag == false)
@@ -48,8 +53,11 @@ public partial class Player : CharacterBody2D
 	{
 		if(GetSlideCollisionCount() != 0)
 		{
+			if(collisionHandler.CheckCollisionObjectType(GetLastSlideCollision(), typeof(TileMap)))
+			{
+				velocityComponent.NormalForceCheck(collisionHandler.GetCollisionObject(GetLastSlideCollision()), collisionHandler.GetCollisionPosition(GetLastSlideCollision()), collisionHandler.GetCollisionAngle(GetLastSlideCollision()));
+			}
 			velocityComponent.CollisionCheck(GetLastSlideCollision());
-			velocityComponent.NormalForceCheck(GetLastSlideCollision());
 		}
 	
 		

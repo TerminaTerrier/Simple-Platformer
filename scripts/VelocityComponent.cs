@@ -38,16 +38,10 @@ public partial class VelocityComponent : Node2D
 		return;
 	}
 	
-	public void NormalForceCheck(KinematicCollision2D collisionData)  
+	public void NormalForceCheck(GodotObject collisionObject, Vector2 collisionPosition, float collisionAngle)  
 	{
 		//I should think of a way to make it so that this class is not responsible for detecting the tilemap
-		
-		var collisionObject = collisionData.GetCollider();
-		var collisionPosition = collisionData.GetPosition();
-		var collisionAngle = Mathf.Round(collisionData.GetAngle());
-		
-		if(collisionObject.HasMeta("LVL1_TileMap"))
-		{
+	
 		var tileMap = (TileMap)collisionObject;
 		var tilePosition = tileMap.LocalToMap(tileMap.ToLocal(collisionPosition));
 		var tile = tileMap.GetCellAtlasCoords(0, tilePosition);
@@ -80,11 +74,7 @@ public partial class VelocityComponent : Node2D
 				break;
 			   
 		}
-		}
-		else
-		{
-			return;
-		}
+		
 		//GD.Print(collisionAngle);
 		//GD.Print(collisionPosition);
 		

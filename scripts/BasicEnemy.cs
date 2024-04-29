@@ -62,7 +62,7 @@ public partial class BasicEnemy : CharacterBody2D
 		if(GetSlideCollisionCount() != 0)
 		{
 			velocityComponent.CollisionCheck(GetLastSlideCollision());
-			velocityComponent.NormalForceCheck(GetLastSlideCollision());
+			velocityComponent.NormalForceCheck(collisionHandler.GetCollisionObject(GetLastSlideCollision()), collisionHandler.GetCollisionPosition(GetLastSlideCollision()), collisionHandler.GetCollisionAngle(GetLastSlideCollision()));
 		}
 	
 		velocityComponent.Move(this);
