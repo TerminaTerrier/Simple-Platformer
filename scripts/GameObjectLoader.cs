@@ -34,4 +34,14 @@ public partial class GameObjectLoader : Node2D
 		bodyInstance = (CharacterBody2D)body.Instantiate();
 		AddChild(bodyInstance);
 	}
+
+	private void FreeLevel()
+	{
+		levelInstance.QueueFree();
+	}
+
+	private void FreeCharacterBody()
+	{
+		bodyInstance.QueueFree();
+	}
 }

@@ -4,15 +4,21 @@ using System.Net.NetworkInformation;
 
 public partial class Player : CharacterBody2D
 {
+	[Signal]
+	public delegate void PlayerDeathEventHandler();
 	[Export]
 	VelocityComponent velocityComponent;
 	[Export]
 	PlayerController playerController;
 	[Export]
 	CollisionHandler collisionHandler;
+	[Export]
+	HealthComponent healthComponent;
 	StateMachine stateMachine = new();
 	public override void _Ready()
 	{
+		healthComponent.OnDeath += Die;
+
 		stateMachine.AddState(IdleState);
 		stateMachine.Enter();
 	}
@@ -47,7 +53,7 @@ public partial class Player : CharacterBody2D
 		velocityComponent.Move(this);
 		//gravity must be called last to avoid it being added to velocity before a normal force check is completed
 		velocityComponent.ApplyGravity();
-		GD.Print(velocityComponent.GetVelocity());
+		//GD.Print(velocityComponent.GetVelocity());
 		
 	}
 	private void WalkState()
@@ -76,5 +82,9 @@ public partial class Player : CharacterBody2D
 		GD.Print(velocityComponent.GetVelocity());
 	}
 
-	
+	private void Die()
+	{
+		EmitSignal("PlayerDeath");
+		QueueFree();
+	}
 }

@@ -12,6 +12,8 @@ public partial class BasicEnemy : CharacterBody2D
 	CollisionHandler collisionHandler;
 	[Export]
 	RaycastComponent raycastComponent;
+	[Export]
+	HealthComponent healthComponent;
 	bool directionSwitch = true;	
 	StateMachine stateMachine = new();
 	public override void _Ready()
@@ -45,7 +47,7 @@ public partial class BasicEnemy : CharacterBody2D
 		    		directionSwitch = true;
 				}
 		
-		    	GD.Print(raycastComponent.GetRayCastQuery().Count);
+		    	//GD.Print(raycastComponent.GetRayCastQuery().Count);
 		 	}
 		 	
 			if(directionSwitch == true)
@@ -58,9 +60,9 @@ public partial class BasicEnemy : CharacterBody2D
 		    		directionSwitch = false;
 				}
 				
-		 		GD.Print(raycastComponent.GetRayCastQuery().Count);
+		 		//GD.Print(raycastComponent.GetRayCastQuery().Count);
 		 	}
-			GD.Print(directionSwitch);
+			//GD.Print(directionSwitch);
 			
 		 }
 		

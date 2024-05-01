@@ -1,0 +1,9 @@
+[gd_resource type="Resource" load_steps=2 format=3 uid="uid://dklp808v0qo70"]
+
+[ext_resource type="Script" path="res://resources/Stats.cs" id="1_pg0si"]
+
+[resource]
+resource_local_to_scene = true
+script = ExtResource("1_pg0si")
+Damage = 1
+Health = 1
