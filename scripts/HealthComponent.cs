@@ -9,6 +9,7 @@ public partial class HealthComponent : Node2D
 	public HurtboxComponent hurtBox;
 	[Export]
 	private int health = 1;
+	SignalBus signalBus;
 	public override void _Ready()
 	{
 		hurtBox.HitByHitbox += OnHitByHitbox;
@@ -27,6 +28,7 @@ public partial class HealthComponent : Node2D
 		{
 			EmitSignal("OnDeath");
 		}
+
 		GD.Print(health);
 	}
 }

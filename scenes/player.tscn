@@ -8,7 +8,7 @@
 [ext_resource type="PackedScene" uid="uid://dwduj8cfffhyx" path="res://scenes/hurtbox_component.tscn" id="6_1fnte"]
 [ext_resource type="PackedScene" uid="uid://3a5s6ds1pqbd" path="res://scenes/health_component.tscn" id="6_il8va"]
 [ext_resource type="PackedScene" uid="uid://bhnefvy53fwyu" path="res://scenes/hitbox_component.tscn" id="7_5dgt8"]
-[ext_resource type="Resource" uid="uid://dklp808v0qo70" path="res://resources/Stats.tres" id="9_e5iua"]
+[ext_resource type="Resource" uid="uid://1qu6drqk7tga" path="res://resources/Stats.tres" id="9_e5iua"]
 
 [sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_4awkr"]
 

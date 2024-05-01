@@ -14,9 +14,14 @@ public partial class Player : CharacterBody2D
 	CollisionHandler collisionHandler;
 	[Export]
 	HealthComponent healthComponent;
+	[Export]
+	private int lives = 1;
+	SignalBus signalBus;
 	StateMachine stateMachine = new();
 	public override void _Ready()
 	{
+		signalBus = GetNode<SignalBus>("/root/SignalBus");
+
 		healthComponent.OnDeath += Die;
 
 		stateMachine.AddState(IdleState);
@@ -85,6 +90,11 @@ public partial class Player : CharacterBody2D
 	private void Die()
 	{
 		EmitSignal("PlayerDeath");
+		lives--;
+		if(lives == 0)
+		{
+			signalBus.EmitSignal("GameOver");
+		}
 		QueueFree();
 	}
 }

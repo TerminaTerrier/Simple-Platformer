@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://prdnxngxvcv4"]
+[gd_scene load_steps=15 format=3 uid="uid://prdnxngxvcv4"]
 
 [ext_resource type="Script" path="res://scripts/BasicEnemy.cs" id="1_aqww8"]
 [ext_resource type="PackedScene" uid="uid://cj61p2pt0xi67" path="res://scenes/velocity_component.tscn" id="2_35kfb"]
@@ -7,13 +7,18 @@
 [ext_resource type="PackedScene" uid="uid://d3icphik8drdp" path="res://scenes/raycast_component.tscn" id="5_icvi8"]
 [ext_resource type="PackedScene" uid="uid://bhnefvy53fwyu" path="res://scenes/hitbox_component.tscn" id="6_o1bl5"]
 [ext_resource type="PackedScene" uid="uid://3a5s6ds1pqbd" path="res://scenes/health_component.tscn" id="6_ruqld"]
-[ext_resource type="Resource" uid="uid://dklp808v0qo70" path="res://resources/Stats.tres" id="8_nph6n"]
+[ext_resource type="Script" path="res://resources/Stats.cs" id="7_0dv2t"]
 [ext_resource type="PackedScene" uid="uid://dwduj8cfffhyx" path="res://scenes/hurtbox_component.tscn" id="8_otieq"]
 
 [sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_pnmfp"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_hrify"]
 size = Vector2(9, 8)
+
+[sub_resource type="Resource" id="Resource_rtekc"]
+script = ExtResource("7_0dv2t")
+Damage = 1
+Health = 1
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_vbbne"]
 size = Vector2(10, 8.5)
@@ -60,7 +65,7 @@ hurtBox = NodePath("../Hurtbox_Component")
 
 [node name="Hitbox_Component" parent="." instance=ExtResource("6_o1bl5")]
 collision_layer = 2
-stats = ExtResource("8_nph6n")
+stats = SubResource("Resource_rtekc")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox_Component"]
 shape = SubResource("RectangleShape2D_vbbne")

@@ -1,9 +1,8 @@
-[gd_resource type="Resource" load_steps=2 format=3 uid="uid://dklp808v0qo70"]
+[gd_resource type="Resource" script_class="Stats" load_steps=2 format=3 uid="uid://1qu6drqk7tga"]
 
-[ext_resource type="Script" path="res://resources/Stats.cs" id="1_pg0si"]
+[ext_resource type="Script" path="res://resources/Stats.cs" id="1_ov41l"]
 
 [resource]
-resource_local_to_scene = true
-script = ExtResource("1_pg0si")
+script = ExtResource("1_ov41l")
 Damage = 1
 Health = 1
