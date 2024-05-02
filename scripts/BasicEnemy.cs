@@ -4,6 +4,8 @@ using System.Reflection.Metadata.Ecma335;
 
 public partial class BasicEnemy : CharacterBody2D
 {
+	[Signal]
+	public delegate void EnemyDeathEventHandler();
 	[Export]
 	VelocityComponent velocityComponent;
 	[Export]

@@ -8,11 +8,14 @@ public partial class HealthComponent : Node2D
 	[Export]
 	public HurtboxComponent hurtBox;
 	[Export]
-	private int health = 1;
+	private Stats stats;
+	public int Health {get; private set;}
 	SignalBus signalBus;
 	public override void _Ready()
 	{
 		hurtBox.HitByHitbox += OnHitByHitbox;
+
+		Health = stats.StartingHealth;
 	}
 
 	public void OnHitByHitbox(HitboxComponent hitBox)
@@ -22,13 +25,16 @@ public partial class HealthComponent : Node2D
 
 	private void CalculateHealth(int healthUpdate)
 	{
-		health = healthUpdate + healthUpdate;
+		if(Health < stats.MaxHealth)
+		{
+			Health = healthUpdate + healthUpdate;
+		}
 
-		if(health <= 0)
+		if(Health <= 0)
 		{
 			EmitSignal("OnDeath");
 		}
 
-		GD.Print(health);
+		GD.Print(Health);
 	}
 }

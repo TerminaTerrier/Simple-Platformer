@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://prdnxngxvcv4"]
+[gd_scene load_steps=16 format=3 uid="uid://prdnxngxvcv4"]
 
 [ext_resource type="Script" path="res://scripts/BasicEnemy.cs" id="1_aqww8"]
 [ext_resource type="PackedScene" uid="uid://cj61p2pt0xi67" path="res://scenes/velocity_component.tscn" id="2_35kfb"]
@@ -8,6 +8,7 @@
 [ext_resource type="PackedScene" uid="uid://bhnefvy53fwyu" path="res://scenes/hitbox_component.tscn" id="6_o1bl5"]
 [ext_resource type="PackedScene" uid="uid://3a5s6ds1pqbd" path="res://scenes/health_component.tscn" id="6_ruqld"]
 [ext_resource type="Script" path="res://resources/Stats.cs" id="7_0dv2t"]
+[ext_resource type="Resource" uid="uid://1qu6drqk7tga" path="res://resources/Stats.tres" id="7_5efkr"]
 [ext_resource type="PackedScene" uid="uid://dwduj8cfffhyx" path="res://scenes/hurtbox_component.tscn" id="8_otieq"]
 
 [sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_pnmfp"]
@@ -18,13 +19,14 @@ size = Vector2(9, 8)
 [sub_resource type="Resource" id="Resource_rtekc"]
 script = ExtResource("7_0dv2t")
 Damage = 1
-Health = 1
+MaxHealth = 3
+StartingHealth = 1
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_vbbne"]
 size = Vector2(10, 7.25)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_dxsxa"]
-size = Vector2(10, 8.5)
+size = Vector2(8, 8.5)
 
 [node name="Basic_Enemy" type="CharacterBody2D" node_paths=PackedStringArray("velocityComponent", "pathfindComponent", "collisionHandler", "raycastComponent", "healthComponent")]
 script = ExtResource("1_aqww8")
@@ -62,6 +64,7 @@ debug_enabled = true
 
 [node name="Health_Component" parent="." node_paths=PackedStringArray("hurtBox") instance=ExtResource("6_ruqld")]
 hurtBox = NodePath("../Hurtbox_Component")
+stats = ExtResource("7_5efkr")
 
 [node name="Hitbox_Component" parent="." instance=ExtResource("6_o1bl5")]
 collision_layer = 2
