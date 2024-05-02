@@ -21,7 +21,7 @@ Damage = 1
 Health = 1
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_vbbne"]
-size = Vector2(10, 8.5)
+size = Vector2(10, 7.25)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_dxsxa"]
 size = Vector2(10, 8.5)
@@ -68,6 +68,7 @@ collision_layer = 2
 stats = SubResource("Resource_rtekc")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox_Component"]
+position = Vector2(0, 0.625)
 shape = SubResource("RectangleShape2D_vbbne")
 
 [node name="Hurtbox_Component" parent="." instance=ExtResource("8_otieq")]

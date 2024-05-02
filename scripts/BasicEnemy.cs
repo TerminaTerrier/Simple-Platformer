@@ -18,6 +18,8 @@ public partial class BasicEnemy : CharacterBody2D
 	StateMachine stateMachine = new();
 	public override void _Ready()
 	{
+		healthComponent.OnDeath += Die;
+
 		stateMachine.AddState(NormalState);
 		stateMachine.Enter();
 	}
@@ -80,5 +82,10 @@ public partial class BasicEnemy : CharacterBody2D
 		velocityComponent.Move(this);
 		velocityComponent.ApplyGravity();
 		//GD.Print(target);
+	}
+
+	private void Die()
+	{
+		QueueFree();
 	}
 }
