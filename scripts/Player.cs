@@ -95,6 +95,6 @@ public partial class Player : CharacterBody2D
 		{
 			signalBus.EmitSignal("GameOver");
 		}
-		QueueFree();
+		GlobalPosition = Vector2.Zero;
 	}
 }

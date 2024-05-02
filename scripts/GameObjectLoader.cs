@@ -22,6 +22,7 @@ public partial class GameObjectLoader : Node2D
 	   signalBus.StartGame += () => LoadLevel(levelOne);
 	   signalBus.StartGame += () => LoadCharacterBody(player);
 	   signalBus.GameOver += () => FreeLevel();
+	   signalBus.GameOver += () => FreeCharacterBody();
 	}
 
 	private void LoadLevel(PackedScene level)
@@ -43,6 +44,6 @@ public partial class GameObjectLoader : Node2D
 
 	private void FreeCharacterBody()
 	{
-		bodyInstance.QueueFree();
+		CallDeferred("remove_child", bodyInstance);
 	}
 }

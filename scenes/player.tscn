@@ -26,6 +26,7 @@ velocityComponent = NodePath("Velocity_Component")
 playerController = NodePath("Player_Controller")
 collisionHandler = NodePath("Collision_Handler")
 healthComponent = NodePath("Health_Component")
+lives = 3
 
 [node name="Camera2D" type="Camera2D" parent="."]
 zoom = Vector2(1.5, 1.5)
