@@ -11,10 +11,12 @@ public partial class UILoader : CanvasLayer
 	Control UIInstance;
 	public override void _Ready()
 	{
+	  _sceneData = (SceneData)sceneData;
+	  
 	  signalBus = GetNode<SignalBus>("/root/SignalBus");
 	  signalBus.StartGame += () => RemoveSceneInstance(UIInstance);
-
-	  _sceneData = (SceneData)sceneData;
+	  signalBus.GameOver += () => LoadScene(_sceneData.GameOverScreen);
+	  
 	
 	  mainMenu = _sceneData.MainMenu;
 	  LoadScene(mainMenu);
