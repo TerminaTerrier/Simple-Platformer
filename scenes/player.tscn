@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://sp4vq5xtmla7"]
+[gd_scene load_steps=16 format=3 uid="uid://sp4vq5xtmla7"]
 
 [ext_resource type="Script" path="res://scripts/Player.cs" id="1_g76b5"]
 [ext_resource type="PackedScene" uid="uid://dpd3l8k3cqynj" path="res://scenes/player_controller.tscn" id="2_g8khw"]
@@ -8,13 +8,27 @@
 [ext_resource type="PackedScene" uid="uid://dwduj8cfffhyx" path="res://scenes/hurtbox_component.tscn" id="6_1fnte"]
 [ext_resource type="PackedScene" uid="uid://3a5s6ds1pqbd" path="res://scenes/health_component.tscn" id="6_il8va"]
 [ext_resource type="PackedScene" uid="uid://bhnefvy53fwyu" path="res://scenes/hitbox_component.tscn" id="7_5dgt8"]
-[ext_resource type="Resource" uid="uid://1qu6drqk7tga" path="res://resources/Stats.tres" id="9_e5iua"]
+[ext_resource type="Script" path="res://resources/Stats.cs" id="7_6lss0"]
 
 [sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_4awkr"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_4w5ce"]
 
+[sub_resource type="Resource" id="Resource_h2ffx"]
+resource_local_to_scene = true
+script = ExtResource("7_6lss0")
+Damage = 1
+MaxHealth = 3
+StartingHealth = 1
+
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_l3vqk"]
+
+[sub_resource type="Resource" id="Resource_6dabo"]
+resource_local_to_scene = true
+script = ExtResource("7_6lss0")
+Damage = 1
+MaxHealth = 3
+StartingHealth = 1
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_cggls"]
 
@@ -56,7 +70,7 @@ friction = 4.5
 
 [node name="Health_Component" parent="." node_paths=PackedStringArray("hurtBox") instance=ExtResource("6_il8va")]
 hurtBox = NodePath("../Hurtbox_Component")
-stats = ExtResource("9_e5iua")
+stats = SubResource("Resource_h2ffx")
 
 [node name="Hurtbox_Component" parent="." instance=ExtResource("6_1fnte")]
 collision_mask = 2
@@ -66,7 +80,7 @@ shape = SubResource("RectangleShape2D_l3vqk")
 
 [node name="Hitbox_Component" parent="." instance=ExtResource("7_5dgt8")]
 collision_mask = 2
-stats = ExtResource("9_e5iua")
+stats = SubResource("Resource_6dabo")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox_Component"]
 shape = SubResource("RectangleShape2D_cggls")
