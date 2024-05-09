@@ -30,7 +30,7 @@ public partial class VelocityComponent : Node2D
 	public void CollisionCheck(KinematicCollision2D collisionData)
 	{
 		var collisionVelocity = collisionData.GetColliderVelocity();
-		calculatedVelocity -= collisionVelocity;
+		calculatedVelocity -= new Vector2(0, collisionVelocity.X);
 		//GD.Print(collisionVelocity);
 		return;
 	}
