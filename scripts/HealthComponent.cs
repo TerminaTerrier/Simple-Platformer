@@ -25,16 +25,16 @@ public partial class HealthComponent : Node2D
 	{
 		if(didHit == false)
 		{
-		didHit = true;
-		CalculateHealth(-hitBox.stats.Damage);
+			didHit = true;
+			CalculateHealth(-hitBox.stats.Damage);
 		}
 		
 		
 	}
 
-    private void CalculateHealth(int healthUpdate)
+    public void CalculateHealth(int healthUpdate)
 	{
-		if(Health < stats.MaxHealth)
+		if(Health <= stats.MaxHealth)
 		{
 			Health = Health + healthUpdate;
 			didHit = false;
@@ -47,5 +47,10 @@ public partial class HealthComponent : Node2D
 		
 		
 		GD.Print(Health);
+	}
+
+	public void SetHealth(int healthUpdate)
+	{
+		Health = healthUpdate;
 	}
 }

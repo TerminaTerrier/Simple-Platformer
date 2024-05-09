@@ -31,7 +31,7 @@ public partial class ShellEnemy : CharacterBody2D
 	 public override void _PhysicsProcess(double delta)
     {
         stateMachine.Update();
-		
+		GD.Print(healthComponent.Health);
     }
 
 	private void NormalState()
@@ -87,16 +87,26 @@ public partial class ShellEnemy : CharacterBody2D
 
 		if(healthComponent.Health == 1)
 		{
-			//stateMachine.AddState(HideState);
-			//stateMachine.Enter();
+			stateMachine.AddState(HideState);
+			stateMachine.Enter();
 		}
 	}
 
 	private void HideState()
 	{
 		GD.Print(healthComponent.Health);
+		var timer = GetTree().CreateTimer(5);
+		
+		var target = GlobalPosition;
+		pathfindComponent.CallDeferred("SetTargetPosition", target);	
+		pathfindComponent.FollowPath();
+		
 		velocityComponent.Move(this);
 		velocityComponent.ApplyGravity();
+
+		timer.Timeout += () => { healthComponent.SetHealth(2); stateMachine.AddState(NormalState); stateMachine.Enter(); }; 
+
+		
 	}
 	private void Die()
 	{
