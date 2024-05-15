@@ -27,16 +27,21 @@ public partial class PlayerController : Node2D
     public override void _Process(double delta)
     {
 
-		if(Input.IsActionJustPressed("InputUp") == false || Input.IsActionPressed("InputDown") == false || Input.IsActionPressed("InputLeft") == false || Input.IsActionPressed("InputRight") == false)
+		//if(Input.IsActionJustPressed("InputUp") == false || Input.IsActionPressed("InputDown") == false || Input.IsActionPressed("InputLeft") == false || Input.IsActionPressed("InputRight") == false)
+		//{
+			//PressFlag = false;
+		//}
+		
+		if(Input.IsActionJustReleased("InputDown") || Input.IsActionJustReleased("InputLeft") || Input.IsActionJustReleased("InputRight"))
 		{
 			PressFlag = false;
 		}
-		
 
 		if(Input.IsActionPressed("InputLeft"))
 		{
 			direction = Vector2.Left;
 			PressFlag = true;
+			GD.Print("left");
 		}
 		
 
@@ -44,6 +49,7 @@ public partial class PlayerController : Node2D
 		{
 			direction = Vector2.Right;
 			PressFlag = true;
+			GD.Print("Right");
 		}
 
 	
@@ -58,6 +64,7 @@ public partial class PlayerController : Node2D
 			PressFlag = true;
 			velocityComponent.AccelerateInDirection(Vector2.Up, jumpStrength * 100);
 		}
+		PressFlag = false;
 	}
 
 

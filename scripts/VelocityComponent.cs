@@ -90,7 +90,9 @@ public partial class VelocityComponent : Node2D
 
 	public void AddForce(Vector2 acceleration)
 	{
+		calculatedVelocity = calculatedVelocity.Clamp(new Vector2(-maxSpeed, -maxSpeed), new Vector2(maxSpeed, maxSpeed));
 		calculatedVelocity += (acceleration * mass) * (float)GetProcessDeltaTime();
+		
 	}
 
 	public void Decelerate()
