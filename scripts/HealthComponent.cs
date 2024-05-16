@@ -15,7 +15,7 @@ public partial class HealthComponent : Node2D
 	public override void _Ready()
 	{
 		Health = stats.StartingHealth;
-		GD.Print(Health);
+		//GD.Print(Health);
 		hurtBox.HitByHitbox += OnHitByHitbox;
 
 		
@@ -46,7 +46,7 @@ public partial class HealthComponent : Node2D
 		}
 		
 		
-		GD.Print(Health);
+		//GD.Print(Health);
 	}
 
 	public void SetHealth(int healthUpdate)

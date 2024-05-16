@@ -15,14 +15,14 @@
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_hrify"]
 size = Vector2(9, 8)
 
-[sub_resource type="Resource" id="Resource_g0075"]
+[sub_resource type="Resource" id="Resource_ygyyx"]
 resource_local_to_scene = true
 script = ExtResource("7_0dv2t")
 Damage = 1
 MaxHealth = 3
 StartingHealth = 1
 
-[sub_resource type="Resource" id="Resource_buorc"]
+[sub_resource type="Resource" id="Resource_esdhl"]
 resource_local_to_scene = true
 script = ExtResource("7_0dv2t")
 Damage = 1
@@ -73,11 +73,11 @@ debug_enabled = true
 
 [node name="Health_Component" parent="." node_paths=PackedStringArray("hurtBox") instance=ExtResource("6_ruqld")]
 hurtBox = NodePath("../Hurtbox_Component")
-stats = SubResource("Resource_g0075")
+stats = SubResource("Resource_ygyyx")
 
 [node name="Hitbox_Component" parent="." instance=ExtResource("6_o1bl5")]
 collision_layer = 2
-stats = SubResource("Resource_buorc")
+stats = SubResource("Resource_esdhl")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox_Component"]
 position = Vector2(0, 0.625)

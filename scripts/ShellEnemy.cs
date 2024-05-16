@@ -15,6 +15,11 @@ public partial class ShellEnemy : CharacterBody2D
 	RaycastComponent raycastComponent;
 	[Export]
 	HealthComponent healthComponent;
+	[Export]
+	HitboxComponent hitboxComponent;
+	//turn off hitbox during hide
+	[Export]
+	HurtboxComponent hurtboxComponent;
 	bool directionSwitch = true;	
 	StateMachine stateMachine = new();
 	public override void _Ready()
@@ -31,7 +36,7 @@ public partial class ShellEnemy : CharacterBody2D
 	 public override void _PhysicsProcess(double delta)
     {
         stateMachine.Update();
-		GD.Print(healthComponent.Health);
+		//GD.Print(healthComponent.Health);
     }
 
 	private void NormalState()
@@ -83,7 +88,7 @@ public partial class ShellEnemy : CharacterBody2D
 		velocityComponent.Move(this);
 		velocityComponent.ApplyGravity();	
 
-		GD.Print(healthComponent.Health);
+		//GD.Print(healthComponent.Health);
 
 		if(healthComponent.Health == 1)
 		{
@@ -94,8 +99,13 @@ public partial class ShellEnemy : CharacterBody2D
 
 	private void HideState()
 	{
-		GD.Print(healthComponent.Health);
+		hitboxComponent.Monitorable = false;
+		hurtboxComponent.Monitoring = false;
+
+		//GD.Print(healthComponent.Health);
 		var timer = GetTree().CreateTimer(5);
+
+		
 		
 		var target = GlobalPosition;
 		pathfindComponent.CallDeferred("SetTargetPosition", target);	
@@ -104,7 +114,7 @@ public partial class ShellEnemy : CharacterBody2D
 		velocityComponent.Move(this);
 		velocityComponent.ApplyGravity();
 
-		timer.Timeout += () => { healthComponent.SetHealth(2); stateMachine.AddState(NormalState); stateMachine.Enter(); }; 
+		timer.Timeout += () => { healthComponent.SetHealth(2); hitboxComponent.Monitorable = true; hurtboxComponent.Monitoring = true; stateMachine.AddState(NormalState); stateMachine.Enter(); }; 
 
 		
 	}
