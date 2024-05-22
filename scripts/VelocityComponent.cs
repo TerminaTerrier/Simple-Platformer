@@ -27,51 +27,24 @@ public partial class VelocityComponent : Node2D
 		
 	}
 	
-	public void NormalForceCheck(GodotObject collisionObject, Vector2 collisionPosition, float collisionAngle)  
+	public void NormalForceCheck(CharacterBody2D characterBody2D)  
 	{
-		//I should think of a way to make it so that this class is not responsible for detecting the tilemap
-		//GD.Print(collisionAngle);
-		
-		var tileMap = (TileMap)collisionObject;
-		var tilePosition = tileMap.LocalToMap(tileMap.ToLocal(collisionPosition));
-		var tile = tileMap.GetCellAtlasCoords(0, tilePosition);
-		
-		
-		 switch (collisionAngle)
-		 {
-			//normal force doesn't get applied when collisions from two different angles (from the side and below) are occuring but it doesn't seem like a problem 
-			//replace with IsOnFloor()?
-			  case 0:
-				if(tile == new Vector2I(0, 0) | tile == new Vector2I(1, 0) | tile == new Vector2I(2, 0) | tile == new Vector2I(10, 7))
-				{
-					
-					calculatedVelocity.Y *= 0.4f;
-					//GD.Print("true");
-					//GD.Print(tile);
-				}
-				break;
-			  case 3:
-			    if(tile == new Vector2I(0, 0) | tile == new Vector2I(1, 0) | tile == new Vector2I(2, 0) | tile == new Vector2I(-1,-1) | tile == new Vector2I(10, 7))
-				{
-					
-					calculatedVelocity.Y += 50f;
-					//GD.Print(tile);
-				}
-				break;
-			  case 2:
-				if(tile == new Vector2I(0, 0) | tile == new Vector2I(1, 0) | tile == new Vector2I(2, 0) | tile == new Vector2I(-1,-1) | tile == new Vector2I(10, 7))
-				{
-					calculatedVelocity.X *= 0.4f;
-					//GD.Print(tile);
-				}
-				break;
-			   
+		if(characterBody2D.IsOnFloor())
+		{
+			calculatedVelocity.Y *= 0.4f;
 		}
 		
-		//GD.Print(collisionAngle);
-		//GD.Print(collisionPosition);
-		
-	}
+		if(characterBody2D.IsOnWall())
+		{
+			calculatedVelocity.X *= 0.4f;
+		}
+
+		if(characterBody2D.IsOnCeiling())
+		{
+			calculatedVelocity.Y += 50f;
+		}
+	}	
+	
 	
 	public void ApplyGravity()
 	{
@@ -123,6 +96,7 @@ public partial class VelocityComponent : Node2D
 		characterBody2D.Velocity = Velocity;
 		characterBody2D.MoveAndSlide();
 		//GD.Print(Velocity);
+		
 		//GD.Print(characterBody2D.Velocity);
 	}
 

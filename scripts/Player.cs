@@ -38,11 +38,12 @@ public partial class Player : CharacterBody2D
 	{
 		if(GetSlideCollisionCount() != 0)
 		{	
-			if(collisionHandler.CheckCollisionObjectType(collisionHandler.GetCollisionObject(GetLastSlideCollision()), typeof(TileMap)))
-			{
-				velocityComponent.NormalForceCheck(collisionHandler.GetCollisionObject(GetLastSlideCollision()), collisionHandler.GetCollisionPosition(GetLastSlideCollision()), collisionHandler.GetCollisionAngle(GetLastSlideCollision()));
-			}
+			//if(collisionHandler.CheckCollisionObjectType(collisionHandler.GetCollisionObject(GetLastSlideCollision()), typeof(TileMap)))
+			//{
+			//	velocityComponent.NormalForceCheck(collisionHandler.GetCollisionObject(GetLastSlideCollision()), collisionHandler.GetCollisionPosition(GetLastSlideCollision()), collisionHandler.GetCollisionAngle(GetLastSlideCollision()));
+			//}
 			//velocityComponent.CollisionCheck(GetLastSlideCollision());
+			velocityComponent.NormalForceCheck(this);
 			GD.Print(GetLastSlideCollision().GetNormal());
 		}
 		
@@ -66,11 +67,7 @@ public partial class Player : CharacterBody2D
 	{
 		if(GetSlideCollisionCount() != 0)
 		{
-			if(collisionHandler.CheckCollisionObjectType(collisionHandler.GetCollisionObject(GetLastSlideCollision()), typeof(TileMap)))
-			{
-				velocityComponent.NormalForceCheck(collisionHandler.GetCollisionObject(GetLastSlideCollision()), collisionHandler.GetCollisionPosition(GetLastSlideCollision()), collisionHandler.GetCollisionAngle(GetLastSlideCollision()));
-			}
-			//velocityComponent.CollisionCheck(GetLastSlideCollision());
+			velocityComponent.NormalForceCheck(this);
 			GD.Print(GetLastSlideCollision().GetNormal());
 		}
 	
@@ -87,7 +84,7 @@ public partial class Player : CharacterBody2D
 		velocityComponent.Move(this);
 		velocityComponent.ApplyGravity();
 		//gravity not appearing? GD.Print(Velocity);
-		//GD.Print(velocityComponent.GetVelocity());
+		GD.Print(velocityComponent.GetVelocity());
 		
 	}
 

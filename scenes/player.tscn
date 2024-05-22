@@ -15,7 +15,7 @@
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_l3vqk"]
 size = Vector2(21.7822, 19.901)
 
-[sub_resource type="Resource" id="Resource_ow86e"]
+[sub_resource type="Resource" id="Resource_p4hgm"]
 resource_local_to_scene = true
 script = ExtResource("7_6lss0")
 Damage = 1
@@ -27,7 +27,7 @@ size = Vector2(20, 21)
 
 [sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_4awkr"]
 
-[sub_resource type="Resource" id="Resource_068fp"]
+[sub_resource type="Resource" id="Resource_hmb4k"]
 resource_local_to_scene = true
 script = ExtResource("7_6lss0")
 Damage = 1
@@ -53,7 +53,6 @@ collision_mask = 6
 collision_priority = 0.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox_Component"]
-position = Vector2(-60, -64)
 scale = Vector2(1.01, 1.01)
 shape = SubResource("RectangleShape2D_l3vqk")
 
@@ -61,10 +60,9 @@ shape = SubResource("RectangleShape2D_l3vqk")
 z_index = 1
 collision_layer = 4
 collision_mask = 2
-stats = SubResource("Resource_ow86e")
+stats = SubResource("Resource_p4hgm")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox_Component"]
-position = Vector2(49, -61)
 shape = SubResource("RectangleShape2D_cggls")
 
 [node name="Camera2D" type="Camera2D" parent="."]
@@ -91,4 +89,4 @@ friction = 4.5
 
 [node name="Health_Component" parent="." node_paths=PackedStringArray("hurtBox") instance=ExtResource("6_il8va")]
 hurtBox = NodePath("../Hurtbox_Component")
-stats = SubResource("Resource_068fp")
+stats = SubResource("Resource_hmb4k")
