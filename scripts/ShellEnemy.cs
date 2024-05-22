@@ -20,7 +20,9 @@ public partial class ShellEnemy : CharacterBody2D
 	//turn off hitbox during hide
 	[Export]
 	HurtboxComponent hurtboxComponent;
-	bool directionSwitch = true;	
+	bool directionSwitch = true;
+	bool timeoutLock;	
+	SceneTreeTimer hideTimer;
 	StateMachine stateMachine = new();
 	public override void _Ready()
 	{
@@ -76,47 +78,111 @@ public partial class ShellEnemy : CharacterBody2D
 		
 		pathfindComponent.FollowPath();
 
-		if(GetSlideCollisionCount() != 0)
-		{
-			velocityComponent.CollisionCheck(GetLastSlideCollision());
-			if(collisionHandler.CheckCollisionObjectType(collisionHandler.GetCollisionObject(GetLastSlideCollision()), typeof(TileMap)))
-			{
-			velocityComponent.NormalForceCheck(collisionHandler.GetCollisionObject(GetLastSlideCollision()), collisionHandler.GetCollisionPosition(GetLastSlideCollision()), collisionHandler.GetCollisionAngle(GetLastSlideCollision()));
-			}
-		}
+		//if(GetSlideCollisionCount() != 0)
+		//{
+		//	velocityComponent.CollisionCheck(GetLastSlideCollision());
+		//	if(collisionHandler.CheckCollisionObjectType(collisionHandler.GetCollisionObject(GetLastSlideCollision()), typeof(TileMap)))
+		//	{
+		//	velocityComponent.NormalForceCheck(collisionHandler.GetCollisionObject(GetLastSlideCollision()), collisionHandler.GetCollisionPosition(GetLastSlideCollision()), collisionHandler.GetCollisionAngle(GetLastSlideCollision()));
+		//	}
+		//}
 	
 		velocityComponent.Move(this);
 		velocityComponent.ApplyGravity();	
 
-		//GD.Print(healthComponent.Health);
-
+		
+		//GD.Print(velocityComponent.GetVelocity());
 		if(healthComponent.Health == 1)
 		{
+			//GD.Print(healthComponent.Health);
+			//velocityComponent.SetVelocity(Vector2.Zero);
+
+			hideTimer = GetTree().CreateTimer(10);
+			//have do gate this because the entire state runs in a process loop -- need to figure out how to allow delegate states to execute outside of process
+			if(timeoutLock == false)
+			{
+			hideTimer.Timeout += OnHideTimerTimeout;  
+			timeoutLock = true;
+			}
+
 			stateMachine.AddState(HideState);
 			stateMachine.Enter();
+			GD.Print("Entering Hide State");
 		}
+		//GD.Print(GetSlideCollisionCount());
+		//GD.Print(hurtboxComponent.Monitoring = true);
+		//GD.Print(healthComponent.Health);
 	}
 
 	private void HideState()
 	{
+		//GD.Print(GetLastSlideCollision());
+		
 		hitboxComponent.Monitorable = false;
 		hurtboxComponent.Monitoring = false;
 
 		//GD.Print(healthComponent.Health);
-		var timer = GetTree().CreateTimer(5);
+		
 
-		
-		
-		var target = GlobalPosition;
-		pathfindComponent.CallDeferred("SetTargetPosition", target);	
-		pathfindComponent.FollowPath();
-		
+	    //GD.Print(GetTree());
+		//velocityComponent.CollisionCheck(GetLastSlideCollision());
+		//if(GetSlideCollisionCount() != 0)
+		//{
+		//	velocityComponent.CollisionCheck(GetLastSlideCollision());
+		//	if(collisionHandler.CheckCollisionObjectType(collisionHandler.GetCollisionObject(GetLastSlideCollision()), typeof(TileMap)))
+		//	{
+		//	velocityComponent.NormalForceCheck(collisionHandler.GetCollisionObject(GetLastSlideCollision()), collisionHandler.GetCollisionPosition(GetLastSlideCollision()), collisionHandler.GetCollisionAngle(GetLastSlideCollision()));
+		//	}
+		//}
+		if(GetSlideCollisionCount() != 0)
+		{
+			Vector2 collisionDirection = GetLastSlideCollision().GetNormal();
+			//GD.Print(collisionDirection);
+			//GD.Print(GetSlideCollisionCount());
+			switch(collisionDirection)
+			{
+				case (0,1):
+				velocityComponent.SetVelocity(new Vector2(75,0));
+				break;
+				case (1,0):
+				velocityComponent.SetVelocity(new Vector2(75, 0));
+				break;
+				case (-1,0):
+				velocityComponent.SetVelocity(new Vector2(-75,0));
+				break;
+
+			}
+			//var collidierVelocity = GetLastSlideCollision().GetColliderVelocity();
+			//var target = GlobalPosition + new Vector2(collidierVelocity.X, 0);
+			//pathfindComponent.CallDeferred("SetTargetPosition", target);	
+			//GD.Print(collidierVelocity);	
+		}
+
+	
+
+		//pathfindComponent.FollowPath();
+
 		velocityComponent.Move(this);
 		velocityComponent.ApplyGravity();
-
-		timer.Timeout += () => { healthComponent.SetHealth(2); hitboxComponent.Monitorable = true; hurtboxComponent.Monitoring = true; stateMachine.AddState(NormalState); stateMachine.Enter(); }; 
-
 		
+		
+		//GD.Print(velocityComponent.GetVelocity());
+		
+	}
+	private void OnHideTimerTimeout()
+	{
+		GD.Print("Entering Normal State"); 
+		//var callable = new Callable(this, MethodName.OnHideTimerTimeout);
+		healthComponent.SetHealth(2); 
+
+		hitboxComponent.Monitorable = true; 
+		hurtboxComponent.Monitoring = true; 
+
+		stateMachine.AddState(NormalState); 
+		stateMachine.Enter();
+
+		//Disconnect("Timeout", callable);
+		timeoutLock = false;
 	}
 	private void Die()
 	{

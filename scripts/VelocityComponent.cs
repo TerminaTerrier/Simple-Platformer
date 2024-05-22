@@ -26,21 +26,11 @@ public partial class VelocityComponent : Node2D
 	{
 		
 	}
-
-	
-
-	public void CollisionCheck(KinematicCollision2D collisionData)
-	{
-		var collisionVelocity = collisionData.GetColliderVelocity();
-		calculatedVelocity += new Vector2(collisionVelocity.X, 0);
-		//GD.Print(collisionVelocity);
-		return;
-	}
 	
 	public void NormalForceCheck(GodotObject collisionObject, Vector2 collisionPosition, float collisionAngle)  
 	{
 		//I should think of a way to make it so that this class is not responsible for detecting the tilemap
-		GD.Print(collisionAngle);
+		//GD.Print(collisionAngle);
 		
 		var tileMap = (TileMap)collisionObject;
 		var tilePosition = tileMap.LocalToMap(tileMap.ToLocal(collisionPosition));
@@ -50,6 +40,7 @@ public partial class VelocityComponent : Node2D
 		 switch (collisionAngle)
 		 {
 			//normal force doesn't get applied when collisions from two different angles (from the side and below) are occuring but it doesn't seem like a problem 
+			//replace with IsOnFloor()?
 			  case 0:
 				if(tile == new Vector2I(0, 0) | tile == new Vector2I(1, 0) | tile == new Vector2I(2, 0) | tile == new Vector2I(10, 7))
 				{
@@ -91,11 +82,15 @@ public partial class VelocityComponent : Node2D
 		AddForce(direction * accScalar);
 	}
 
+	public void SetVelocity(Vector2 newVelocity)
+	{
+		calculatedVelocity = newVelocity;
+	}
+
 	public void AddForce(Vector2 acceleration)
 	{
 		calculatedVelocity = calculatedVelocity.Clamp(new Vector2(-maxXSpeed, -maxYSpeed), new Vector2(maxXSpeed, maxYSpeed));
 		calculatedVelocity += (acceleration * mass) * (float)GetProcessDeltaTime();
-		
 	}
 
 	public void Decelerate()
@@ -128,6 +123,17 @@ public partial class VelocityComponent : Node2D
 		characterBody2D.Velocity = Velocity;
 		characterBody2D.MoveAndSlide();
 		//GD.Print(Velocity);
+		//GD.Print(characterBody2D.Velocity);
+	}
+
+	public void CollisionCheck(KinematicCollision2D collisionData)
+	{
+		//GD.Print(collisionData.GetColliderVelocity());
+		var collisionVelocity = collisionData.GetColliderVelocity();
+		calculatedVelocity += new Vector2(collisionVelocity.X, 0);
+		//GD.Print(collisionVelocity);
+		
+		
 	}
 
 	public Vector2 GetVelocity()

@@ -23,6 +23,7 @@ public partial class HealthComponent : Node2D
 
 	public void OnHitByHitbox(HitboxComponent hitBox)
 	{
+		GD.Print(didHit);
 		if(didHit == false)
 		{
 			didHit = true;
@@ -38,6 +39,7 @@ public partial class HealthComponent : Node2D
 		{
 			Health = Health + healthUpdate;
 			didHit = false;
+			GD.Print("HealthUpdated");
 		}
 
 		if(Health <= 0)

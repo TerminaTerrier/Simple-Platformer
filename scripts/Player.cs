@@ -15,7 +15,7 @@ public partial class Player : CharacterBody2D
 	[Export]
 	HealthComponent healthComponent;
 	[Export]
-	private int lives = 1;
+	private int lives = 3;
 	SignalBus signalBus;
 	StateMachine stateMachine = new();
 	public override void _Ready()
@@ -42,7 +42,8 @@ public partial class Player : CharacterBody2D
 			{
 				velocityComponent.NormalForceCheck(collisionHandler.GetCollisionObject(GetLastSlideCollision()), collisionHandler.GetCollisionPosition(GetLastSlideCollision()), collisionHandler.GetCollisionAngle(GetLastSlideCollision()));
 			}
-			velocityComponent.CollisionCheck(GetLastSlideCollision());
+			//velocityComponent.CollisionCheck(GetLastSlideCollision());
+			GD.Print(GetLastSlideCollision().GetNormal());
 		}
 		
 		if(playerController.PressFlag == false)
@@ -69,7 +70,8 @@ public partial class Player : CharacterBody2D
 			{
 				velocityComponent.NormalForceCheck(collisionHandler.GetCollisionObject(GetLastSlideCollision()), collisionHandler.GetCollisionPosition(GetLastSlideCollision()), collisionHandler.GetCollisionAngle(GetLastSlideCollision()));
 			}
-			velocityComponent.CollisionCheck(GetLastSlideCollision());
+			//velocityComponent.CollisionCheck(GetLastSlideCollision());
+			GD.Print(GetLastSlideCollision().GetNormal());
 		}
 	
 		if(playerController.PressFlag == false)
@@ -84,13 +86,16 @@ public partial class Player : CharacterBody2D
 		
 		velocityComponent.Move(this);
 		velocityComponent.ApplyGravity();
-		GD.Print(velocityComponent.GetVelocity());
+		//gravity not appearing? GD.Print(Velocity);
+		//GD.Print(velocityComponent.GetVelocity());
+		
 	}
 
 	private void Die()
 	{
 		EmitSignal("PlayerDeath");
 		lives--;
+		GD.Print(lives);
 		if(lives == 0)
 		{
 			signalBus.EmitSignal("GameOver");

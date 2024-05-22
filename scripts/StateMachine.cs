@@ -22,6 +22,8 @@ public partial class StateMachine : Node
 		statesStack.Push(state);
 	}
 
+	//use while loop to search through stack and easily switch between states?
+
 	public void Exit()
 	{
 		statesStack.Clear();

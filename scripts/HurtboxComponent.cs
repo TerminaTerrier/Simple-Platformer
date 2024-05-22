@@ -10,12 +10,12 @@ public partial class HurtboxComponent : Area2D
 	{
 		AreaEntered += OnArea2DEntered;
 	}
-
-	public void OnArea2DEntered(Area2D otherArea)
+    public void OnArea2DEntered(Area2D otherArea)
 	{
 		if(otherArea is HitboxComponent hitboxComponent)
 		{
 			EmitSignal("HitByHitbox", hitboxComponent);
+			GD.Print("Hit!");
 		}
 	}
 }

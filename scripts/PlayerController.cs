@@ -41,7 +41,7 @@ public partial class PlayerController : Node2D
 		{
 			direction = Vector2.Left;
 			PressFlag = true;
-			GD.Print("left");
+			//GD.Print("left");
 		}
 		
 
@@ -49,7 +49,7 @@ public partial class PlayerController : Node2D
 		{
 			direction = Vector2.Right;
 			PressFlag = true;
-			GD.Print("Right");
+			//GD.Print("Right");
 		}
 
 	

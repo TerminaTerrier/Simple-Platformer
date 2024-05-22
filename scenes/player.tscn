@@ -10,20 +10,12 @@
 [ext_resource type="PackedScene" uid="uid://bhnefvy53fwyu" path="res://scenes/hitbox_component.tscn" id="7_5dgt8"]
 [ext_resource type="Script" path="res://resources/Stats.cs" id="7_6lss0"]
 
-[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_4awkr"]
-
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_4w5ce"]
 
-[sub_resource type="Resource" id="Resource_v5evk"]
-resource_local_to_scene = true
-script = ExtResource("7_6lss0")
-Damage = 1
-MaxHealth = 3
-StartingHealth = 1
-
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_l3vqk"]
+size = Vector2(21.7822, 19.901)
 
-[sub_resource type="Resource" id="Resource_5dx44"]
+[sub_resource type="Resource" id="Resource_ow86e"]
 resource_local_to_scene = true
 script = ExtResource("7_6lss0")
 Damage = 1
@@ -31,28 +23,56 @@ MaxHealth = 3
 StartingHealth = 1
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_cggls"]
+size = Vector2(20, 21)
+
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_4awkr"]
+
+[sub_resource type="Resource" id="Resource_068fp"]
+resource_local_to_scene = true
+script = ExtResource("7_6lss0")
+Damage = 1
+MaxHealth = 3
+StartingHealth = 1
 
 [node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("velocityComponent", "playerController", "collisionHandler", "healthComponent")]
 collision_layer = 2
 collision_mask = 3
+safe_margin = 0.001
 script = ExtResource("1_g76b5")
 velocityComponent = NodePath("Velocity_Component")
 playerController = NodePath("Player_Controller")
 collisionHandler = NodePath("Collision_Handler")
 healthComponent = NodePath("Health_Component")
-lives = 3
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_4w5ce")
+
+[node name="Hurtbox_Component" parent="." instance=ExtResource("6_1fnte")]
+collision_layer = 8
+collision_mask = 6
+collision_priority = 0.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox_Component"]
+position = Vector2(-60, -64)
+scale = Vector2(1.01, 1.01)
+shape = SubResource("RectangleShape2D_l3vqk")
+
+[node name="Hitbox_Component" parent="." instance=ExtResource("7_5dgt8")]
+z_index = 1
+collision_layer = 4
+collision_mask = 2
+stats = SubResource("Resource_ow86e")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox_Component"]
+position = Vector2(49, -61)
+shape = SubResource("RectangleShape2D_cggls")
 
 [node name="Camera2D" type="Camera2D" parent="."]
 zoom = Vector2(1.5, 1.5)
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-z_index = 1
-position = Vector2(-7.7486e-07, -4.17233e-07)
-scale = Vector2(20, 20)
+scale = Vector2(18, 18)
 texture = SubResource("PlaceholderTexture2D_4awkr")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-shape = SubResource("RectangleShape2D_4w5ce")
 
 [node name="Player_Controller" parent="." node_paths=PackedStringArray("player", "velocityComponent", "raycastComponent") instance=ExtResource("2_g8khw")]
 player = NodePath("..")
@@ -71,17 +91,4 @@ friction = 4.5
 
 [node name="Health_Component" parent="." node_paths=PackedStringArray("hurtBox") instance=ExtResource("6_il8va")]
 hurtBox = NodePath("../Hurtbox_Component")
-stats = SubResource("Resource_v5evk")
-
-[node name="Hurtbox_Component" parent="." instance=ExtResource("6_1fnte")]
-collision_mask = 2
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox_Component"]
-shape = SubResource("RectangleShape2D_l3vqk")
-
-[node name="Hitbox_Component" parent="." instance=ExtResource("7_5dgt8")]
-collision_mask = 2
-stats = SubResource("Resource_5dx44")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox_Component"]
-shape = SubResource("RectangleShape2D_cggls")
+stats = SubResource("Resource_068fp")

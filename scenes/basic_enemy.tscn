@@ -15,14 +15,14 @@
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_hrify"]
 size = Vector2(9, 8)
 
-[sub_resource type="Resource" id="Resource_ygyyx"]
+[sub_resource type="Resource" id="Resource_ai7lp"]
 resource_local_to_scene = true
 script = ExtResource("7_0dv2t")
 Damage = 1
 MaxHealth = 3
 StartingHealth = 1
 
-[sub_resource type="Resource" id="Resource_esdhl"]
+[sub_resource type="Resource" id="Resource_kvd24"]
 resource_local_to_scene = true
 script = ExtResource("7_0dv2t")
 Damage = 1
@@ -33,7 +33,7 @@ StartingHealth = 2
 size = Vector2(10, 7.25)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_dxsxa"]
-size = Vector2(8, 8.5)
+size = Vector2(8, 0.625)
 
 [node name="Basic_Enemy" type="CharacterBody2D" node_paths=PackedStringArray("velocityComponent", "pathfindComponent", "collisionHandler", "raycastComponent", "healthComponent")]
 script = ExtResource("1_aqww8")
@@ -73,18 +73,21 @@ debug_enabled = true
 
 [node name="Health_Component" parent="." node_paths=PackedStringArray("hurtBox") instance=ExtResource("6_ruqld")]
 hurtBox = NodePath("../Hurtbox_Component")
-stats = SubResource("Resource_ygyyx")
+stats = SubResource("Resource_ai7lp")
 
 [node name="Hitbox_Component" parent="." instance=ExtResource("6_o1bl5")]
-collision_layer = 2
-stats = SubResource("Resource_esdhl")
+collision_layer = 4
+collision_mask = 2
+stats = SubResource("Resource_kvd24")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox_Component"]
 position = Vector2(0, 0.625)
 shape = SubResource("RectangleShape2D_vbbne")
 
 [node name="Hurtbox_Component" parent="." instance=ExtResource("8_otieq")]
-collision_layer = 2
+collision_layer = 8
+collision_mask = 6
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox_Component"]
+position = Vector2(0, -4.3125)
 shape = SubResource("RectangleShape2D_dxsxa")

@@ -10,32 +10,35 @@
 [ext_resource type="PackedScene" uid="uid://bhnefvy53fwyu" path="res://scenes/hitbox_component.tscn" id="8_jaqhd"]
 [ext_resource type="PackedScene" uid="uid://dwduj8cfffhyx" path="res://scenes/hurtbox_component.tscn" id="9_ue388"]
 
-[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_2cvro"]
-
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_751dj"]
-size = Vector2(16, 14)
+size = Vector2(15.8431, 12.993)
 
-[sub_resource type="Resource" id="Resource_3kfcl"]
+[sub_resource type="Resource" id="Resource_ytrjp"]
 resource_local_to_scene = true
 script = ExtResource("7_lpnrs")
 Damage = 1
 MaxHealth = 3
 StartingHealth = 2
 
-[sub_resource type="Resource" id="Resource_kx1uk"]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ri70x"]
+size = Vector2(14.8052, 10.6775)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_5nyv7"]
+size = Vector2(14, 16.5)
+
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_2cvro"]
+
+[sub_resource type="Resource" id="Resource_m7q4v"]
 resource_local_to_scene = true
 script = ExtResource("7_lpnrs")
 Damage = 1
 MaxHealth = 3
-StartingHealth = 1
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_ri70x"]
-size = Vector2(16, 13)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_5nyv7"]
-size = Vector2(14, 15)
+StartingHealth = 2
 
 [node name="Shell_Enemy" type="CharacterBody2D" node_paths=PackedStringArray("velocityComponent", "pathfindComponent", "collisionHandler", "raycastComponent", "healthComponent", "hitboxComponent", "hurtboxComponent")]
+collision_layer = 2
+collision_mask = 3
+safe_margin = 0.001
 script = ExtResource("1_3if3u")
 velocityComponent = NodePath("Velocity_Component")
 pathfindComponent = NodePath("Pathfind_Component")
@@ -45,15 +48,43 @@ healthComponent = NodePath("Health_Component")
 hitboxComponent = NodePath("Hitbox_Component")
 hurtboxComponent = NodePath("Hurtbox_Component")
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
-position = Vector2(-2.98023e-08, -0.0624998)
-scale = Vector2(16.25, 14.125)
-texture = SubResource("PlaceholderTexture2D_2cvro")
-
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+z_index = 1
+position = Vector2(0, -0.4965)
+scale = Vector2(1.02, 1)
 shape = SubResource("RectangleShape2D_751dj")
 
+[node name="Hitbox_Component" parent="." instance=ExtResource("8_jaqhd")]
+scale = Vector2(1.01, 1.01)
+collision_layer = 4
+collision_mask = 2
+collision_priority = 5.0
+stats = SubResource("Resource_ytrjp")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox_Component"]
+z_index = 2
+position = Vector2(48.5149, -8.91089)
+scale = Vector2(1.07, 1.02)
+shape = SubResource("RectangleShape2D_ri70x")
+debug_color = Color(0.603922, 0.537255, 0.215686, 0.419608)
+
+[node name="Hurtbox_Component" parent="." instance=ExtResource("9_ue388")]
+collision_layer = 8
+collision_mask = 6
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox_Component"]
+z_index = 1
+position = Vector2(50, -61)
+shape = SubResource("RectangleShape2D_5nyv7")
+debug_color = Color(0.945098, 0.231373, 0.141176, 0.419608)
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(1.19209e-07, 0)
+scale = Vector2(15.125, 11.5625)
+texture = SubResource("PlaceholderTexture2D_2cvro")
+
 [node name="Velocity_Component" parent="." instance=ExtResource("2_23adh")]
+maxYSpeed = 100.0
 mass = 10.0
 friction = 4.3
 
@@ -72,18 +103,4 @@ debug_enabled = true
 
 [node name="Health_Component" parent="." node_paths=PackedStringArray("hurtBox") instance=ExtResource("6_7d227")]
 hurtBox = NodePath("../Hurtbox_Component")
-stats = SubResource("Resource_3kfcl")
-
-[node name="Hitbox_Component" parent="." instance=ExtResource("8_jaqhd")]
-collision_layer = 2
-stats = SubResource("Resource_kx1uk")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox_Component"]
-shape = SubResource("RectangleShape2D_ri70x")
-
-[node name="Hurtbox_Component" parent="." instance=ExtResource("9_ue388")]
-collision_layer = 2
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox_Component"]
-position = Vector2(0, -0.5)
-shape = SubResource("RectangleShape2D_5nyv7")
+stats = SubResource("Resource_m7q4v")

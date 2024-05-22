@@ -16,6 +16,7 @@ public partial class PathfindComponent : Node2D
 	public void SetTargetPosition(Vector2 target)
 	{
 		navAgent.TargetPosition = target;
+
 	}
 	
 	public void FollowPath()
