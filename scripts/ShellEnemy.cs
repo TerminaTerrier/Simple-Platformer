@@ -128,17 +128,6 @@ public partial class ShellEnemy : CharacterBody2D
 
 		//GD.Print(healthComponent.Health);
 		
-
-	    //GD.Print(GetTree());
-		//velocityComponent.CollisionCheck(GetLastSlideCollision());
-		//if(GetSlideCollisionCount() != 0)
-		//{
-		//	velocityComponent.CollisionCheck(GetLastSlideCollision());
-		//	if(collisionHandler.CheckCollisionObjectType(collisionHandler.GetCollisionObject(GetLastSlideCollision()), typeof(TileMap)))
-		//	{
-		//	velocityComponent.NormalForceCheck(collisionHandler.GetCollisionObject(GetLastSlideCollision()), collisionHandler.GetCollisionPosition(GetLastSlideCollision()), collisionHandler.GetCollisionAngle(GetLastSlideCollision()));
-		//	}
-		//}
 		if(GetSlideCollisionCount() != 0)
 		{
 			Vector2 collisionDirection = GetLastSlideCollision().GetNormal();

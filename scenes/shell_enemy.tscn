@@ -13,7 +13,7 @@
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_751dj"]
 size = Vector2(15.8431, 12)
 
-[sub_resource type="Resource" id="Resource_36ohx"]
+[sub_resource type="Resource" id="Resource_wmdbu"]
 resource_local_to_scene = true
 script = ExtResource("7_lpnrs")
 Damage = 1
@@ -28,7 +28,7 @@ size = Vector2(14, 2.125)
 
 [sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_2cvro"]
 
-[sub_resource type="Resource" id="Resource_j8p8n"]
+[sub_resource type="Resource" id="Resource_c0j05"]
 resource_local_to_scene = true
 script = ExtResource("7_lpnrs")
 Damage = 1
@@ -59,7 +59,7 @@ scale = Vector2(1.01, 1.01)
 collision_layer = 4
 collision_mask = 2
 collision_priority = 5.0
-stats = SubResource("Resource_36ohx")
+stats = SubResource("Resource_wmdbu")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox_Component"]
 z_index = 2
@@ -103,7 +103,7 @@ debug_enabled = true
 
 [node name="Health_Component" parent="." node_paths=PackedStringArray("hurtBox") instance=ExtResource("6_7d227")]
 hurtBox = NodePath("../Hurtbox_Component")
-stats = SubResource("Resource_j8p8n")
+stats = SubResource("Resource_c0j05")
 
 [node name="RayCast2D" type="RayCast2D" parent="."]
 target_position = Vector2(0, -7)

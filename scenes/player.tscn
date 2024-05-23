@@ -15,7 +15,7 @@
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_l3vqk"]
 size = Vector2(21.7822, 18.8614)
 
-[sub_resource type="Resource" id="Resource_bdkge"]
+[sub_resource type="Resource" id="Resource_1cdh1"]
 resource_local_to_scene = true
 script = ExtResource("7_6lss0")
 Damage = 1
@@ -27,7 +27,7 @@ size = Vector2(20, 21)
 
 [sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_4awkr"]
 
-[sub_resource type="Resource" id="Resource_mejh8"]
+[sub_resource type="Resource" id="Resource_c1ojg"]
 resource_local_to_scene = true
 script = ExtResource("7_6lss0")
 Damage = 1
@@ -45,6 +45,7 @@ healthComponent = NodePath("Health_Component")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_4w5ce")
+debug_color = Color(1, 1, 1, 0.419608)
 
 [node name="Hurtbox_Component" parent="." instance=ExtResource("6_1fnte")]
 collision_layer = 8
@@ -55,15 +56,17 @@ collision_priority = 0.0
 position = Vector2(0, -0.525002)
 scale = Vector2(1.01, 1.01)
 shape = SubResource("RectangleShape2D_l3vqk")
+debug_color = Color(0.329412, 0.623529, 0, 0.419608)
 
 [node name="Hitbox_Component" parent="." instance=ExtResource("7_5dgt8")]
 z_index = 1
 collision_layer = 4
 collision_mask = 2
-stats = SubResource("Resource_bdkge")
+stats = SubResource("Resource_1cdh1")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox_Component"]
 shape = SubResource("RectangleShape2D_cggls")
+debug_color = Color(0.984314, 0, 0.345098, 0.419608)
 
 [node name="Camera2D" type="Camera2D" parent="."]
 zoom = Vector2(1.5, 1.5)
@@ -89,4 +92,4 @@ friction = 4.5
 
 [node name="Health_Component" parent="." node_paths=PackedStringArray("hurtBox") instance=ExtResource("6_il8va")]
 hurtBox = NodePath("../Hurtbox_Component")
-stats = SubResource("Resource_mejh8")
+stats = SubResource("Resource_c1ojg")
