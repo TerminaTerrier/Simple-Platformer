@@ -20,6 +20,8 @@ public partial class ShellEnemy : CharacterBody2D
 	//turn off hitbox during hide
 	[Export]
 	HurtboxComponent hurtboxComponent;
+	[Export]
+	RayCast2D upRaycast;
 	bool directionSwitch = true;
 	bool timeoutLock;	
 	SceneTreeTimer hideTimer;
@@ -73,7 +75,7 @@ public partial class ShellEnemy : CharacterBody2D
 		 		//GD.Print(raycastComponent.GetRayCastQuery().Count);
 		 	}
 			//GD.Print(directionSwitch);
-			
+			  //GD.Print(GetLastSlideCollision().GetNormal());
 		 }
 		
 		pathfindComponent.FollowPath();
@@ -107,19 +109,22 @@ public partial class ShellEnemy : CharacterBody2D
 
 			stateMachine.AddState(HideState);
 			stateMachine.Enter();
+
+			hitboxComponent.Monitorable = false;
+			hurtboxComponent.Monitoring = false;
 			GD.Print("Entering Hide State");
 		}
 		//GD.Print(GetSlideCollisionCount());
 		//GD.Print(hurtboxComponent.Monitoring = true);
 		//GD.Print(healthComponent.Health);
+		
 	}
 
 	private void HideState()
 	{
 		//GD.Print(GetLastSlideCollision());
 		
-		hitboxComponent.Monitorable = false;
-		hurtboxComponent.Monitoring = false;
+		
 
 		//GD.Print(healthComponent.Health);
 		
@@ -141,21 +146,34 @@ public partial class ShellEnemy : CharacterBody2D
 			//GD.Print(GetSlideCollisionCount());
 			switch(collisionDirection)
 			{
-				case (0,1):
-				velocityComponent.SetVelocity(new Vector2(75,0));
-				break;
 				case (1,0):
 				velocityComponent.SetVelocity(new Vector2(75, 0));
+				hitboxComponent.Monitorable = true;
 				break;
 				case (-1,0):
 				velocityComponent.SetVelocity(new Vector2(-75,0));
+				hitboxComponent.Monitorable = true;
 				break;
 
 			}
+
+			if(upRaycast.IsColliding())
+			{
+				if(velocityComponent.Velocity != Vector2.Zero )
+				{
+					velocityComponent.SetVelocity(Vector2.Zero);
+				}
+				else if(velocityComponent.Velocity == Vector2.Zero)
+				{
+					velocityComponent.SetVelocity(new Vector2(75, 0));
+				}
+			}
+			
 			//var collidierVelocity = GetLastSlideCollision().GetColliderVelocity();
 			//var target = GlobalPosition + new Vector2(collidierVelocity.X, 0);
 			//pathfindComponent.CallDeferred("SetTargetPosition", target);	
 			//GD.Print(collidierVelocity);	
+			GD.Print(GetLastSlideCollision().GetNormal());
 		}
 
 	

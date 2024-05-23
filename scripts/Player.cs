@@ -44,7 +44,7 @@ public partial class Player : CharacterBody2D
 			//}
 			//velocityComponent.CollisionCheck(GetLastSlideCollision());
 			velocityComponent.NormalForceCheck(this);
-			GD.Print(GetLastSlideCollision().GetNormal());
+			//GD.Print(GetLastSlideCollision().GetNormal());
 		}
 		
 		if(playerController.PressFlag == false)
@@ -68,7 +68,7 @@ public partial class Player : CharacterBody2D
 		if(GetSlideCollisionCount() != 0)
 		{
 			velocityComponent.NormalForceCheck(this);
-			GD.Print(GetLastSlideCollision().GetNormal());
+			//GD.Print(GetLastSlideCollision().GetNormal());
 		}
 	
 		if(playerController.PressFlag == false)
@@ -84,7 +84,7 @@ public partial class Player : CharacterBody2D
 		velocityComponent.Move(this);
 		velocityComponent.ApplyGravity();
 		//gravity not appearing? GD.Print(Velocity);
-		GD.Print(velocityComponent.GetVelocity());
+		//GD.Print(velocityComponent.GetVelocity());
 		
 	}
 
@@ -92,7 +92,7 @@ public partial class Player : CharacterBody2D
 	{
 		EmitSignal("PlayerDeath");
 		lives--;
-		GD.Print(lives);
+		//GD.Print(lives);
 		if(lives == 0)
 		{
 			signalBus.EmitSignal("GameOver");
