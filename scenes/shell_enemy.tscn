@@ -13,7 +13,7 @@
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_751dj"]
 size = Vector2(15.8431, 12)
 
-[sub_resource type="Resource" id="Resource_wmdbu"]
+[sub_resource type="Resource" id="Resource_7pjv0"]
 resource_local_to_scene = true
 script = ExtResource("7_lpnrs")
 Damage = 1
@@ -28,14 +28,14 @@ size = Vector2(14, 2.125)
 
 [sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_2cvro"]
 
-[sub_resource type="Resource" id="Resource_c0j05"]
+[sub_resource type="Resource" id="Resource_jdour"]
 resource_local_to_scene = true
 script = ExtResource("7_lpnrs")
 Damage = 1
 MaxHealth = 3
 StartingHealth = 2
 
-[node name="Shell_Enemy" type="CharacterBody2D" node_paths=PackedStringArray("velocityComponent", "pathfindComponent", "collisionHandler", "raycastComponent", "healthComponent", "hitboxComponent", "hurtboxComponent", "upRaycast")]
+[node name="Shell_Enemy" type="CharacterBody2D" node_paths=PackedStringArray("velocityComponent", "pathfindComponent", "collisionHandler", "raycastComponent", "healthComponent", "hitboxComponent", "hurtboxComponent", "upRaycast", "leftRaycast", "rightRaycast")]
 collision_layer = 2
 collision_mask = 3
 safe_margin = 0.001
@@ -47,7 +47,9 @@ raycastComponent = NodePath("Raycast_Component")
 healthComponent = NodePath("Health_Component")
 hitboxComponent = NodePath("Hitbox_Component")
 hurtboxComponent = NodePath("Hurtbox_Component")
-upRaycast = NodePath("RayCast2D")
+upRaycast = NodePath("Up_RayCast")
+leftRaycast = NodePath("Left_RayCast")
+rightRaycast = NodePath("Right_RayCast")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 z_index = 1
@@ -59,7 +61,7 @@ scale = Vector2(1.01, 1.01)
 collision_layer = 4
 collision_mask = 2
 collision_priority = 5.0
-stats = SubResource("Resource_wmdbu")
+stats = SubResource("Resource_7pjv0")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox_Component"]
 z_index = 2
@@ -103,8 +105,18 @@ debug_enabled = true
 
 [node name="Health_Component" parent="." node_paths=PackedStringArray("hurtBox") instance=ExtResource("6_7d227")]
 hurtBox = NodePath("../Hurtbox_Component")
-stats = SubResource("Resource_c0j05")
+stats = SubResource("Resource_jdour")
 
-[node name="RayCast2D" type="RayCast2D" parent="."]
+[node name="Up_RayCast" type="RayCast2D" parent="."]
 target_position = Vector2(0, -7)
 collision_mask = 3
+
+[node name="Left_RayCast" type="RayCast2D" parent="."]
+position = Vector2(-1, 0)
+target_position = Vector2(-9, 0)
+collision_mask = 2
+
+[node name="Right_RayCast" type="RayCast2D" parent="."]
+position = Vector2(1, 0)
+target_position = Vector2(9, 0)
+collision_mask = 2

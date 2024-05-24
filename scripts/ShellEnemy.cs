@@ -22,7 +22,12 @@ public partial class ShellEnemy : CharacterBody2D
 	HurtboxComponent hurtboxComponent;
 	[Export]
 	RayCast2D upRaycast;
+	[Export]
+	RayCast2D leftRaycast;
+	[Export]
+	RayCast2D rightRaycast;
 	bool directionSwitch = true;
+	bool enemyStopped;
 	bool timeoutLock;	
 	SceneTreeTimer hideTimer;
 	StateMachine stateMachine = new();
@@ -146,23 +151,36 @@ public partial class ShellEnemy : CharacterBody2D
 
 			}
 
-			if(upRaycast.IsColliding())
+			
+
+			if(upRaycast.IsColliding() | enemyStopped == true)
 			{
+				hitboxComponent.Monitorable = false;
+				enemyStopped = true;
+
 				if(velocityComponent.Velocity != Vector2.Zero )
 				{
 					velocityComponent.SetVelocity(Vector2.Zero);
 				}
-				else if(velocityComponent.Velocity == Vector2.Zero)
+				
+				if(enemyStopped == true)
 				{
-					velocityComponent.SetVelocity(new Vector2(75, 0));
+					if(upRaycast.IsColliding() | leftRaycast.IsColliding() | rightRaycast.IsColliding() && velocityComponent.Velocity == Vector2.Zero)
+					{
+						velocityComponent.SetVelocity(new Vector2(75, 0));
+						enemyStopped = false;
+						GD.Print("push detected");
+					}
 				}
+				
 			}
 			
 			//var collidierVelocity = GetLastSlideCollision().GetColliderVelocity();
 			//var target = GlobalPosition + new Vector2(collidierVelocity.X, 0);
 			//pathfindComponent.CallDeferred("SetTargetPosition", target);	
 			//GD.Print(collidierVelocity);	
-			GD.Print(GetLastSlideCollision().GetNormal());
+			//GD.Print(GetLastSlideCollision().GetNormal());
+			//GD.Print( leftRaycast.IsColliding());
 		}
 
 	

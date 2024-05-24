@@ -15,7 +15,7 @@
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_l3vqk"]
 size = Vector2(21.7822, 18.8614)
 
-[sub_resource type="Resource" id="Resource_1cdh1"]
+[sub_resource type="Resource" id="Resource_pg02k"]
 resource_local_to_scene = true
 script = ExtResource("7_6lss0")
 Damage = 1
@@ -27,7 +27,7 @@ size = Vector2(20, 21)
 
 [sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_4awkr"]
 
-[sub_resource type="Resource" id="Resource_c1ojg"]
+[sub_resource type="Resource" id="Resource_qfwys"]
 resource_local_to_scene = true
 script = ExtResource("7_6lss0")
 Damage = 1
@@ -62,7 +62,7 @@ debug_color = Color(0.329412, 0.623529, 0, 0.419608)
 z_index = 1
 collision_layer = 4
 collision_mask = 2
-stats = SubResource("Resource_1cdh1")
+stats = SubResource("Resource_pg02k")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox_Component"]
 shape = SubResource("RectangleShape2D_cggls")
@@ -92,4 +92,4 @@ friction = 4.5
 
 [node name="Health_Component" parent="." node_paths=PackedStringArray("hurtBox") instance=ExtResource("6_il8va")]
 hurtBox = NodePath("../Hurtbox_Component")
-stats = SubResource("Resource_c1ojg")
+stats = SubResource("Resource_qfwys")
