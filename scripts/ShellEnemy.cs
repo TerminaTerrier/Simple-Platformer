@@ -21,6 +21,8 @@ public partial class ShellEnemy : CharacterBody2D
 	[Export]
 	HurtboxComponent hurtboxComponent;
 	[Export]
+	NavigationAgent2D navAgent;
+	[Export]
 	RayCast2D upRaycast;
 	[Export]
 	RayCast2D leftRaycast;
@@ -33,13 +35,10 @@ public partial class ShellEnemy : CharacterBody2D
 	StateMachine stateMachine = new();
 	public override void _Ready()
 	{
-			
-	
 		healthComponent.OnDeath += Die;
 
 		stateMachine.AddState(NormalState);
 		stateMachine.Enter();
-	
 	}
 
 	 public override void _PhysicsProcess(double delta)

@@ -7,5 +7,7 @@ public partial class SignalBus : Node
 	public delegate void StartGameEventHandler(); //emits when start button is clicked on main menu -- alerts UILoader to remove MainMenu & GameObjectLoader to load level one and player
 	[Signal]
 	public delegate void GameOverEventHandler(); //emits on player death -- frees current level and instantiates the Game Over menu
+	[Signal]
+	public delegate void SpecialBoxEventHandler(Vector2I spawnPosition); //emits when player hits a special box from below
 
 }

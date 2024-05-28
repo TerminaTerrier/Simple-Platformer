@@ -80,6 +80,27 @@ public partial class Player : CharacterBody2D
 		{
 			velocityComponent.AccelerateInDirection(playerController.direction, 40f);
 		}
+
+		if(GetSlideCollisionCount() != 0)
+		{
+		var collisionData = GetLastSlideCollision();
+		GD.Print(collisionData.GetNormal());
+		if(collisionData.GetNormal() == Vector2.Down)
+		{
+			if(collisionHandler.CheckCollisionObjectType(collisionHandler.GetCollisionObject(collisionData), typeof(TileMap)))
+			{
+				GodotObject collider = collisionHandler.GetCollisionObject(collisionData);
+				var tileMap = (TileMap)collider;
+				//var tileMap = collisionHandler.CastCollisionObject<TileMap>(collider); -- invalidcastexception error, look into fixing
+				GD.Print(tileMap.GetCellAtlasCoords(1, tileMap.LocalToMap(collisionData.GetPosition() - new Vector2(0, 10))));
+				if(tileMap.GetCellAtlasCoords(1, tileMap.LocalToMap(collisionData.GetPosition() - new Vector2(0, 10))) == new Vector2I(1,0))
+				{
+					signalBus.EmitSignal(SignalBus.SignalName.SpecialBox, tileMap.MapToLocal(tileMap.LocalToMap(collisionData.GetPosition()- new Vector2I(0,25))));
+					GD.Print("Emitted");
+				}
+			}
+		}
+		}
 		
 		velocityComponent.Move(this);
 		velocityComponent.ApplyGravity();
