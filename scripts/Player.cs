@@ -16,6 +16,7 @@ public partial class Player : CharacterBody2D
 	HealthComponent healthComponent;
 	[Export]
 	private int lives = 3;
+	bool spawnLock = false;	
 	SignalBus signalBus;
 	StateMachine stateMachine = new();
 	public override void _Ready()
@@ -56,7 +57,7 @@ public partial class Player : CharacterBody2D
 			stateMachine.AddState(WalkState);
 			stateMachine.Enter();
 		}
-
+		spawnLock = false;
 		velocityComponent.Move(this);
 		//gravity must be called last to avoid it being added to velocity before a normal force check is completed
 		velocityComponent.ApplyGravity();
@@ -89,18 +90,21 @@ public partial class Player : CharacterBody2D
 		{
 			if(collisionHandler.CheckCollisionObjectType(collisionHandler.GetCollisionObject(collisionData), typeof(TileMap)))
 			{
+				
 				GodotObject collider = collisionHandler.GetCollisionObject(collisionData);
 				var tileMap = (TileMap)collider;
 				//var tileMap = collisionHandler.CastCollisionObject<TileMap>(collider); -- invalidcastexception error, look into fixing
 				GD.Print(tileMap.GetCellAtlasCoords(1, tileMap.LocalToMap(collisionData.GetPosition() - new Vector2(0, 10))));
-				if(tileMap.GetCellAtlasCoords(1, tileMap.LocalToMap(collisionData.GetPosition() - new Vector2(0, 10))) == new Vector2I(1,0))
+				if(tileMap.GetCellAtlasCoords(1, tileMap.LocalToMap(collisionData.GetPosition() - new Vector2(0, 10))) == new Vector2I(1,0) && spawnLock == false)
 				{
 					signalBus.EmitSignal(SignalBus.SignalName.SpecialBox, tileMap.MapToLocal(tileMap.LocalToMap(collisionData.GetPosition()- new Vector2I(0,25))));
 					GD.Print("Emitted");
+					spawnLock = true;
 				}
 			}
 		}
 		}
+		
 		
 		velocityComponent.Move(this);
 		velocityComponent.ApplyGravity();

@@ -12,12 +12,15 @@ public partial class LVL1_TileMapManager : TileMap
         signalBus = GetNode<SignalBus>("/root/SignalBus");
 		
 		signalBus.SpecialBox += OnSpecialBoxHit;
+
     }
 
 	private void OnSpecialBoxHit(Vector2I spawnPosition)
 	{
 		GD.Print(spawnPosition);
 		Node2D powerUpInstance = (Node2D)powerUp.Instantiate();
+		EraseCell(1, LocalToMap(spawnPosition + new Vector2I(0,10)));
+		SetCell(1, LocalToMap(spawnPosition + new Vector2I(0,10)), 3, new Vector2I(1, 1));
 		AddChild(powerUpInstance);
 		powerUpInstance.Position = spawnPosition;
 	}

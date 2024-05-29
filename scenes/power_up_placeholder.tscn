@@ -1,14 +1,46 @@
-[gd_scene load_steps=3 format=3 uid="uid://1d83rxpbdylg"]
+[gd_scene load_steps=9 format=3 uid="uid://1d83rxpbdylg"]
 
 [ext_resource type="Texture2D" uid="uid://siy1xfgbk4vj" path="res://assets/art/powerup_placeholder.png" id="1_ggayj"]
+[ext_resource type="Script" path="res://scripts/RegularPowerUp.cs" id="1_gqrg3"]
+[ext_resource type="PackedScene" uid="uid://cj61p2pt0xi67" path="res://scenes/velocity_component.tscn" id="3_ueewa"]
+[ext_resource type="PackedScene" uid="uid://c35byt6vairv6" path="res://scenes/pathfind_component.tscn" id="4_cjntg"]
+[ext_resource type="PackedScene" uid="uid://d3icphik8drdp" path="res://scenes/raycast_component.tscn" id="5_vymdv"]
+[ext_resource type="PackedScene" uid="uid://bfpoog15n78th" path="res://scenes/collision_handler.tscn" id="6_0kgf1"]
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_hkjuu"]
-radius = 23.0217
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_4rxht"]
+size = Vector2(16, 18)
 
-[node name="PowerUp_Placeholder" type="Area2D"]
+[sub_resource type="CircleShape2D" id="CircleShape2D_rwnhd"]
+radius = 13.0384
+
+[node name="PowerUp_Placeholder" type="CharacterBody2D" node_paths=PackedStringArray("velocityComponent", "pathfindComponent", "collisionHandler", "raycastComponent")]
+collision_layer = 16
+collision_mask = 17
+script = ExtResource("1_gqrg3")
+velocityComponent = NodePath("Velocity_Component")
+pathfindComponent = NodePath("Pathfind_Component")
+collisionHandler = NodePath("Collision_Handler")
+raycastComponent = NodePath("Raycast_Component")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("1_ggayj")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-shape = SubResource("CircleShape2D_hkjuu")
+position = Vector2(0, -1)
+shape = SubResource("RectangleShape2D_4rxht")
+
+[node name="Velocity_Component" parent="." instance=ExtResource("3_ueewa")]
+
+[node name="Pathfind_Component" parent="." instance=ExtResource("4_cjntg")]
+
+[node name="Raycast_Component" parent="." instance=ExtResource("5_vymdv")]
+
+[node name="Collision_Handler" parent="." instance=ExtResource("6_0kgf1")]
+
+[node name="Area2D" type="Area2D" parent="."]
+collision_mask = 3
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("CircleShape2D_rwnhd")
+
+[connection signal="body_entered" from="Area2D" to="." method="OnBodyEntered"]
