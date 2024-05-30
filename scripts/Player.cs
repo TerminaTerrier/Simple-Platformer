@@ -18,6 +18,8 @@ public partial class Player : CharacterBody2D
 	[Export]
 	HurtboxComponent hurtboxComponent;
 	[Export]
+	HitboxComponent hitboxComponent;
+	[Export]
 	private int lives = 3;
 	[Export]
 	CollisionShape2D collisionShape2D;
@@ -52,6 +54,8 @@ public partial class Player : CharacterBody2D
 			case 0:
 			healthComponent.SetHealth(1);
 			collisionShape2D.Scale = new Vector2(1,1f);
+			hurtboxComponent.Scale = new Vector2(1.01f,1.01f);
+			hitboxComponent.Scale = new Vector2(1,1f);
 			sprite.Scale = new Vector2(1.25f,1.188f);
 			break;
 			case 1:
@@ -59,6 +63,8 @@ public partial class Player : CharacterBody2D
 			{
 			healthComponent.SetHealth(2);
 			collisionShape2D.Scale = new Vector2(1,1.5f);
+			hurtboxComponent.Scale = new Vector2(1.01f,1.01f);
+			hitboxComponent.Scale = new Vector2(1,1.25f);
 			sprite.Scale = new Vector2(1.25f,1.875f);
 			powerUpState = 1;
 			}
@@ -164,7 +170,7 @@ public partial class Player : CharacterBody2D
 		Timer timer = new();
 		AddChild(timer);
 		timer.OneShot = true;
-		timer.Start(5);
+		timer.Start(2);
 		timer.Timeout += () => hurtboxComponent.SetDeferred("monitoring", true);
 
 	}

@@ -17,7 +17,7 @@ size = Vector2(20, 19)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_l3vqk"]
 size = Vector2(21.7822, 18.8614)
 
-[sub_resource type="Resource" id="Resource_mo7n8"]
+[sub_resource type="Resource" id="Resource_hpdo4"]
 resource_local_to_scene = true
 script = ExtResource("7_6lss0")
 Damage = 1
@@ -27,14 +27,14 @@ StartingHealth = 1
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_cggls"]
 size = Vector2(20, 21)
 
-[sub_resource type="Resource" id="Resource_u8ks2"]
+[sub_resource type="Resource" id="Resource_hkvd1"]
 resource_local_to_scene = true
 script = ExtResource("7_6lss0")
 Damage = 1
 MaxHealth = 3
 StartingHealth = 1
 
-[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("velocityComponent", "playerController", "collisionHandler", "healthComponent", "hurtboxComponent", "collisionShape2D", "sprite")]
+[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("velocityComponent", "playerController", "collisionHandler", "healthComponent", "hurtboxComponent", "hitboxComponent", "collisionShape2D", "sprite")]
 collision_layer = 2
 collision_mask = 3
 script = ExtResource("1_g76b5")
@@ -43,6 +43,7 @@ playerController = NodePath("Player_Controller")
 collisionHandler = NodePath("Collision_Handler")
 healthComponent = NodePath("Health_Component")
 hurtboxComponent = NodePath("Hurtbox_Component")
+hitboxComponent = NodePath("Hitbox_Component")
 collisionShape2D = NodePath("CollisionShape2D")
 sprite = NodePath("Sprite2D")
 
@@ -68,7 +69,7 @@ debug_color = Color(0.639216, 0.521569, 0.172549, 0.419608)
 z_index = 1
 collision_layer = 2
 collision_mask = 12
-stats = SubResource("Resource_mo7n8")
+stats = SubResource("Resource_hpdo4")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox_Component"]
 z_index = 1
@@ -101,4 +102,4 @@ friction = 4.5
 
 [node name="Health_Component" parent="." node_paths=PackedStringArray("hurtBox") instance=ExtResource("6_il8va")]
 hurtBox = NodePath("../Hurtbox_Component")
-stats = SubResource("Resource_u8ks2")
+stats = SubResource("Resource_hkvd1")
