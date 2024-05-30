@@ -20,7 +20,7 @@ public partial class BasicEnemy : CharacterBody2D
 	StateMachine stateMachine = new();
 	public override void _Ready()
 	{
-		healthComponent.OnDeath += Die;
+		healthComponent.Death += Die;
 
 		stateMachine.AddState(NormalState);
 		stateMachine.Enter();

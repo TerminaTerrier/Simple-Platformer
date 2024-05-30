@@ -17,7 +17,7 @@ size = Vector2(20, 19)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_l3vqk"]
 size = Vector2(21.7822, 18.8614)
 
-[sub_resource type="Resource" id="Resource_10q27"]
+[sub_resource type="Resource" id="Resource_mo7n8"]
 resource_local_to_scene = true
 script = ExtResource("7_6lss0")
 Damage = 1
@@ -27,14 +27,14 @@ StartingHealth = 1
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_cggls"]
 size = Vector2(20, 21)
 
-[sub_resource type="Resource" id="Resource_n7rmn"]
+[sub_resource type="Resource" id="Resource_u8ks2"]
 resource_local_to_scene = true
 script = ExtResource("7_6lss0")
 Damage = 1
 MaxHealth = 3
 StartingHealth = 1
 
-[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("velocityComponent", "playerController", "collisionHandler", "healthComponent", "collisionShape2D", "sprite")]
+[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("velocityComponent", "playerController", "collisionHandler", "healthComponent", "hurtboxComponent", "collisionShape2D", "sprite")]
 collision_layer = 2
 collision_mask = 3
 script = ExtResource("1_g76b5")
@@ -42,6 +42,7 @@ velocityComponent = NodePath("Velocity_Component")
 playerController = NodePath("Player_Controller")
 collisionHandler = NodePath("Collision_Handler")
 healthComponent = NodePath("Health_Component")
+hurtboxComponent = NodePath("Hurtbox_Component")
 collisionShape2D = NodePath("CollisionShape2D")
 sprite = NodePath("Sprite2D")
 
@@ -52,8 +53,8 @@ shape = SubResource("RectangleShape2D_4w5ce")
 debug_color = Color(0, 0.54902, 0.243137, 0.419608)
 
 [node name="Hurtbox_Component" parent="." instance=ExtResource("6_1fnte")]
-collision_layer = 8
-collision_mask = 6
+collision_layer = 2
+collision_mask = 12
 collision_priority = 0.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox_Component"]
@@ -65,9 +66,9 @@ debug_color = Color(0.639216, 0.521569, 0.172549, 0.419608)
 
 [node name="Hitbox_Component" parent="." instance=ExtResource("7_5dgt8")]
 z_index = 1
-collision_layer = 4
-collision_mask = 2
-stats = SubResource("Resource_10q27")
+collision_layer = 2
+collision_mask = 12
+stats = SubResource("Resource_mo7n8")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox_Component"]
 z_index = 1
@@ -100,4 +101,4 @@ friction = 4.5
 
 [node name="Health_Component" parent="." node_paths=PackedStringArray("hurtBox") instance=ExtResource("6_il8va")]
 hurtBox = NodePath("../Hurtbox_Component")
-stats = SubResource("Resource_n7rmn")
+stats = SubResource("Resource_u8ks2")

@@ -4,7 +4,9 @@ using System;
 public partial class HealthComponent : Node2D
 {
 	[Signal]
-	public delegate void OnDeathEventHandler();
+	public delegate void DeathEventHandler();
+	[Signal]
+	public delegate void DamageEventHandler();
 	[Export]
 	public HurtboxComponent hurtBox;
 	[Export]
@@ -24,10 +26,12 @@ public partial class HealthComponent : Node2D
 	public void OnHitByHitbox(HitboxComponent hitBox)
 	{
 		GD.Print(didHit);
+		GD.Print(hitBox.GetParent().Name);
 		if(didHit == false)
 		{
 			didHit = true;
 			CalculateHealth(-hitBox.stats.Damage);
+			
 		}
 		
 		
@@ -37,22 +41,34 @@ public partial class HealthComponent : Node2D
 	{
 		if(Health <= stats.MaxHealth)
 		{
+			GD.Print(Health);
 			Health = Health + healthUpdate;
 			didHit = false;
-			GD.Print("HealthUpdated");
+			
 		}
 
 		if(Health <= 0)
 		{
-			EmitSignal("OnDeath");
+			GD.Print("death");
+			EmitSignal("Death");
+			Health = stats.StartingHealth;
+		}
+		
+		if(Health <= stats.MaxHealth && Health > 0)
+		{
+			EmitSignal("Damage");
 		}
 		
 		
 		//GD.Print(Health);
 	}
 
-	public void SetHealth(int healthUpdate)
+    public void SetHealth(int healthUpdate)
 	{
 		Health = healthUpdate;
+	}
+	public void SetStartingHealth(int healthUpdate)
+	{
+		stats.StartingHealth = healthUpdate;
 	}
 }

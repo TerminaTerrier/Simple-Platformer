@@ -16,6 +16,8 @@ public partial class Player : CharacterBody2D
 	[Export]
 	HealthComponent healthComponent;
 	[Export]
+	HurtboxComponent hurtboxComponent;
+	[Export]
 	private int lives = 3;
 	[Export]
 	CollisionShape2D collisionShape2D;
@@ -29,7 +31,8 @@ public partial class Player : CharacterBody2D
 	{
 		signalBus = GetNode<SignalBus>("/root/SignalBus");
 
-		healthComponent.OnDeath += Die;
+		healthComponent.Death += Die;
+		healthComponent.Damage += OnDamage;
 		signalBus.PowerUp += ModifyPowerUpState;
 
 		stateMachine.AddState(IdleState);
@@ -48,12 +51,17 @@ public partial class Player : CharacterBody2D
 		{
 			case 0:
 			healthComponent.SetHealth(1);
+			collisionShape2D.Scale = new Vector2(1,1f);
+			sprite.Scale = new Vector2(1.25f,1.188f);
 			break;
 			case 1:
+			if(powerUpState != 1)
+			{
 			healthComponent.SetHealth(2);
 			collisionShape2D.Scale = new Vector2(1,1.5f);
 			sprite.Scale = new Vector2(1.25f,1.875f);
 			powerUpState = 1;
+			}
 			break;
 		}
 	}
@@ -148,6 +156,18 @@ public partial class Player : CharacterBody2D
 		
 	}
 
+	private void OnDamage()
+	{
+		hurtboxComponent.SetDeferred("monitoring", false);
+		powerUpState = 0;
+		ModifyPowerUpState(0);
+		Timer timer = new();
+		AddChild(timer);
+		timer.OneShot = true;
+		timer.Start(5);
+		timer.Timeout += () => hurtboxComponent.SetDeferred("monitoring", true);
+
+	}
 	private void Die()
 	{
 		EmitSignal("PlayerDeath");
