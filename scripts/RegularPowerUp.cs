@@ -14,9 +14,11 @@ public partial class RegularPowerUp : CharacterBody2D
 	bool directionSwitch = true;
 	bool startMoving = true;
 	StateMachine stateMachine = new();
+	SignalBus signalBus;
 	public override void _Ready()
 	{
 		GD.Print("spawned");
+		signalBus = GetNode<SignalBus>("/root/SignalBus");
 
 		stateMachine.AddState(MoveState);
 		stateMachine.Enter();
@@ -71,14 +73,15 @@ public partial class RegularPowerUp : CharacterBody2D
 		 }
 
 		velocityComponent.Move(this);
-		GD.Print(directionSwitch);
-		GD.Print(velocityComponent.GetVelocity());
+		//GD.Print(directionSwitch);
+		//GD.Print(velocityComponent.GetVelocity());
 	}
 		
 	public void OnBodyEntered(Node2D body)
 	{
 		if(body.Name == "Player")
 		{
+			signalBus.EmitSignal(SignalBus.SignalName.PowerUp, 1);
 			QueueFree();
 		}
 	}

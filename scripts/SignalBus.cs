@@ -9,5 +9,9 @@ public partial class SignalBus : Node
 	public delegate void GameOverEventHandler(); //emits on player death -- frees current level and instantiates the Game Over menu
 	[Signal]
 	public delegate void SpecialBoxEventHandler(Vector2I spawnPosition); //emits when player hits a special box from below
+	[Signal]
+	public delegate void PowerUpEventHandler(int powerUpID); //emits when player picks up power-up
+	[Signal]
+	public delegate void BrickHitEventHandler(Vector2 position); //emits when player hits breakable tiles when powered-up
 
 }

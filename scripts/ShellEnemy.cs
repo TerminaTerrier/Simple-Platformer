@@ -168,7 +168,7 @@ public partial class ShellEnemy : CharacterBody2D
 					{
 						velocityComponent.SetVelocity(new Vector2(75, 0));
 						enemyStopped = false;
-						GD.Print("push detected");
+						//GD.Print("push detected");
 					}
 				}
 				

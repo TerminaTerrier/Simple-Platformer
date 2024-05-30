@@ -57,7 +57,7 @@ public partial class PlayerController : Node2D
 	
 	private void Jump()
 	{
-		raycastComponent.SetRaycastParamaters(player.GlobalPosition, player.GlobalPosition + new Vector2(0, 12)); //consider making a more complicated formula so that the raycast parameters adapt to the size of the character body
+		raycastComponent.SetRaycastParamaters(player.GlobalPosition, player.GlobalPosition + new Vector2(0, 17)); //consider making a more complicated formula so that the raycast parameters adapt to the size of the character body
 		
 		if(raycastComponent.GetRayCastQuery().Count != 0)
 		{
