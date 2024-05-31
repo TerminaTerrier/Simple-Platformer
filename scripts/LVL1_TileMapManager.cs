@@ -4,7 +4,7 @@ using System;
 public partial class LVL1_TileMapManager : TileMap
 {
 	SignalBus signalBus;
-	public PackedScene powerUp{get; private set;} = GD.Load<PackedScene>("res://scenes/power_up_placeholder.tscn");
+	public PackedScene powerUp{get; private set;} = GD.Load<PackedScene>("res://scenes/power_up_regular.tscn");
     public override void _Ready()
     {
 		//GD.Print(IsLayerNavigationEnabled(1));

@@ -167,6 +167,7 @@ public partial class ShellEnemy : CharacterBody2D
 					if(upRaycast.IsColliding() | leftRaycast.IsColliding() | rightRaycast.IsColliding() && velocityComponent.Velocity == Vector2.Zero)
 					{
 						velocityComponent.SetVelocity(new Vector2(75, 0));
+						hitboxComponent.Monitorable = true;
 						enemyStopped = false;
 						//GD.Print("push detected");
 					}

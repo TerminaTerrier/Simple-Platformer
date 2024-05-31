@@ -1,0 +1,46 @@
+[gd_scene load_steps=9 format=3 uid="uid://1d83rxpbdylg"]
+
+[ext_resource type="Script" path="res://scripts/RegularPowerUp.cs" id="1_ajasx"]
+[ext_resource type="Texture2D" uid="uid://siy1xfgbk4vj" path="res://assets/art/powerup_placeholder.png" id="2_besh7"]
+[ext_resource type="PackedScene" uid="uid://cj61p2pt0xi67" path="res://scenes/velocity_component.tscn" id="3_sknf8"]
+[ext_resource type="PackedScene" uid="uid://c35byt6vairv6" path="res://scenes/pathfind_component.tscn" id="4_yuk45"]
+[ext_resource type="PackedScene" uid="uid://d3icphik8drdp" path="res://scenes/raycast_component.tscn" id="5_2616j"]
+[ext_resource type="PackedScene" uid="uid://bfpoog15n78th" path="res://scenes/collision_handler.tscn" id="6_a5x53"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_4rxht"]
+size = Vector2(16, 18)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_rwnhd"]
+radius = 13.0384
+
+[node name="PowerUp_Regular" type="CharacterBody2D" node_paths=PackedStringArray("velocityComponent", "pathfindComponent", "collisionHandler", "raycastComponent")]
+collision_layer = 16
+collision_mask = 17
+script = ExtResource("1_ajasx")
+velocityComponent = NodePath("Velocity_Component")
+pathfindComponent = NodePath("Pathfind_Component")
+collisionHandler = NodePath("Collision_Handler")
+raycastComponent = NodePath("Raycast_Component")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_besh7")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -1)
+shape = SubResource("RectangleShape2D_4rxht")
+
+[node name="Velocity_Component" parent="." instance=ExtResource("3_sknf8")]
+
+[node name="Pathfind_Component" parent="." instance=ExtResource("4_yuk45")]
+
+[node name="Raycast_Component" parent="." instance=ExtResource("5_2616j")]
+
+[node name="Collision_Handler" parent="." instance=ExtResource("6_a5x53")]
+
+[node name="Area2D" type="Area2D" parent="."]
+collision_mask = 3
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("CircleShape2D_rwnhd")
+
+[connection signal="body_entered" from="Area2D" to="." method="OnBodyEntered"]
