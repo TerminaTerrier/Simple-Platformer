@@ -14,7 +14,7 @@ public partial class VelocityComponent : Node2D
 	private float mass = 1;
 	[Export]
 	private float friction = 6f;
-    Vector2 gravity = new Vector2 (0f, 30f);
+    Vector2 gravity;
 	public float speedMultiplier { get; set; } = 1f;
 	private float speedModifier = 1f;
 	public float targetSpeed => maxXSpeed * speedModifier * speedMultiplier;
@@ -31,7 +31,15 @@ public partial class VelocityComponent : Node2D
 	{
 		if(characterBody2D.IsOnFloor())
 		{
-			calculatedVelocity.Y *= 0.4f;
+			gravity = new Vector2(0,0);
+			calculatedVelocity.Y *= 0.8f;
+		}
+
+		if(!characterBody2D.IsOnFloor())
+		{
+			gravity = new Vector2(0, 25);
+			//calculatedVelocity.Y *= 0.9f;
+			GD.Print("Not on floor");
 		}
 		
 		if(characterBody2D.IsOnWall())
@@ -43,6 +51,9 @@ public partial class VelocityComponent : Node2D
 		{
 			calculatedVelocity.Y += 50f;
 		}
+
+		
+		
 	}	
 	
 	

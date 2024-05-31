@@ -49,6 +49,8 @@ public partial class ShellEnemy : CharacterBody2D
 
 	private void NormalState()
 	{
+
+		velocityComponent.NormalForceCheck(this);
 		 if(GetLastSlideCollision() != null)
 		 {
 		 	var collisionAngle = collisionHandler.GetCollisionAngle(GetLastSlideCollision());
@@ -128,7 +130,7 @@ public partial class ShellEnemy : CharacterBody2D
 	{
 		//GD.Print(GetLastSlideCollision());
 		
-		
+		velocityComponent.NormalForceCheck(this);
 
 		//GD.Print(healthComponent.Health);
 		

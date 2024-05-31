@@ -72,10 +72,9 @@ public partial class BasicEnemy : CharacterBody2D
 		
 		pathfindComponent.FollowPath();
 
-		if(GetSlideCollisionCount() != 0)
-		{
-			velocityComponent.NormalForceCheck(this);
-		}
+	
+		velocityComponent.NormalForceCheck(this);
+		
 	
 		velocityComponent.Move(this);
 		velocityComponent.ApplyGravity();
