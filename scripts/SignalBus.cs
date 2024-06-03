@@ -1,5 +1,6 @@
 using Godot;
 using System;
+using System.Security.Cryptography.X509Certificates;
 
 public partial class SignalBus : Node
 {
@@ -13,5 +14,12 @@ public partial class SignalBus : Node
 	public delegate void PowerUpEventHandler(int powerUpID); //emits when player picks up power-up
 	[Signal]
 	public delegate void BrickHitEventHandler(Vector2 position); //emits when player hits breakable tiles when powered-up
+	[Signal]
+	public delegate void WarpZoneEnterEventHandler(int warpVal, Vector2 telePosition); //emits when player enters warp zone
+	[Signal]
+	public delegate void WarpZoneExitEventHandler(); //emits when player exits warp zone
+	[Signal]
+	public delegate void WarpEventHandler(int warpVal, Vector2 telePosition); //emits when player warps;
+
 
 }

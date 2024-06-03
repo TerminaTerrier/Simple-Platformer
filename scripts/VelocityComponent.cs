@@ -83,7 +83,7 @@ public partial class VelocityComponent : Node2D
 		
 		if(Mathf.Max(speed, 0) > 0 | Mathf.Min(speed, 0) < 0)
 		{
-			calculatedVelocity.X *= (friction * (float)GetProcessDeltaTime()) * mass;
+			calculatedVelocity.X *= friction * (float)GetProcessDeltaTime();
 		}
 		//GD.Print(GetProcessDeltaTime());
 	}

@@ -15,7 +15,18 @@ public partial class PlayerController : Node2D
 	private int jumpStrength = 200;
 	public Vector2 direction {get; private set;}
 	public bool PressFlag {get; private set;}
+	bool warpFlag;
+	int warpValue;
+	Vector2 teleportPosition;
+	SignalBus signalBus;
 	
+
+    public override void _Ready()
+    {
+        signalBus = GetNode<SignalBus>("/root/SignalBus");
+		signalBus.WarpZoneEnter += (int warpVal, Vector2 telePosition) => {warpFlag = true; warpValue = warpVal; teleportPosition = telePosition; GD.Print(warpValue); };
+		signalBus.WarpZoneExit += () => warpFlag = false;
+    }
 
     public override void _Input(InputEvent @event)
     {
@@ -50,6 +61,14 @@ public partial class PlayerController : Node2D
 			direction = Vector2.Right;
 			PressFlag = true;
 			//GD.Print("Right");
+		}
+
+		if(warpFlag == true)
+		{
+			if(Input.IsActionPressed("InputDown"))
+			{
+				signalBus.EmitSignal(SignalBus.SignalName.Warp, warpValue, teleportPosition);
+			}
 		}
 
 	

@@ -90,9 +90,9 @@ public partial class Player : CharacterBody2D
 		velocityComponent.Move(this);
 		//gravity must be called last to avoid it being added to velocity before a normal force check is completed
 		velocityComponent.ApplyGravity();
-		GD.Print(velocityComponent.GetVelocity());
-		GD.Print(IsOnFloor());
-		GD.Print(GetSlideCollisionCount());
+	//	GD.Print(velocityComponent.GetVelocity());
+		//GD.Print(IsOnFloor());
+	//	GD.Print(GetSlideCollisionCount());
 	}
 	private void WalkState()
 	{
@@ -148,12 +148,12 @@ public partial class Player : CharacterBody2D
 		
 	
 		
-		GD.Print(GetSlideCollisionCount());
-		GD.Print(IsOnFloor());
+		//GD.Print(GetSlideCollisionCount());
+	//	GD.Print(IsOnFloor());
 		velocityComponent.Move(this);
 		velocityComponent.ApplyGravity();
 		//gravity not appearing? GD.Print(Velocity);
-		GD.Print(velocityComponent.GetVelocity());
+		//GD.Print(velocityComponent.GetVelocity());
 		
 	}
 

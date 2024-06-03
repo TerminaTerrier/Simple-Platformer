@@ -8,6 +8,7 @@ public partial class GameObjectLoader : Node2D
 	SceneData _sceneData;
 	SignalBus signalBus;
 	PackedScene levelOne;
+	PackedScene sublevelOne;
 	PackedScene player;
 	Node levelInstance; 
 	CharacterBody2D bodyInstance;
@@ -17,10 +18,29 @@ public partial class GameObjectLoader : Node2D
 	   
 	   levelOne = _sceneData.LevelOne;
 	   player = _sceneData.Player;
+	   sublevelOne = _sceneData.SubLevelOne;
 
 	   signalBus = GetNode<SignalBus>("/root/SignalBus");
 	   signalBus.StartGame += () => LoadLevel(levelOne);
 	   signalBus.StartGame += () => LoadCharacterBody(player);
+
+		signalBus.Warp += (int warpVal, Vector2 telePosition) => 
+		{
+			FreeLevel();
+			GD.Print(warpVal);
+			switch (warpVal)
+			{
+			case 1:
+			LoadLevel(levelOne);
+			bodyInstance.Position = telePosition;
+			break;
+			case -1:	
+			LoadLevel(sublevelOne);
+			bodyInstance.Position = telePosition;
+			break;
+			}
+		};
+
 	   signalBus.GameOver += () => FreeLevel();
 	   signalBus.GameOver += () => FreeCharacterBody();
 	}
@@ -39,7 +59,7 @@ public partial class GameObjectLoader : Node2D
 
 	private void FreeLevel()
 	{
-		RemoveChild(levelInstance);
+		CallDeferred("remove_child", levelInstance);
 	}
 
 	private void FreeCharacterBody()
