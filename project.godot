@@ -18,6 +18,8 @@ run/max_fps=60
 [autoload]
 
 SignalBus="*res://scripts/SignalBus.cs"
+Counter="*res://scripts/Counter.cs"
+GlobalTimer="*res://scripts/GlobalTimer.cs"
 
 [display]
 

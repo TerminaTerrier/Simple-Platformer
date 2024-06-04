@@ -1,9 +1,10 @@
-[gd_scene load_steps=7 format=3 uid="uid://dwmjvyh3a55xc"]
+[gd_scene load_steps=8 format=3 uid="uid://dwmjvyh3a55xc"]
 
 [ext_resource type="Script" path="res://scripts/LevelOneData.cs" id="1_67yfp"]
 [ext_resource type="Texture2D" uid="uid://2bjdf8wn3xsr" path="res://assets/art/level1_tileset.png" id="1_rskvd"]
 [ext_resource type="Script" path="res://scripts/LVL1_TileMapManager.cs" id="3_u6ivp"]
 [ext_resource type="PackedScene" uid="uid://byc272ixm1sr" path="res://scenes/warp_zone.tscn" id="4_l3qbr"]
+[ext_resource type="PackedScene" uid="uid://deoarwkgvv57x" path="res://scenes/token.tscn" id="5_cwfpy"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_bf2dp"]
 texture = ExtResource("1_rskvd")
@@ -68,3 +69,51 @@ script = ExtResource("3_u6ivp")
 position = Vector2(248, -30)
 warpVal = 1
 telePosition = Vector2(56, -28)
+
+[node name="Token" parent="." instance=ExtResource("5_cwfpy")]
+position = Vector2(-122, -23)
+
+[node name="Token2" parent="." instance=ExtResource("5_cwfpy")]
+position = Vector2(-102, -47)
+
+[node name="Token3" parent="." instance=ExtResource("5_cwfpy")]
+position = Vector2(-99, -25)
+
+[node name="Token4" parent="." instance=ExtResource("5_cwfpy")]
+position = Vector2(-73, -21)
+
+[node name="Token5" parent="." instance=ExtResource("5_cwfpy")]
+position = Vector2(-75, -48)
+
+[node name="Token6" parent="." instance=ExtResource("5_cwfpy")]
+position = Vector2(-50, -24)
+
+[node name="Token7" parent="." instance=ExtResource("5_cwfpy")]
+position = Vector2(-23, -24)
+
+[node name="Token8" parent="." instance=ExtResource("5_cwfpy")]
+position = Vector2(-50, -46)
+
+[node name="Token9" parent="." instance=ExtResource("5_cwfpy")]
+position = Vector2(-23, -47)
+
+[node name="Token10" parent="." instance=ExtResource("5_cwfpy")]
+position = Vector2(4, -23)
+
+[node name="Token11" parent="." instance=ExtResource("5_cwfpy")]
+position = Vector2(3, -47)
+
+[node name="Token12" parent="." instance=ExtResource("5_cwfpy")]
+position = Vector2(28, -24)
+
+[node name="Token13" parent="." instance=ExtResource("5_cwfpy")]
+position = Vector2(53, -26)
+
+[node name="Token14" parent="." instance=ExtResource("5_cwfpy")]
+position = Vector2(77, -23)
+
+[node name="Token15" parent="." instance=ExtResource("5_cwfpy")]
+position = Vector2(33, -47)
+
+[node name="Token16" parent="." instance=ExtResource("5_cwfpy")]
+position = Vector2(61, -46)

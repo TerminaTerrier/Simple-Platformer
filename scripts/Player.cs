@@ -1,12 +1,10 @@
 using Godot;
 using System;
-using System.Diagnostics;
-using System.Net.NetworkInformation;
+
 
 public partial class Player : CharacterBody2D
 {
-	[Signal]
-	public delegate void PlayerDeathEventHandler();
+	
 	[Export]
 	VelocityComponent velocityComponent;
 	[Export]
@@ -171,13 +169,14 @@ public partial class Player : CharacterBody2D
 	}
 	private void Die()
 	{
-		EmitSignal("PlayerDeath");
+		
 		lives--;
 		//GD.Print(lives);
-		if(lives == 0)
+		if(lives < 0)
 		{
 			signalBus.EmitSignal("GameOver");
 		}
 		GlobalPosition = Vector2.Zero;
+		signalBus.EmitSignal(SignalBus.SignalName.LifeLost, lives);
 	}
 }

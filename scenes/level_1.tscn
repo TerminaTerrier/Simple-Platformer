@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://djyr15x5sbqis"]
+[gd_scene load_steps=11 format=3 uid="uid://djyr15x5sbqis"]
 
 [ext_resource type="Script" path="res://scripts/LevelOneData.cs" id="1_b6s5u"]
 [ext_resource type="PackedScene" uid="uid://prdnxngxvcv4" path="res://scenes/basic_enemy.tscn" id="2_2bvs8"]
@@ -6,6 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://cfw5aat4ea1j5" path="res://scenes/shell_enemy.tscn" id="3_b27uv"]
 [ext_resource type="Script" path="res://scripts/LVL1_TileMapManager.cs" id="3_rvd4h"]
 [ext_resource type="PackedScene" uid="uid://byc272ixm1sr" path="res://scenes/warp_zone.tscn" id="6_b0rcs"]
+[ext_resource type="PackedScene" uid="uid://deoarwkgvv57x" path="res://scenes/token.tscn" id="7_o5e0p"]
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_mfx2g"]
 vertices = PackedVector2Array(8, 8, -8, 8, -8, -8, 8, -8)
@@ -83,3 +84,12 @@ position = Vector2(152, -11)
 position = Vector2(56, -28)
 warpVal = -1
 telePosition = Vector2(-280, -45)
+
+[node name="Token" parent="." instance=ExtResource("7_o5e0p")]
+position = Vector2(318, -17)
+
+[node name="Token2" parent="." instance=ExtResource("7_o5e0p")]
+position = Vector2(347, -16)
+
+[node name="Token3" parent="." instance=ExtResource("7_o5e0p")]
+position = Vector2(379, -20)

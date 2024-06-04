@@ -1,0 +1,52 @@
+[gd_scene load_steps=6 format=3 uid="uid://dnpbhujr8hleg"]
+
+[ext_resource type="Texture2D" uid="uid://drrv55n6y0dtq" path="res://assets/art/collectabletoken.png" id="1_fgmhb"]
+[ext_resource type="Script" path="res://scripts/LivesDisplay.cs" id="1_fx5nf"]
+[ext_resource type="Script" path="res://scripts/CounterDisplay.cs" id="1_nitcv"]
+[ext_resource type="Script" path="res://scripts/TimerDisplay.cs" id="3_aaxjc"]
+[ext_resource type="Script" path="res://scripts/TokenTexture.cs" id="5_cos18"]
+
+[node name="HUD" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Lives_Display" type="Label" parent="."]
+layout_mode = 0
+offset_left = 999.0
+offset_top = -1.0
+offset_right = 1148.0
+offset_bottom = 30.0
+theme_override_font_sizes/font_size = 25
+text = "Lives: 3"
+script = ExtResource("1_fx5nf")
+
+[node name="Collectable_Counter" type="Label" parent="."]
+layout_mode = 0
+offset_left = 517.0
+offset_top = 2.0
+offset_right = 682.0
+offset_bottom = 48.0
+theme_override_font_sizes/font_size = 25
+text = "X 0"
+script = ExtResource("1_nitcv")
+
+[node name="Timer_Display" type="Label" parent="."]
+layout_mode = 0
+offset_right = 125.0
+offset_bottom = 42.0
+theme_override_font_sizes/font_size = 25
+text = "TIME - 500"
+script = ExtResource("3_aaxjc")
+
+[node name="Token_Texture" type="TextureRect" parent="."]
+layout_mode = 0
+offset_left = 466.0
+offset_top = -9.0
+offset_right = 520.0
+offset_bottom = 44.0
+texture = ExtResource("1_fgmhb")
+script = ExtResource("5_cos18")
