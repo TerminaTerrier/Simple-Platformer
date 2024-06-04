@@ -15,6 +15,8 @@ public partial class GlobalTimer : Node
 		signalBus.StartGame += () => globalTimer.Start(500f);
 
 		signalBus.GameOver += () => globalTimer.Stop();
+
+		globalTimer.Timeout += () => signalBus.EmitSignal(SignalBus.SignalName.GlobalTimeout);
 	}
 
     public override void _Process(double delta)

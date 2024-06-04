@@ -34,6 +34,7 @@ public partial class Player : CharacterBody2D
 		healthComponent.Death += Die;
 		healthComponent.Damage += OnDamage;
 		signalBus.PowerUp += ModifyPowerUpState;
+		signalBus.GlobalTimeout += Die;
 
 		stateMachine.AddState(IdleState);
 		stateMachine.Enter();

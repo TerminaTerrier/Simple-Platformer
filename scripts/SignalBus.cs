@@ -21,12 +21,14 @@ public partial class SignalBus : Node
 	[Signal]
 	public delegate void WarpZoneExitEventHandler(); //emits when player exits warp zone
 	[Signal]
-	public delegate void WarpEventHandler(int warpVal, Vector2 telePosition); //emits when player warps;
+	public delegate void WarpEventHandler(int warpVal, Vector2 telePosition); //emits when player warps
 	[Signal]
 	public delegate void CollectEventHandler(); //emits when player collects a token
 	[Signal]
-	public delegate void CounterUpdateEventHandler(int count); //emits when counter is updated;
+	public delegate void CounterUpdateEventHandler(int count); //emits when counter is updated
 	[Signal]
-	public delegate void TimerUpdateEventHandler(double time); //emits in process method -- used to update time display;
+	public delegate void TimerUpdateEventHandler(double time); //emits in process method -- used to update time display
+	[Signal]
+	public delegate void GlobalTimeoutEventHandler(); //emits when timer reaches zero
 
 }
