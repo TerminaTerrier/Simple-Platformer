@@ -4,7 +4,10 @@ using System;
 public partial class LVL1_TileMapManager : TileMap
 {
 	SignalBus signalBus;
-	public PackedScene powerUp{get; private set;} = GD.Load<PackedScene>("res://scenes/power_up_regular.tscn");
+	public PackedScene token{ get; private set; } = GD.Load<PackedScene>("res://scenes/token.tscn");
+	public PackedScene regPowerUp{get; private set;} = GD.Load<PackedScene>("res://scenes/power_up_regular.tscn");
+	public PackedScene offPowerUp{get; private set; } = GD.Load<PackedScene>("res://scenes/power_up_offensive.tscn");
+	private Node2D powerUpInstance;
     public override void _Ready()
     {
 		//GD.Print(IsLayerNavigationEnabled(1));
@@ -15,11 +18,32 @@ public partial class LVL1_TileMapManager : TileMap
 		signalBus.BrickHit += OnBrickHit;
     }
 
-	private void OnSpecialBoxHit(Vector2I spawnPosition)
+	private void OnSpecialBoxHit(Vector2I spawnPosition, int powerUpState)
 	{
 		//GD.Print(spawnPosition);
-		Node2D powerUpInstance = (Node2D)powerUp.Instantiate();
+		int containerData = (int)LevelOneData.GetLevelOneCustomData(spawnPosition + new Vector2I(0,15), "ContainerData", 2);
+		GD.Print(containerData);
+		switch (containerData)
+		{
+			
 
+			case 1:
+			powerUpInstance = (Node2D)token.Instantiate();
+			break;
+			case 2:
+			if(powerUpState == 0)
+			{
+			 powerUpInstance = (Node2D)regPowerUp.Instantiate();
+			}
+			else if(powerUpState == 1)
+			{
+			 powerUpInstance = (Node2D)offPowerUp.Instantiate();
+			}
+			break;
+		}
+		
+
+		EraseCell(2, LocalToMap(spawnPosition + new Vector2I(0,10)));
 		EraseCell(1, LocalToMap(spawnPosition + new Vector2I(0,10)));
 		SetCell(1, LocalToMap(spawnPosition + new Vector2I(0,10)), 3, new Vector2I(1, 1));
 
@@ -34,6 +58,6 @@ public partial class LVL1_TileMapManager : TileMap
 		var tilePosition = LocalToMap(position - new Vector2I(0,10));
 		EraseCell(1, tilePosition);
 		//GD.Print("OnBrickHit: " + tilePosition);
-		GD.Print("emited");
+		GD.Print("emitted");
 	}
 }

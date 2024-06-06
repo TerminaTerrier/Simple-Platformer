@@ -10,6 +10,7 @@ public partial class GameObjectLoader : Node2D
 	PackedScene levelOne;
 	PackedScene sublevelOne;
 	PackedScene player;
+	PackedScene dmgOrb;
 	Node levelInstance; 
 	CharacterBody2D bodyInstance;
 	public override void _Ready()
@@ -19,10 +20,13 @@ public partial class GameObjectLoader : Node2D
 	   levelOne = _sceneData.LevelOne;
 	   player = _sceneData.Player;
 	   sublevelOne = _sceneData.SubLevelOne;
+		dmgOrb = _sceneData.DamageOrb;
 
 	   signalBus = GetNode<SignalBus>("/root/SignalBus");
 	   signalBus.StartGame += () => LoadLevel(levelOne);
-	   signalBus.StartGame += () => LoadCharacterBody(player);
+	   signalBus.StartGame += () => LoadCharacterBody(player, new Vector2(0,-10));
+
+	   signalBus.SpecialAction += (Vector2 position) => LoadCharacterBody(dmgOrb, position + new Vector2(0, 10));
 
 		signalBus.Warp += (int warpVal, Vector2 telePosition) => 
 		{
@@ -51,10 +55,11 @@ public partial class GameObjectLoader : Node2D
 		AddChild(levelInstance);
 	}
 
-	private void LoadCharacterBody(PackedScene body)
+	private void LoadCharacterBody(PackedScene body, Vector2 position)
 	{
 		bodyInstance = (CharacterBody2D)body.Instantiate();
 		AddChild(bodyInstance);
+		bodyInstance.Position = position;
 	}
 
 	private void FreeLevel()

@@ -117,12 +117,12 @@ public partial class ShellEnemy : CharacterBody2D
 			stateMachine.Enter();
 
 			hitboxComponent.Monitorable = false;
-			hurtboxComponent.Monitoring = false;
+			hurtboxComponent.SetCollisionMaskValue(2, false);
 			GD.Print("Entering Hide State");
 		}
 		//GD.Print(GetSlideCollisionCount());
 		//GD.Print(hurtboxComponent.Monitoring = true);
-		//GD.Print(healthComponent.Health);
+		GD.Print(healthComponent.Health);
 		
 	}
 
@@ -132,7 +132,7 @@ public partial class ShellEnemy : CharacterBody2D
 		
 		velocityComponent.NormalForceCheck(this);
 
-		//GD.Print(healthComponent.Health);
+		GD.Print(healthComponent.Health);
 		
 		if(GetSlideCollisionCount() != 0)
 		{
@@ -203,7 +203,7 @@ public partial class ShellEnemy : CharacterBody2D
 		healthComponent.SetHealth(2); 
 
 		hitboxComponent.Monitorable = true; 
-		hurtboxComponent.Monitoring = true; 
+		hurtboxComponent.SetCollisionMaskValue(2, false);
 
 		stateMachine.AddState(NormalState); 
 		stateMachine.Enter();

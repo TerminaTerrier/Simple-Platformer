@@ -68,6 +68,19 @@ public partial class Player : CharacterBody2D
 			powerUpState = 1;
 			}
 			break;
+			case 2:
+			if(powerUpState != 2)
+			{
+				healthComponent.SetHealth(2);
+				collisionShape2D.Scale = new Vector2(1,1.5f);
+				hurtboxComponent.Scale = new Vector2(1.01f,1.01f);
+				hitboxComponent.Scale = new Vector2(1,1.25f);
+				sprite.Scale = new Vector2(1.25f,1.875f);
+				playerController.offensiveState = true;
+				powerUpState = 2;
+			}
+			break;
+
 		}
 	}
 	private void IdleState()
@@ -110,6 +123,8 @@ public partial class Player : CharacterBody2D
 			velocityComponent.AccelerateInDirection(playerController.direction, 40f);
 		}
 
+		
+
 		if(GetSlideCollisionCount() != 0)
 		{
 		var collisionData = GetLastSlideCollision();
@@ -125,7 +140,7 @@ public partial class Player : CharacterBody2D
 				GD.Print(tileMap.GetCellAtlasCoords(1, tileMap.LocalToMap(collisionData.GetPosition() - new Vector2(0, 10))));
 				if(tileMap.GetCellAtlasCoords(1, tileMap.LocalToMap(collisionData.GetPosition() - new Vector2(0, 10))) == new Vector2I(1,0) && spawnLock == false)
 				{
-				    signalBus.EmitSignal(SignalBus.SignalName.SpecialBox, tileMap.MapToLocal(tileMap.LocalToMap(collisionData.GetPosition()- new Vector2I(0,25))));
+				    signalBus.EmitSignal(SignalBus.SignalName.SpecialBox, tileMap.MapToLocal(tileMap.LocalToMap(collisionData.GetPosition()- new Vector2I(0,25))), powerUpState);
 					//GD.Print("Emitted");
 					spawnLock = true;
 				}

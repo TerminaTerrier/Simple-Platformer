@@ -15,14 +15,14 @@
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_hrify"]
 size = Vector2(9, 8)
 
-[sub_resource type="Resource" id="Resource_bvjds"]
+[sub_resource type="Resource" id="Resource_iwfly"]
 resource_local_to_scene = true
 script = ExtResource("7_0dv2t")
 Damage = 1
 MaxHealth = 3
 StartingHealth = 1
 
-[sub_resource type="Resource" id="Resource_l8ld4"]
+[sub_resource type="Resource" id="Resource_xlg2m"]
 resource_local_to_scene = true
 script = ExtResource("7_0dv2t")
 Damage = 1
@@ -74,12 +74,12 @@ debug_enabled = true
 
 [node name="Health_Component" parent="." node_paths=PackedStringArray("hurtBox") instance=ExtResource("6_ruqld")]
 hurtBox = NodePath("../Hurtbox_Component")
-stats = SubResource("Resource_bvjds")
+stats = SubResource("Resource_iwfly")
 
 [node name="Hitbox_Component" parent="." instance=ExtResource("6_o1bl5")]
 collision_layer = 8
-collision_mask = 6
-stats = SubResource("Resource_l8ld4")
+collision_mask = 22
+stats = SubResource("Resource_xlg2m")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox_Component"]
 position = Vector2(0, 0.625)
@@ -87,7 +87,7 @@ shape = SubResource("RectangleShape2D_vbbne")
 
 [node name="Hurtbox_Component" parent="." instance=ExtResource("8_otieq")]
 collision_layer = 8
-collision_mask = 6
+collision_mask = 22
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox_Component"]
 shape = SubResource("RectangleShape2D_dxsxa")

@@ -17,6 +17,7 @@ public partial class PlayerController : Node2D
 	public bool PressFlag {get; private set;}
 	bool warpFlag;
 	int warpValue;
+	public bool offensiveState {get; set;}
 	Vector2 teleportPosition;
 	SignalBus signalBus;
 	
@@ -33,6 +34,14 @@ public partial class PlayerController : Node2D
         if(@event.IsActionPressed("InputUp"))
 		{	
 			Jump();
+		}
+
+		if(offensiveState == true && player.IsOnFloor() == false)
+		{
+			if(@event.IsActionPressed("InputUp"))
+			{
+				SpecialAction();
+			}
 		}
     }
     public override void _Process(double delta)
@@ -71,7 +80,7 @@ public partial class PlayerController : Node2D
 			}
 		}
 
-	
+		
     }
 	
 	private void Jump()
@@ -86,6 +95,9 @@ public partial class PlayerController : Node2D
 		PressFlag = false;
 	}
 
-
+	private void SpecialAction()
+	{
+		signalBus.EmitSignal(SignalBus.SignalName.SpecialAction, player.GlobalPosition);
+	}
 
 }

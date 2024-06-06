@@ -11,9 +11,11 @@ public partial class SignalBus : Node
 	[Signal]
 	public delegate void LifeLostEventHandler(int lives); //emits when the player loses a life -- used to update life display
 	[Signal]
-	public delegate void SpecialBoxEventHandler(Vector2I spawnPosition); //emits when player hits a special box from below
+	public delegate void SpecialBoxEventHandler(Vector2I spawnPosition, int powerUpState); //emits when player hits a special box from below
 	[Signal]
 	public delegate void PowerUpEventHandler(int powerUpID); //emits when player picks up power-up
+	[Signal]
+	public delegate void SpecialActionEventHandler(Vector2 position); //emits when player presses the up input when in the offensive state
 	[Signal]
 	public delegate void BrickHitEventHandler(Vector2 position); //emits when player hits breakable tiles when powered-up
 	[Signal]
