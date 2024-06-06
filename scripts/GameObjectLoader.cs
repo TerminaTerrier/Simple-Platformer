@@ -8,6 +8,8 @@ public partial class GameObjectLoader : Node2D
 	SceneData _sceneData;
 	SignalBus signalBus;
 	PackedScene levelOne;
+	PackedScene levelTwo;
+	PackedScene levelThree;
 	PackedScene sublevelOne;
 	PackedScene player;
 	PackedScene dmgOrb;
@@ -18,6 +20,8 @@ public partial class GameObjectLoader : Node2D
 	   _sceneData = (SceneData)sceneData;
 	   
 	   levelOne = _sceneData.LevelOne;
+	   levelTwo = _sceneData.LevelTwo;
+	   levelThree = _sceneData.LevelThree;
 	   player = _sceneData.Player;
 	   sublevelOne = _sceneData.SubLevelOne;
 		dmgOrb = _sceneData.DamageOrb;
@@ -42,6 +46,24 @@ public partial class GameObjectLoader : Node2D
 			LoadLevel(sublevelOne);
 			bodyInstance.Position = telePosition;
 			break;
+			}
+		};
+
+		signalBus.LevelComplete += (int levelID) => 
+		{
+			FreeLevel();
+			bodyInstance.Position = Vector2.Zero;
+			switch (levelID)
+			{
+				case 1:
+				LoadLevel(levelOne);
+				break;
+				case 2:
+				LoadLevel(levelTwo);
+				break;
+				case 3:
+				LoadLevel(levelThree);
+				break;
 			}
 		};
 

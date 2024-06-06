@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://djyr15x5sbqis"]
+[gd_scene load_steps=12 format=3 uid="uid://djyr15x5sbqis"]
 
 [ext_resource type="Script" path="res://scripts/LevelOneData.cs" id="1_b6s5u"]
 [ext_resource type="PackedScene" uid="uid://prdnxngxvcv4" path="res://scenes/basic_enemy.tscn" id="2_2bvs8"]
@@ -7,6 +7,7 @@
 [ext_resource type="Script" path="res://scripts/LVL1_TileMapManager.cs" id="3_rvd4h"]
 [ext_resource type="PackedScene" uid="uid://byc272ixm1sr" path="res://scenes/warp_zone.tscn" id="6_b0rcs"]
 [ext_resource type="PackedScene" uid="uid://deoarwkgvv57x" path="res://scenes/token.tscn" id="7_o5e0p"]
+[ext_resource type="PackedScene" uid="uid://drrdhbx5jiclh" path="res://scenes/level_end_gate.tscn" id="8_3uxua"]
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_mfx2g"]
 vertices = PackedVector2Array(8, 8, -8, 8, -8, -8, 8, -8)
@@ -115,3 +116,7 @@ position = Vector2(356, -16)
 
 [node name="Basic_Enemy2" parent="." instance=ExtResource("2_2bvs8")]
 position = Vector2(545, -5)
+
+[node name="Level_End_Gate" parent="." instance=ExtResource("8_3uxua")]
+position = Vector2(1650, -30)
+nextLevelID = 2

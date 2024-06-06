@@ -32,5 +32,7 @@ public partial class SignalBus : Node
 	public delegate void TimerUpdateEventHandler(double time); //emits in process method -- used to update time display
 	[Signal]
 	public delegate void GlobalTimeoutEventHandler(); //emits when timer reaches zero
+	[Signal]
+	public delegate void LevelCompleteEventHandler(int levelID); //emits when player touches the level end gate
 
 }
