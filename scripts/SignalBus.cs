@@ -34,5 +34,6 @@ public partial class SignalBus : Node
 	public delegate void GlobalTimeoutEventHandler(); //emits when timer reaches zero
 	[Signal]
 	public delegate void LevelCompleteEventHandler(int levelID); //emits when player touches the level end gate
-
+	[Signal]
+	public delegate void PitFallEventHandler(Node2D body); //emits when a body enters a fall zone
 }

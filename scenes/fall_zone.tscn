@@ -1,0 +1,13 @@
+[gd_scene load_steps=3 format=3 uid="uid://yo0efc8qtru6"]
+
+[ext_resource type="Script" path="res://scripts/FallZone.cs" id="1_brxsp"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_12py7"]
+size = Vector2(34, 29)
+
+[node name="Fall_Zone" type="Area2D"]
+collision_mask = 15
+script = ExtResource("1_brxsp")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_12py7")

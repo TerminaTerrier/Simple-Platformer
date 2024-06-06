@@ -35,7 +35,7 @@ size = Vector2(10, 7.25)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_dxsxa"]
 size = Vector2(12, 8.625)
 
-[node name="Basic_Enemy" type="CharacterBody2D" node_paths=PackedStringArray("velocityComponent", "pathfindComponent", "collisionHandler", "raycastComponent", "healthComponent")]
+[node name="Basic_Enemy" type="CharacterBody2D" node_paths=PackedStringArray("velocityComponent", "pathfindComponent", "collisionHandler", "raycastComponent", "healthComponent") groups=["BasicEnemy"]]
 collision_layer = 2
 script = ExtResource("1_aqww8")
 velocityComponent = NodePath("Velocity_Component")
@@ -52,7 +52,7 @@ position = Vector2(0, 2.38419e-07)
 scale = Vector2(9.5, 8.5)
 texture = SubResource("PlaceholderTexture2D_pnmfp")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." groups=["BasicEnemy"]]
 shape = SubResource("RectangleShape2D_hrify")
 
 [node name="Velocity_Component" parent="." instance=ExtResource("2_35kfb")]

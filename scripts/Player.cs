@@ -35,6 +35,13 @@ public partial class Player : CharacterBody2D
 		healthComponent.Damage += OnDamage;
 		signalBus.PowerUp += ModifyPowerUpState;
 		signalBus.GlobalTimeout += Die;
+		signalBus.PitFall += (Node2D body) => 
+		{
+			if(body.Name == "Player")
+			{
+				Die();
+			}
+		}; 
 
 		stateMachine.AddState(IdleState);
 		stateMachine.Enter();

@@ -17,9 +17,20 @@ public partial class BasicEnemy : CharacterBody2D
 	[Export]
 	HealthComponent healthComponent;
 	bool directionSwitch = true;	
+	SignalBus signalBus;
 	StateMachine stateMachine = new();
 	public override void _Ready()
 	{
+		signalBus = GetNode<SignalBus>("/root/SignalBus");
+
+		signalBus.PitFall += (Node2D body) => 
+		{
+			if(body.IsInGroup("BasicEnemy"))
+			{
+				Die();
+			}
+		}; 
+
 		healthComponent.Death += Die;
 
 		stateMachine.AddState(NormalState);

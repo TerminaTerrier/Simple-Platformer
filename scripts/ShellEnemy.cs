@@ -32,10 +32,20 @@ public partial class ShellEnemy : CharacterBody2D
 	bool enemyStopped;
 	bool timeoutLock;	
 	SceneTreeTimer hideTimer;
+	SignalBus signalBus;
 	StateMachine stateMachine = new();
 	public override void _Ready()
 	{
+		signalBus = GetNode<SignalBus>("/root/SignalBus");
+
 		healthComponent.Death += Die;
+		signalBus.PitFall += (Node2D body) => 
+		{
+			if(body.IsInGroup("ShellEnemy"))
+			{
+				Die();
+			}
+		}; 
 
 		stateMachine.AddState(NormalState);
 		stateMachine.Enter();
