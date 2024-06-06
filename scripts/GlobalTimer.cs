@@ -13,7 +13,7 @@ public partial class GlobalTimer : Node
 		AddChild(globalTimer);
 
 		signalBus.StartGame += () => globalTimer.Start(500f);
-
+		signalBus.LevelComplete += (int levelID) => globalTimer.Start(500f);
 		signalBus.GameOver += () => globalTimer.Stop();
 
 		globalTimer.Timeout += () => signalBus.EmitSignal(SignalBus.SignalName.GlobalTimeout);
