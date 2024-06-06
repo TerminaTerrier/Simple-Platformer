@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://by1vemvl8ps7n"]
+[gd_scene load_steps=13 format=3 uid="uid://by1vemvl8ps7n"]
 
 [ext_resource type="Script" path="res://scripts/DamageOrb.cs" id="1_pyr8t"]
 [ext_resource type="PackedScene" uid="uid://dwduj8cfffhyx" path="res://scenes/hurtbox_component.tscn" id="2_g1qyy"]
@@ -6,10 +6,24 @@
 [ext_resource type="PackedScene" uid="uid://bhnefvy53fwyu" path="res://scenes/hitbox_component.tscn" id="3_1aunv"]
 [ext_resource type="PackedScene" uid="uid://cj61p2pt0xi67" path="res://scenes/velocity_component.tscn" id="3_sjts5"]
 [ext_resource type="PackedScene" uid="uid://3a5s6ds1pqbd" path="res://scenes/health_component.tscn" id="4_xptox"]
-[ext_resource type="Resource" uid="uid://1qu6drqk7tga" path="res://resources/Stats.tres" id="5_26q58"]
+[ext_resource type="Script" path="res://resources/Stats.cs" id="5_84h66"]
+
+[sub_resource type="Resource" id="Resource_cfckp"]
+resource_local_to_scene = true
+script = ExtResource("5_84h66")
+Damage = 1
+MaxHealth = 3
+StartingHealth = 1
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_mfpij"]
 radius = 7.0
+
+[sub_resource type="Resource" id="Resource_aovca"]
+resource_local_to_scene = true
+script = ExtResource("5_84h66")
+Damage = 1
+MaxHealth = 3
+StartingHealth = 1
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_xs5jk"]
 radius = 9.0
@@ -35,7 +49,7 @@ texture = ExtResource("2_mwflj")
 
 [node name="Health_Component" parent="." node_paths=PackedStringArray("hurtBox") instance=ExtResource("4_xptox")]
 hurtBox = NodePath("../Hurtbox_Component")
-stats = ExtResource("5_26q58")
+stats = SubResource("Resource_cfckp")
 
 [node name="Hurtbox_Component" parent="." instance=ExtResource("2_g1qyy")]
 collision_layer = 16
@@ -48,7 +62,7 @@ debug_color = Color(0.607843, 0.541176, 0.00784314, 0.419608)
 [node name="Hitbox_Component" parent="." instance=ExtResource("3_1aunv")]
 collision_layer = 16
 collision_mask = 12
-stats = ExtResource("5_26q58")
+stats = SubResource("Resource_aovca")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox_Component"]
 shape = SubResource("CircleShape2D_xs5jk")

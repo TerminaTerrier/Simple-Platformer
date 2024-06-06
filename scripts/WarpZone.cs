@@ -29,7 +29,7 @@ public partial class WarpZone : Area2D
 	{
 		if(body.Name == "Player")
 		{
-			signalBus.EmitSignal(SignalBus.SignalName.WarpZoneExit, warpVal);
+			signalBus.EmitSignal(SignalBus.SignalName.WarpZoneExit);
 		}
 	}
 }

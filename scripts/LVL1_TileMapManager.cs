@@ -22,7 +22,7 @@ public partial class LVL1_TileMapManager : TileMap
 	{
 		//GD.Print(spawnPosition);
 		int containerData = (int)LevelOneData.GetLevelOneCustomData(spawnPosition + new Vector2I(0,15), "ContainerData", 2);
-		GD.Print(containerData);
+		//GD.Print(containerData);
 		switch (containerData)
 		{
 			
@@ -58,6 +58,6 @@ public partial class LVL1_TileMapManager : TileMap
 		var tilePosition = LocalToMap(position - new Vector2I(0,10));
 		EraseCell(1, tilePosition);
 		//GD.Print("OnBrickHit: " + tilePosition);
-		GD.Print("emitted");
+		//GD.Print("emitted");
 	}
 }

@@ -122,7 +122,7 @@ public partial class ShellEnemy : CharacterBody2D
 		}
 		//GD.Print(GetSlideCollisionCount());
 		//GD.Print(hurtboxComponent.Monitoring = true);
-		GD.Print(healthComponent.Health);
+		//GD.Print(healthComponent.Health);
 		
 	}
 
@@ -132,7 +132,7 @@ public partial class ShellEnemy : CharacterBody2D
 		
 		velocityComponent.NormalForceCheck(this);
 
-		GD.Print(healthComponent.Health);
+		//GD.Print(healthComponent.Health);
 		
 		if(GetSlideCollisionCount() != 0)
 		{

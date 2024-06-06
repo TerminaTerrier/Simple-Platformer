@@ -43,6 +43,14 @@ public partial class PlayerController : Node2D
 				SpecialAction();
 			}
 		}
+
+		if(warpFlag == true)
+		{
+			if(@event.IsActionPressed("InputDown"))
+			{
+				signalBus.EmitSignal(SignalBus.SignalName.Warp, warpValue, teleportPosition);
+			}
+		}
     }
     public override void _Process(double delta)
     {
@@ -72,14 +80,8 @@ public partial class PlayerController : Node2D
 			//GD.Print("Right");
 		}
 
-		if(warpFlag == true)
-		{
-			if(Input.IsActionPressed("InputDown"))
-			{
-				signalBus.EmitSignal(SignalBus.SignalName.Warp, warpValue, teleportPosition);
-			}
-		}
-
+		
+		//GD.Print(warpFlag);
 		
     }
 	
