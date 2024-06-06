@@ -1,0 +1,37 @@
+[gd_scene load_steps=6 format=3 uid="uid://37qewwufj77d"]
+
+[ext_resource type="Script" path="res://scripts/InvinciblePowerUp.cs" id="1_5xn64"]
+[ext_resource type="PackedScene" uid="uid://cj61p2pt0xi67" path="res://scenes/velocity_component.tscn" id="2_2wqhr"]
+[ext_resource type="Texture2D" uid="uid://bgn7g2rus75iq" path="res://assets/art/invincible_powerup.png" id="2_exci3"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_iuc7f"]
+radius = 6.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_y04jn"]
+radius = 9.0
+
+[node name="PowerUp_Invincible" type="CharacterBody2D" node_paths=PackedStringArray("velocityComponent", "lifeTimer")]
+collision_layer = 0
+script = ExtResource("1_5xn64")
+velocityComponent = NodePath("Velocity_Component")
+lifeTimer = NodePath("Life_Timer")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_iuc7f")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture_filter = 1
+texture = ExtResource("2_exci3")
+
+[node name="Velocity_Component" parent="." instance=ExtResource("2_2wqhr")]
+mass = 10.0
+
+[node name="Area2D" type="Area2D" parent="."]
+collision_mask = 3
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("CircleShape2D_y04jn")
+
+[node name="Life_Timer" type="Timer" parent="."]
+
+[connection signal="body_entered" from="Area2D" to="." method="OnBodyEntered"]

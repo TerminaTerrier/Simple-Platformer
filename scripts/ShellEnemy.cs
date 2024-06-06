@@ -203,7 +203,7 @@ public partial class ShellEnemy : CharacterBody2D
 		healthComponent.SetHealth(2); 
 
 		hitboxComponent.Monitorable = true; 
-		hurtboxComponent.SetCollisionMaskValue(2, false);
+		hurtboxComponent.SetCollisionMaskValue(2, true);
 
 		stateMachine.AddState(NormalState); 
 		stateMachine.Enter();

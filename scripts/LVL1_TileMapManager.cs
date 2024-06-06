@@ -7,6 +7,7 @@ public partial class LVL1_TileMapManager : TileMap
 	public PackedScene token{ get; private set; } = GD.Load<PackedScene>("res://scenes/token.tscn");
 	public PackedScene regPowerUp{get; private set;} = GD.Load<PackedScene>("res://scenes/power_up_regular.tscn");
 	public PackedScene offPowerUp{get; private set; } = GD.Load<PackedScene>("res://scenes/power_up_offensive.tscn");
+	public PackedScene invPowerUp{get; private set; } = GD.Load<PackedScene>("res://scenes/power_up_invincible.tscn");
 	private Node2D powerUpInstance;
     public override void _Ready()
     {
@@ -39,6 +40,9 @@ public partial class LVL1_TileMapManager : TileMap
 			{
 			 powerUpInstance = (Node2D)offPowerUp.Instantiate();
 			}
+			break;
+			case 3:
+			powerUpInstance = (Node2D)invPowerUp.Instantiate();
 			break;
 		}
 		

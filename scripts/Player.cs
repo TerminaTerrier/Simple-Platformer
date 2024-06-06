@@ -80,9 +80,31 @@ public partial class Player : CharacterBody2D
 				powerUpState = 2;
 			}
 			break;
-
+			case 3:
+				if(powerUpState != 3)
+				{	
+					Timer timer = new();
+					AddChild(timer);
+					timer.Start(15);
+					hurtboxComponent.Monitoring = false;
+					hitboxComponent.SetCollisionLayerValue(5, true);
+					velocityComponent.SetMaxSpeed(250f, 200f);
+						if(powerUpState == 0)
+						{
+							hitboxComponent.Scale = new Vector2(1.2f,1f);
+							timer.Timeout += () => {hurtboxComponent.Monitoring = true; hitboxComponent.Scale = new Vector2(1f,1f); hitboxComponent.SetCollisionLayerValue(5, false); velocityComponent.SetMaxSpeed(100f, 200f); powerUpState = 0; };
+						}
+						else if(powerUpState == 1 || powerUpState == 2)
+						{
+							hitboxComponent.Scale = new Vector2(1.2f,1.25f);	
+							timer.Timeout += () => {hurtboxComponent.Monitoring = true; hitboxComponent.Scale = new Vector2(1f,1.25f); hitboxComponent.SetCollisionLayerValue(5, false); velocityComponent.SetMaxSpeed(100f, 200f); powerUpState = 1; };
+						}
+				}
+			break;
 		}
+
 	}
+	
 	private void IdleState()
 	{
 		
