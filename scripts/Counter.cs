@@ -17,6 +17,12 @@ public partial class Counter : Node
 	{
 		counter++;
 		signalBus.EmitSignal(SignalBus.SignalName.CounterUpdate, counter);
+
+		if(counter == 100)
+		{
+			signalBus.EmitSignal(SignalBus.SignalName.CounterRollover);
+			counter = 0;
+		}
 	}
 
 	

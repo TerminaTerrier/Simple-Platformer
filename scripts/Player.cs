@@ -42,6 +42,7 @@ public partial class Player : CharacterBody2D
 				Die();
 			}
 		}; 
+		signalBus.CounterRollover += () => {lives++; signalBus.EmitSignal(SignalBus.SignalName.LivesUpdate, lives);};
 
 		stateMachine.AddState(IdleState);
 		stateMachine.Enter();
@@ -222,6 +223,6 @@ public partial class Player : CharacterBody2D
 			signalBus.EmitSignal("GameOver");
 		}
 		GlobalPosition = Vector2.Zero;
-		signalBus.EmitSignal(SignalBus.SignalName.LifeLost, lives);
+		signalBus.EmitSignal(SignalBus.SignalName.LivesUpdate, lives);
 	}
 }

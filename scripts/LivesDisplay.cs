@@ -8,12 +8,13 @@ public partial class LivesDisplay : Label
 	{
 		signalBus = GetNode<SignalBus>("/root/SignalBus");
 
-		signalBus.LifeLost += OnLifeLost;
+	
+		signalBus.LivesUpdate += UpdateDisplay;
 		signalBus.GameOver += OnGameOver;
 
 	}
 
-	private void OnLifeLost(int lives)
+	private void UpdateDisplay(int lives)
 	{
 		if(lives >= 0)
 		{
