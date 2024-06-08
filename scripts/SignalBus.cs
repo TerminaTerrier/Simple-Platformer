@@ -38,4 +38,6 @@ public partial class SignalBus : Node
 	public delegate void LevelCompleteEventHandler(int levelID); //emits when player touches the level end gate
 	[Signal]
 	public delegate void PitFallEventHandler(Node2D body); //emits when a body enters a fall zone
+	[Signal]
+	public delegate void SFXEventHandler(string sfxID); //emits when a sound effect needs to be played
 }

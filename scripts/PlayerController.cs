@@ -48,7 +48,9 @@ public partial class PlayerController : Node2D
 		{
 			if(@event.IsActionPressed("InputDown"))
 			{
+				
 				signalBus.EmitSignal(SignalBus.SignalName.Warp, warpValue, teleportPosition);
+				signalBus.EmitSignal(SignalBus.SignalName.SFX, "Warp");
 			}
 		}
     }

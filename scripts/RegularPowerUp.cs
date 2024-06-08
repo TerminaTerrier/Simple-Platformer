@@ -82,6 +82,7 @@ public partial class RegularPowerUp : CharacterBody2D
 		if(body.Name == "Player")
 		{
 			signalBus.EmitSignal(SignalBus.SignalName.PowerUp, 1);
+			signalBus.EmitSignal(SignalBus.SignalName.SFX, "PU-R");
 			QueueFree();
 		}
 	}

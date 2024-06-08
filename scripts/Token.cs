@@ -16,6 +16,7 @@ public partial class Token : Area2D
 		if(body.Name == "Player")
 		{
 		  signalBus.EmitSignal(SignalBus.SignalName.Collect);
+		  signalBus.EmitSignal(SignalBus.SignalName.SFX, "Token");
 		  QueueFree();
 		}
 	}
