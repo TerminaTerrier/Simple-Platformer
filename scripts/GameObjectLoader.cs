@@ -1,4 +1,5 @@
 using Godot;
+using Godot.Collections;
 using System;
 
 public partial class GameObjectLoader : Node2D
@@ -13,7 +14,9 @@ public partial class GameObjectLoader : Node2D
 	PackedScene sublevelOne;
 	PackedScene player;
 	PackedScene dmgOrb;
-	Node levelInstance; 
+	int currentLevel;	
+
+	private Godot.Collections.Array levelInstanceArray = new Godot.Collections.Array();
 	CharacterBody2D bodyInstance;
 	public override void _Ready()
 	{ 
@@ -26,55 +29,86 @@ public partial class GameObjectLoader : Node2D
 	   sublevelOne = _sceneData.SubLevelOne;
 		dmgOrb = _sceneData.DamageOrb;
 
+		LoadLevel(levelOne);
+		LoadLevel(sublevelOne);
+		LoadLevel(levelTwo);
+		LoadLevel(levelThree);
+
+		//InstantiateLevels();
+
 	   signalBus = GetNode<SignalBus>("/root/SignalBus");
-	   signalBus.StartGame += () => LoadLevel(levelOne);
+	   signalBus.StartGame += () => AddChild((Node)levelInstanceArray[0]);
 	   signalBus.StartGame += () => LoadCharacterBody(player, new Vector2(0,-10));
 
 	   signalBus.SpecialAction += (Vector2 position) => LoadCharacterBody(dmgOrb, position + new Vector2(0, 10));
 
 		signalBus.Warp += (int warpVal, Vector2 telePosition) => 
 		{
-			FreeLevel();
-			GD.Print(warpVal);
+			bodyInstance.Position = telePosition;
+			FreeCharacterBody();
+			
+			
+			GD.Print(bodyInstance.Position);
 			switch (warpVal)
 			{
 			case 1:
-			LoadLevel(levelOne);
-			bodyInstance.Position = telePosition;
+			
+				FreeLevel(1);
+				CallDeferred("add_child", (Node)levelInstanceArray[0]);
+				currentLevel = 0;
+				if(bodyInstance.Position == telePosition)
+				{
+				CallDeferred("add_child", bodyInstance);
+				}
+				
+			
 			break;
 			case -1:	
-			LoadLevel(sublevelOne);
-			bodyInstance.Position = telePosition;
+				FreeLevel(0);
+				CallDeferred("add_child", (Node)levelInstanceArray[1]);
+				currentLevel = 1;
+				//LoadLevel(sublevelOne);
+				if(bodyInstance.Position == telePosition)
+				{
+				CallDeferred("add_child", bodyInstance);
+				}
 			break;
 			}
+
+			
+			
+			
+			
 		};
 
 		signalBus.LevelComplete += (int levelID) => 
 		{
-			FreeLevel();
+			FreeLevel(currentLevel);
 			bodyInstance.Position = Vector2.Zero;
 			switch (levelID)
 			{
 				case 1:
-				LoadLevel(levelOne);
+				AddChild((Node)levelInstanceArray[0]);
+				currentLevel = 0;
 				break;
 				case 2:
-				LoadLevel(levelTwo);
+				AddChild((Node)levelInstanceArray[2]);
+				currentLevel = 2;
 				break;
 				case 3:
-				LoadLevel(levelThree);
+				AddChild((Node)levelInstanceArray[3]);
+				currentLevel = 3;
 				break;
 			}
 		};
 
-	   signalBus.GameOver += () => FreeLevel();
+	   signalBus.GameOver += () => FreeLevel(currentLevel);
 	   signalBus.GameOver += () => FreeCharacterBody();
 	}
 
 	private void LoadLevel(PackedScene level)
 	{
-		levelInstance = (Node)level.Instantiate();
-		AddChild(levelInstance);
+		levelInstanceArray.Add((Node)level.Instantiate());
 	}
 
 	private void LoadCharacterBody(PackedScene body, Vector2 position)
@@ -84,9 +118,9 @@ public partial class GameObjectLoader : Node2D
 		bodyInstance.Position = position;
 	}
 
-	private void FreeLevel()
+	private void FreeLevel(int index)
 	{
-		CallDeferred("remove_child", levelInstance);
+		CallDeferred("remove_child", levelInstanceArray[index]);
 	}
 
 	private void FreeCharacterBody()

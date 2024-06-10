@@ -107,13 +107,13 @@ position = Vector2(3, -47)
 position = Vector2(28, -24)
 
 [node name="Token13" parent="." instance=ExtResource("5_cwfpy")]
-position = Vector2(53, -26)
+position = Vector2(74, -24)
 
 [node name="Token14" parent="." instance=ExtResource("5_cwfpy")]
-position = Vector2(77, -23)
+position = Vector2(51, -25)
 
 [node name="Token15" parent="." instance=ExtResource("5_cwfpy")]
 position = Vector2(33, -47)
 
 [node name="Token16" parent="." instance=ExtResource("5_cwfpy")]
-position = Vector2(61, -46)
+position = Vector2(58, -45)

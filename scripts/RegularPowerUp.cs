@@ -79,7 +79,7 @@ public partial class RegularPowerUp : CharacterBody2D
 		
 	public void OnBodyEntered(Node2D body)
 	{
-		if(body.Name == "Player")
+		if(body.IsInGroup("Player"))
 		{
 			signalBus.EmitSignal(SignalBus.SignalName.PowerUp, 1);
 			signalBus.EmitSignal(SignalBus.SignalName.SFX, "PU-R");

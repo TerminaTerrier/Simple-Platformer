@@ -11,7 +11,7 @@ public partial class OffensivePowerUp : CharacterBody2D
 
 	private void OnBodyEntered(Node2D body)
 	{
-		if(body.Name == "Player")
+		if(body.IsInGroup("Player"))
 		{
 			signalBus.EmitSignal(SignalBus.SignalName.PowerUp, 2);
 			QueueFree();

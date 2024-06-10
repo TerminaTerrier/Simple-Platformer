@@ -18,7 +18,7 @@ public partial class WarpZone : Area2D
 
 	private void OnBodyEntered(Node2D body)
 	{
-		if(body.Name == "Player")
+		if(body.IsInGroup("Player"))
 		{
 			signalBus.EmitSignal(SignalBus.SignalName.WarpZoneEnter, warpVal, telePosition);
 			GD.Print("Warp ready!");
@@ -27,7 +27,7 @@ public partial class WarpZone : Area2D
 
 	private void OnBodyExited(Node2D body)
 	{
-		if(body.Name == "Player")
+		if(body.IsInGroup("Player"))
 		{
 			signalBus.EmitSignal(SignalBus.SignalName.WarpZoneExit);
 		}

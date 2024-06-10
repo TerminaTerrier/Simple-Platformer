@@ -37,7 +37,7 @@ public partial class Player : CharacterBody2D
 		signalBus.GlobalTimeout += Die;
 		signalBus.PitFall += (Node2D body) => 
 		{
-			if(body.Name == "Player")
+			if(body.IsInGroup("Player"))
 			{
 				Die();
 			}
