@@ -35,6 +35,15 @@ public partial class Player : CharacterBody2D
 		healthComponent.Damage += OnDamage;
 		signalBus.PowerUp += ModifyPowerUpState;
 		signalBus.GlobalTimeout += Die;
+		signalBus.Warp += (int warpVal, Vector2 telePosition) => 
+		{
+			SetCollisionLayerValue(2, false); 
+			Timer timer = new();
+			AddChild(timer);
+			timer.Start(1);
+			timer.Timeout += () =>  SetCollisionLayerValue(2, true); 
+		}; 
+		
 		signalBus.PitFall += (Node2D body) => 
 		{
 			if(body.IsInGroup("Player"))
