@@ -46,7 +46,7 @@ public partial class LVL1_TileMapManager : TileMap
 			break;
 		}
 		
-
+		signalBus.EmitSignal(SignalBus.SignalName.SFX, "Special_Block");
 		EraseCell(2, LocalToMap(spawnPosition + new Vector2I(0,10)));
 		EraseCell(1, LocalToMap(spawnPosition + new Vector2I(0,10)));
 		SetCell(1, LocalToMap(spawnPosition + new Vector2I(0,10)), 3, new Vector2I(1, 1));
@@ -61,6 +61,7 @@ public partial class LVL1_TileMapManager : TileMap
 	{
 		var tilePosition = LocalToMap(position - new Vector2I(0,10));
 		EraseCell(1, tilePosition);
+		signalBus.EmitSignal(SignalBus.SignalName.SFX, "Brick");
 		//GD.Print("OnBrickHit: " + tilePosition);
 		//GD.Print("emitted");
 	}

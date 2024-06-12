@@ -13,7 +13,9 @@ public partial class OffensivePowerUp : CharacterBody2D
 	{
 		if(body.IsInGroup("Player"))
 		{
+
 			signalBus.EmitSignal(SignalBus.SignalName.PowerUp, 2);
+			signalBus.EmitSignal(SignalBus.SignalName.SFX, "PU-O");
 			QueueFree();
 		}
 	}

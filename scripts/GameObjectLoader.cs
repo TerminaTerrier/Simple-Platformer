@@ -40,7 +40,7 @@ public partial class GameObjectLoader : Node2D
 	   signalBus.StartGame += () => AddChild((Node)levelInstanceArray[0]);
 	   signalBus.StartGame += () => LoadCharacterBody(player, new Vector2(0,-10));
 
-	   signalBus.SpecialAction += (Vector2 position) => LoadCharacterBody(dmgOrb, position + new Vector2(0, 10));
+	   signalBus.SpecialAction += (Vector2 position) => {LoadCharacterBody(dmgOrb, position + new Vector2(0, 10)); signalBus.EmitSignal(SignalBus.SignalName.SFX, "Orb_Spawn");};
 
 		signalBus.Warp += (int warpVal, Vector2 telePosition) => 
 		{
@@ -88,15 +88,15 @@ public partial class GameObjectLoader : Node2D
 			switch (levelID)
 			{
 				case 1:
-				AddChild((Node)levelInstanceArray[0]);
+				CallDeferred("add_child", (Node)levelInstanceArray[0]);
 				currentLevel = 0;
 				break;
 				case 2:
-				AddChild((Node)levelInstanceArray[2]);
+				CallDeferred("add_child", (Node)levelInstanceArray[2]);
 				currentLevel = 2;
 				break;
 				case 3:
-				AddChild((Node)levelInstanceArray[3]);
+				CallDeferred("add_child", (Node)levelInstanceArray[3]);
 				currentLevel = 3;
 				break;
 			}

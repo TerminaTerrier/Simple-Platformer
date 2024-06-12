@@ -94,6 +94,7 @@ public partial class BasicEnemy : CharacterBody2D
 
 	private void Die()
 	{
+		 signalBus.EmitSignal(SignalBus.SignalName.SFX, "Squish");
 		QueueFree();
 	}
 }

@@ -43,6 +43,7 @@ public partial class InvinciblePowerUp : CharacterBody2D
 		if(body.IsInGroup("Player"))
 		{
 		signalBus.EmitSignal(SignalBus.SignalName.PowerUp, 3);
+		signalBus.EmitSignal(SignalBus.SignalName.SFX, "PU-I");
 		QueueFree();
 		}
 	}

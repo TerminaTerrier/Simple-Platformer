@@ -114,7 +114,7 @@ public partial class ShellEnemy : CharacterBody2D
 		{
 			//GD.Print(healthComponent.Health);
 			//velocityComponent.SetVelocity(Vector2.Zero);
-
+			signalBus.EmitSignal(SignalBus.SignalName.SFX, "Shell");
 			hideTimer = GetTree().CreateTimer(10);
 			//have do gate this because the entire state runs in a process loop -- need to figure out how to allow delegate states to execute outside of process
 			if(timeoutLock == false)
@@ -152,10 +152,12 @@ public partial class ShellEnemy : CharacterBody2D
 			switch(collisionDirection)
 			{
 				case (1,0):
+				signalBus.EmitSignal(SignalBus.SignalName.SFX, "Shell");
 				velocityComponent.SetVelocity(new Vector2(75, 0));
 				hitboxComponent.Monitorable = true;
 				break;
 				case (-1,0):
+				signalBus.EmitSignal(SignalBus.SignalName.SFX, "Shell");
 				velocityComponent.SetVelocity(new Vector2(-75,0));
 				hitboxComponent.Monitorable = true;
 				break;
@@ -178,6 +180,7 @@ public partial class ShellEnemy : CharacterBody2D
 				{
 					if(upRaycast.IsColliding() | leftRaycast.IsColliding() | rightRaycast.IsColliding() && velocityComponent.Velocity == Vector2.Zero)
 					{
+						signalBus.EmitSignal(SignalBus.SignalName.SFX, "Shell");
 						velocityComponent.SetVelocity(new Vector2(75, 0));
 						hitboxComponent.Monitorable = true;
 						enemyStopped = false;
@@ -223,6 +226,7 @@ public partial class ShellEnemy : CharacterBody2D
 	}
 	private void Die()
 	{
+		signalBus.EmitSignal(SignalBus.SignalName.SFX, "Shell");
 		QueueFree();
 	}
 

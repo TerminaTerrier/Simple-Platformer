@@ -36,6 +36,7 @@ public partial class DamageOrb : CharacterBody2D
 
 		if(IsOnFloor() == true)
 		{
+			signalBus.EmitSignal(SignalBus.SignalName.SFX, "Orb_Explosion");
 			stateMachine.AddState(ExplodingState);
 			stateMachine.Enter();
 		}
