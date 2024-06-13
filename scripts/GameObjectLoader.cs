@@ -14,6 +14,7 @@ public partial class GameObjectLoader : Node2D
 	PackedScene sublevelOne;
 	PackedScene player;
 	PackedScene dmgOrb;
+	Node2D playerInstance;
 	int currentLevel;	
 
 	private Godot.Collections.Array levelInstanceArray = new Godot.Collections.Array();
@@ -38,15 +39,15 @@ public partial class GameObjectLoader : Node2D
 
 	   signalBus = GetNode<SignalBus>("/root/SignalBus");
 	   signalBus.StartGame += () => AddChild((Node)levelInstanceArray[0]);
-	   signalBus.StartGame += () => LoadCharacterBody(player, new Vector2(0,-10));
+	   signalBus.StartGame += () => {LoadCharacterBody(player, new Vector2(0,-10));  playerInstance = GetChild<CharacterBody2D>(1);};
 
 	   signalBus.SpecialAction += (Vector2 position) => {LoadCharacterBody(dmgOrb, position + new Vector2(0, 10)); signalBus.EmitSignal(SignalBus.SignalName.SFX, "Orb_Spawn");};
 
 		signalBus.Warp += (int warpVal, Vector2 telePosition) => 
 		{
-		    var player = GetChild<CharacterBody2D>(1);
-			player.Position = telePosition;
-			CallDeferred("remove_child", player);
+		    
+			playerInstance.Position = telePosition;
+			CallDeferred("remove_child", playerInstance);
 	
 			switch (warpVal)
 			{
@@ -55,9 +56,9 @@ public partial class GameObjectLoader : Node2D
 				FreeLevel(1);
 				CallDeferred("add_child", (Node)levelInstanceArray[0]);
 				currentLevel = 0;
-				if(player.Position == telePosition)
+				if(playerInstance.Position == telePosition)
 				{
-				CallDeferred("add_child", player);
+				CallDeferred("add_child", playerInstance);
 				}
 				
 	
@@ -67,9 +68,9 @@ public partial class GameObjectLoader : Node2D
 				CallDeferred("add_child", (Node)levelInstanceArray[1]);
 				currentLevel = 1;
 				//LoadLevel(sublevelOne);
-				if(player.Position == telePosition)
+				if(playerInstance.Position == telePosition)
 				{
-				CallDeferred("add_child", player);
+				CallDeferred("add_child", playerInstance);
 				}
 			break;
 			
@@ -82,12 +83,12 @@ public partial class GameObjectLoader : Node2D
 
 		signalBus.LevelComplete += (int levelID) => 
 		{
-			var player = GetChild<CharacterBody2D>(1);
 			FreeLevel(currentLevel);
-			player.Position = Vector2.Zero;
+			playerInstance.Position = Vector2.Zero;
 			switch (levelID)
 			{
 				case 1:
+				
 				CallDeferred("add_child", (Node)levelInstanceArray[0]);
 				currentLevel = 0;
 				break;
