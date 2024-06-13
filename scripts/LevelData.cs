@@ -1,7 +1,7 @@
 using Godot;
 using System;
 
-public partial class LevelOneData : Node
+public partial class LevelData : Node
 {
 	static TileMap lvl1_tileMap;
 	SignalBus signalBus;

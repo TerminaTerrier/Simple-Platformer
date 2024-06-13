@@ -187,7 +187,7 @@ public partial class Player : CharacterBody2D
 			    
 			   if(powerUpState == 1 || powerUpState == 2)
 			   {
-			     if(tileMap.GetCellAtlasCoords(1, tileMap.LocalToMap(collisionData.GetPosition() - new Vector2(0, 10))) == new Vector2I(2,0))
+			     if(tileMap.GetCellAtlasCoords(1, tileMap.LocalToMap(collisionData.GetPosition() - new Vector2(0, 10))) == new Vector2I(2,0) || tileMap.GetCellAtlasCoords(1, tileMap.LocalToMap(collisionData.GetPosition() - new Vector2(0, 10))) == new Vector2I(2,1))
 				 {
 			     signalBus.EmitSignal(SignalBus.SignalName.BrickHit, collisionData.GetPosition());
 				// GD.Print(tileMap.GetCellAtlasCoords(1, tileMap.LocalToMap(collisionData.GetPosition() - new Vector2(0, 10))));

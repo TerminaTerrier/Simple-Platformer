@@ -2,7 +2,7 @@ using Godot;
 using Godot.NativeInterop;
 using System;
 
-public partial class LVL1_TileMapManager : TileMap
+public partial class TileMapManager : TileMap
 {
 	SignalBus signalBus;
 	public PackedScene token{ get; private set; } = GD.Load<PackedScene>("res://scenes/token.tscn");
@@ -36,7 +36,7 @@ public partial class LVL1_TileMapManager : TileMap
 		switch(currentLevelID)
 		{
 			case 1:
-			containerData = (int)LevelOneData.GetLevelOneCustomData(spawnPosition + new Vector2I(0,15), "ContainerData", 2);
+			containerData = (int)LevelData.GetLevelOneCustomData(spawnPosition + new Vector2I(0,15), "ContainerData", 2);
 		    break;
 			case -1:
 			//containerData = (int)SubLevelOneData.GetSubLevelOneCustomData(spawnPosition + new Vector2I(0,15), "ContainerData", 2);
