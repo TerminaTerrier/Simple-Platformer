@@ -44,11 +44,10 @@ public partial class GameObjectLoader : Node2D
 
 		signalBus.Warp += (int warpVal, Vector2 telePosition) => 
 		{
-			bodyInstance.Position = telePosition;
-			FreeCharacterBody();
-			
-			
-			GD.Print(bodyInstance.Position);
+		    var player = GetChild<CharacterBody2D>(1);
+			player.Position = telePosition;
+			CallDeferred("remove_child", player);
+	
 			switch (warpVal)
 			{
 			case 1:
@@ -56,9 +55,9 @@ public partial class GameObjectLoader : Node2D
 				FreeLevel(1);
 				CallDeferred("add_child", (Node)levelInstanceArray[0]);
 				currentLevel = 0;
-				if(bodyInstance.Position == telePosition)
+				if(player.Position == telePosition)
 				{
-				CallDeferred("add_child", bodyInstance);
+				CallDeferred("add_child", player);
 				}
 				
 	
@@ -68,23 +67,24 @@ public partial class GameObjectLoader : Node2D
 				CallDeferred("add_child", (Node)levelInstanceArray[1]);
 				currentLevel = 1;
 				//LoadLevel(sublevelOne);
-				if(bodyInstance.Position == telePosition)
+				if(player.Position == telePosition)
 				{
-				CallDeferred("add_child", bodyInstance);
+				CallDeferred("add_child", player);
 				}
 			break;
-			}
+			
 
 			
-			
+			}
 			
 			
 		};
 
 		signalBus.LevelComplete += (int levelID) => 
 		{
+			var player = GetChild<CharacterBody2D>(1);
 			FreeLevel(currentLevel);
-			bodyInstance.Position = Vector2.Zero;
+			player.Position = Vector2.Zero;
 			switch (levelID)
 			{
 				case 1:

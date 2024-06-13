@@ -15,13 +15,14 @@ public partial class DamageOrb : CharacterBody2D
 	Sprite2D sprite;
 	StateMachine stateMachine = new();
 	SignalBus signalBus;
-	public override void _Ready()
+	public override void _EnterTree()
 	{
 		signalBus = GetNode<SignalBus>("/root/SignalBus");
 		healthComponent.Death += Die;
 		//signalBus.Warp += Die; - needs overload
 		stateMachine.AddState(FallingState);
 		stateMachine.Enter();
+		signalBus.Warp += (warpVal, telePosition) => Die();
 	}
 
     public override void _PhysicsProcess(double delta)
@@ -36,6 +37,11 @@ public partial class DamageOrb : CharacterBody2D
 
 		if(IsOnFloor() == true)
 		{
+			Timer timer = new();
+		    AddChild(timer);
+			timer.Start(4);
+			timer.Timeout += () => QueueFree();
+
 			signalBus.EmitSignal(SignalBus.SignalName.SFX, "Orb_Explosion");
 			stateMachine.AddState(ExplodingState);
 			stateMachine.Enter();
@@ -47,18 +53,18 @@ public partial class DamageOrb : CharacterBody2D
 	{
 		hurtboxComponent.Monitoring = false;
 
-		Timer timer = new();
-		AddChild(timer);
-
-		timer.Start(4);
+		
 
 		hitboxComponent.Scale = new Vector2(1.2f,2f);
 		sprite.Texture = GD.Load<Texture2D>("res://assets/art/orb_explosion.png");
-		timer.Timeout += () => QueueFree();
+		
 	}
 	private void Die()
 	{
-		QueueFree();
+		if(IsInstanceValid(this))
+		{
+			CallDeferred("queue_free");
+		}
 	}
 
 }
