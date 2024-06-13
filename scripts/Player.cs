@@ -184,20 +184,21 @@ public partial class Player : CharacterBody2D
 					spawnLock = true;
 				}
 
-			    switch(powerUpState)
-			    {
-			    case 1:
+			    
+			   if(powerUpState == 1 || powerUpState == 2)
+			   {
 			     if(tileMap.GetCellAtlasCoords(1, tileMap.LocalToMap(collisionData.GetPosition() - new Vector2(0, 10))) == new Vector2I(2,0))
 				 {
 			     signalBus.EmitSignal(SignalBus.SignalName.BrickHit, collisionData.GetPosition());
 				// GD.Print(tileMap.GetCellAtlasCoords(1, tileMap.LocalToMap(collisionData.GetPosition() - new Vector2(0, 10))));
 					//GD.Print("emited");
 				 }
-			    break;
-			    }
+
+			    
+			   }
+			}
 			}
 		  }
-		}
 		
 	
 		
