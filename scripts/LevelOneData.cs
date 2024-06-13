@@ -4,9 +4,20 @@ using System;
 public partial class LevelOneData : Node
 {
 	static TileMap lvl1_tileMap;
-	public override void _Ready()
+	SignalBus signalBus;
+
+    public override void _EnterTree()
+    {
+      lvl1_tileMap =  GetNode<TileMap>("TileMap");
+	 // GD.Print("Enter");
+    }
+    public override void _Ready()
 	{
-		lvl1_tileMap = GetNode<TileMap>("TileMap");
+		
+		signalBus = GetNode<SignalBus>("/root/SignalBus");
+
+		//signalBus.Warp += (warpVal, telePosition) => GD.Print("IMPORTANT: " + lvl1_tileMap == null);
+
 	}
 	public static TileData GetLevelOneTileData(Vector2 position, int layer)
 	{
@@ -14,9 +25,12 @@ public partial class LevelOneData : Node
 		return lvl1_tileMap.GetCellTileData(layer, local_position);
 	}
 
-	public static Variant GetLevelOneCustomData(Vector2 position, String dataName, int layer)
+	public static Variant GetLevelOneCustomData(Vector2 position, string dataName, int layer)
 	{
+		
 		var data = GetLevelOneTileData(position, layer);
+		GD.Print(data);
+		GD.Print(dataName);
 		return data.GetCustomData(dataName);
 	}
 
@@ -24,4 +38,6 @@ public partial class LevelOneData : Node
 	{
 		return lvl1_tileMap.GetLayerNavigationMap(layer);
 	}
+
+	
 }

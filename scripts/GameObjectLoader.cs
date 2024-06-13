@@ -61,7 +61,7 @@ public partial class GameObjectLoader : Node2D
 				CallDeferred("add_child", bodyInstance);
 				}
 				
-			
+	
 			break;
 			case -1:	
 				FreeLevel(0);

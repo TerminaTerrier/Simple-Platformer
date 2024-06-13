@@ -128,7 +128,7 @@ public partial class ShellEnemy : CharacterBody2D
 
 			hitboxComponent.Monitorable = false;
 			hurtboxComponent.SetCollisionMaskValue(2, false);
-			GD.Print("Entering Hide State");
+		//	GD.Print("Entering Hide State");
 		}
 		//GD.Print(GetSlideCollisionCount());
 		//GD.Print(hurtboxComponent.Monitoring = true);
@@ -211,7 +211,7 @@ public partial class ShellEnemy : CharacterBody2D
 	}
 	private void OnHideTimerTimeout()
 	{
-		GD.Print("Entering Normal State"); 
+	//	GD.Print("Entering Normal State"); 
 		//var callable = new Callable(this, MethodName.OnHideTimerTimeout);
 		healthComponent.SetHealth(2); 
 

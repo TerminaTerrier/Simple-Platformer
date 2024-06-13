@@ -39,7 +39,7 @@ public partial class VelocityComponent : Node2D
 		{
 			gravity = new Vector2(0, 25);
 			//calculatedVelocity.Y *= 0.9f;
-			GD.Print("Not on floor");
+			//GD.Print("Not on floor");
 		}
 		
 		if(characterBody2D.IsOnWall())

@@ -93,6 +93,7 @@ layer_1/tile_data = PackedInt32Array(65527, 3, 0, 65528, 3, 0, 65529, 3, 0, 6553
 layer_2/name = "data"
 layer_2/tile_data = PackedInt32Array(-196597, 65539, 3, -196584, 65539, 3, -196575, 65539, 2, -196572, 65539, 2, -196619, 65539, 3, -524220, 65539, 4)
 script = ExtResource("3_rvd4h")
+tileMapLevel = 1
 metadata/LVL1_TileMap = "PhysicsEnabled"
 
 [node name="Shell_Enemy" parent="." instance=ExtResource("3_b27uv")]
