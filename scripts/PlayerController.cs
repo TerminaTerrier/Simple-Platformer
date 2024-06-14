@@ -99,6 +99,7 @@ public partial class PlayerController : Node2D
 		{
 			PressFlag = true;
 			velocityComponent.AccelerateInDirection(Vector2.Up, jumpStrength * 100);
+			signalBus.EmitSignal(SignalBus.SignalName.SFX, "Jump");
 		}
 		PressFlag = false;
 	}

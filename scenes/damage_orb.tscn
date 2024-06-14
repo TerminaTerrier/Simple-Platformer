@@ -8,7 +8,7 @@
 [ext_resource type="PackedScene" uid="uid://3a5s6ds1pqbd" path="res://scenes/health_component.tscn" id="4_xptox"]
 [ext_resource type="Script" path="res://resources/Stats.cs" id="5_84h66"]
 
-[sub_resource type="Resource" id="Resource_iy1lw"]
+[sub_resource type="Resource" id="Resource_ogs4n"]
 resource_local_to_scene = true
 script = ExtResource("5_84h66")
 Damage = 1
@@ -18,7 +18,7 @@ StartingHealth = 1
 [sub_resource type="CircleShape2D" id="CircleShape2D_mfpij"]
 radius = 7.0
 
-[sub_resource type="Resource" id="Resource_q26su"]
+[sub_resource type="Resource" id="Resource_ym2s2"]
 resource_local_to_scene = true
 script = ExtResource("5_84h66")
 Damage = 1
@@ -49,7 +49,7 @@ texture = ExtResource("2_mwflj")
 
 [node name="Health_Component" parent="." node_paths=PackedStringArray("hurtBox") instance=ExtResource("4_xptox")]
 hurtBox = NodePath("../Hurtbox_Component")
-stats = SubResource("Resource_iy1lw")
+stats = SubResource("Resource_ogs4n")
 
 [node name="Hurtbox_Component" parent="." instance=ExtResource("2_g1qyy")]
 collision_layer = 16
@@ -62,7 +62,7 @@ debug_color = Color(0.607843, 0.541176, 0.00784314, 0.419608)
 [node name="Hitbox_Component" parent="." instance=ExtResource("3_1aunv")]
 collision_layer = 16
 collision_mask = 12
-stats = SubResource("Resource_q26su")
+stats = SubResource("Resource_ym2s2")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox_Component"]
 shape = SubResource("CircleShape2D_xs5jk")

@@ -4,6 +4,7 @@ using System;
 public partial class AudioManager : AudioStreamPlayer2D
 {
 	AudioStream tokenSFX = GD.Load<AudioStream>("res://audio/SFX_token.ogg");
+	AudioStream jumpSFX = GD.Load<AudioStream>("res://audio/SFX_jump.ogg");
 	AudioStream regPowerUpSFX = GD.Load<AudioStream>("res://audio/SFX_regular_power_up.ogg");
 	AudioStream offPowerUpSFX = GD.Load<AudioStream>("res://audio/SFX_offensive_power_up.ogg");
 	AudioStream invcPowerUpSFX = GD.Load<AudioStream> ("res://audio/SFX_invincible_power_up.ogg");
@@ -28,6 +29,11 @@ public partial class AudioManager : AudioStreamPlayer2D
 			{
 				case "Token":
 				this.Stream = tokenSFX;
+				Play();
+				break;
+
+				case "Jump":
+				this.Stream = jumpSFX;
 				Play();
 				break;
 
