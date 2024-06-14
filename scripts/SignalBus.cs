@@ -40,4 +40,6 @@ public partial class SignalBus : Node
 	public delegate void PitFallEventHandler(Node2D body); //emits when a body enters a fall zone
 	[Signal]
 	public delegate void SFXEventHandler(string sfxID); //emits when a sound effect needs to be played
+	[Signal]
+	public delegate void VictoryEventHandler(); //emits when the player beats the game
 }

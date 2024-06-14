@@ -19,6 +19,7 @@ public partial class UILoader : CanvasLayer
 	  signalBus = GetNode<SignalBus>("/root/SignalBus");
 	  signalBus.StartGame += () => {RemoveSceneInstance(UIInstance); LoadScene(HUD);};
 	  signalBus.GameOver += () => LoadScene(_sceneData.GameOverScreen);
+	  signalBus.Victory += () => LoadScene(_sceneData.WinScreen);
 	 
 
 	  mainMenu = _sceneData.MainMenu;

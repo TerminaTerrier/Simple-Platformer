@@ -17,7 +17,10 @@ public partial class LevelEndGate : Area2D
 		if(body.IsInGroup("Player"))
 		{
 		signalBus.EmitSignal(SignalBus.SignalName.LevelComplete, nextLevelID);
+		if(nextLevelID != 4)
+		{
 		signalBus.EmitSignal(SignalBus.SignalName.SFX, "Level_Clear");
+		}
 		}
 	}
 

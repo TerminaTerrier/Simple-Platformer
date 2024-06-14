@@ -15,6 +15,7 @@ public partial class AudioManager : AudioStreamPlayer2D
 	AudioStream brickSFX = GD.Load<AudioStream>("res://audio/SFX_brick.ogg");
 	AudioStream special_blockSFX = GD.Load<AudioStream>("res://audio/SFX_special_block.ogg");
 	AudioStream lvl_clearSFX = GD.Load<AudioStream>("res://audio/SFX_lvl_clear.ogg");
+	AudioStream victorySFX = GD.Load<AudioStream>("res://audio/SFX_victory.ogg");
 	SignalBus signalBus;
 	
 	public override void _Ready()
@@ -82,6 +83,11 @@ public partial class AudioManager : AudioStreamPlayer2D
 
 				case "Special_Block":
 				this.Stream = special_blockSFX;
+				Play();
+				break;
+
+				case "Victory":
+				this.Stream = victorySFX;
 				Play();
 				break;
 

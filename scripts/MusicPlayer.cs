@@ -16,6 +16,8 @@ public partial class MusicPlayer : AudioStreamPlayer
 
 		signalBus.StartGame += () => {this.Stream = level1Theme; streamHolder = this.Stream; Play();}; 
 
+		signalBus.Victory += () => Stop();
+
 		signalBus.LevelComplete += (int levelID) => 
 		{
 			switch(levelID)

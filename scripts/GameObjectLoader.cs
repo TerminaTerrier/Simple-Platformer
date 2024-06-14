@@ -100,6 +100,10 @@ public partial class GameObjectLoader : Node2D
 				CallDeferred("add_child", (Node)levelInstanceArray[3]);
 				currentLevel = 3;
 				break;
+				case 4:
+				signalBus.EmitSignal(SignalBus.SignalName.SFX, "Victory");
+				signalBus.EmitSignal(SignalBus.SignalName.Victory);
+				break;
 			}
 		};
 
