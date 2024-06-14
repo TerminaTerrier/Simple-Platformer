@@ -43,6 +43,7 @@ text = "TIME - 500"
 script = ExtResource("3_aaxjc")
 
 [node name="Token_Texture" type="TextureRect" parent="."]
+texture_filter = 1
 layout_mode = 0
 offset_left = 466.0
 offset_top = -9.0

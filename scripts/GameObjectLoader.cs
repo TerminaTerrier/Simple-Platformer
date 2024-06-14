@@ -84,7 +84,7 @@ public partial class GameObjectLoader : Node2D
 		signalBus.LevelComplete += (int levelID) => 
 		{
 			FreeLevel(currentLevel);
-			playerInstance.Position = Vector2.Zero;
+			playerInstance.Position = new Vector2 (0, -5);
 			switch (levelID)
 			{
 				case 1:
