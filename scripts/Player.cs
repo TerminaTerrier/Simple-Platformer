@@ -72,7 +72,7 @@ public partial class Player : CharacterBody2D
 			collisionShape2D.Scale = new Vector2(1,1f);
 			hurtboxComponent.Scale = new Vector2(1.01f,1.01f);
 			hitboxComponent.Scale = new Vector2(1,1f);
-			sprite.Scale = new Vector2(1.25f,1.188f);
+			sprite.Scale = new Vector2(0.875f,1.188f);
 			break;
 			case 1:
 			if(powerUpState != 1)
