@@ -232,7 +232,7 @@ public partial class Player : CharacterBody2D
 		{
 			signalBus.EmitSignal("GameOver");
 		}
-		GlobalPosition = Vector2.Zero;
+		GlobalPosition = new Vector2(0, -5);
 		signalBus.EmitSignal(SignalBus.SignalName.LivesUpdate, lives);
 	}
 }
