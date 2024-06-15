@@ -12,7 +12,7 @@ public partial class TileMapManager : TileMap
 	private Node2D powerUpInstance;
 	[Export]
 	int tileMapLevel;
-	int currentLevelID = 1;
+	static int currentLevelID = 1;
 	int containerData;
     public override void _Ready()
     {
@@ -30,7 +30,7 @@ public partial class TileMapManager : TileMap
 
 	private void OnSpecialBoxHit(Vector2I spawnPosition, int powerUpState)
 	{
-		//GD.Print(spawnPosition);
+	   GD.Print(currentLevelID);
 	  if(tileMapLevel == currentLevelID)
 	  {
 		switch(currentLevelID)
@@ -40,6 +40,8 @@ public partial class TileMapManager : TileMap
 		    break;
 			case -1:
 			//containerData = (int)SubLevelOneData.GetSubLevelOneCustomData(spawnPosition + new Vector2I(0,15), "ContainerData", 2);
+			case 2:
+			containerData = (int)LevelData.GetLevelOneCustomData(spawnPosition + new Vector2I(0,15), "ContainerData", 2);
 			break;
 		}
 		
@@ -73,7 +75,7 @@ public partial class TileMapManager : TileMap
 		signalBus.EmitSignal(SignalBus.SignalName.SFX, "Special_Block");
 		EraseCell(2, LocalToMap(spawnPosition + new Vector2I(0,10)));
 		EraseCell(1, LocalToMap(spawnPosition + new Vector2I(0,10)));
-		SetCell(1, LocalToMap(spawnPosition + new Vector2I(0,10)), 3, new Vector2I(1, 1));
+		SetCell(1, LocalToMap(spawnPosition + new Vector2I(0,10)), TileSet.GetSourceId(0), new Vector2I(1, 1));
 
 
 		AddChild(powerUpInstance);
