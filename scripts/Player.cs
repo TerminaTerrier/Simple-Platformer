@@ -49,6 +49,8 @@ public partial class Player : CharacterBody2D
 			if(body.IsInGroup("Player"))
 			{
 				Die();
+				powerUpState = 0;
+				ModifyPowerUpState(0);
 			}
 		}; 
 		signalBus.CounterRollover += () => {lives++; signalBus.EmitSignal(SignalBus.SignalName.LivesUpdate, lives);};
