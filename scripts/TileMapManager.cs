@@ -23,9 +23,9 @@ public partial class TileMapManager : TileMap
 		signalBus.SpecialBox += OnSpecialBoxHit;
 		signalBus.BrickHit += OnBrickHit;
 
-		signalBus.LevelComplete += (levelID) => currentLevelID = levelID;
+		signalBus.LevelComplete += OnLevelComplete;
 
-		signalBus.Warp += (warpID, telePosition) => currentLevelID = warpID;
+		signalBus.Warp += OnWarp;
     }
 
 	private void OnSpecialBoxHit(Vector2I spawnPosition, int powerUpState)
@@ -41,6 +41,9 @@ public partial class TileMapManager : TileMap
 			case -1:
 			//containerData = (int)SubLevelOneData.GetSubLevelOneCustomData(spawnPosition + new Vector2I(0,15), "ContainerData", 2);
 			case 2:
+			containerData = (int)LevelData.GetLevelOneCustomData(spawnPosition + new Vector2I(0,15), "ContainerData", 2);
+			break;
+			case 3:
 			containerData = (int)LevelData.GetLevelOneCustomData(spawnPosition + new Vector2I(0,15), "ContainerData", 2);
 			break;
 		}
@@ -95,6 +98,14 @@ public partial class TileMapManager : TileMap
 		//GD.Print("emitted");
 	}
 
+    private void OnLevelComplete(int levelID)
+	{
+		currentLevelID = levelID;
+	}
+	private void OnWarp(int warpID, Vector2 telePosition)
+	{
+		currentLevelID = warpID;
+	}
     public override void _ExitTree()
     {
         signalBus.SpecialBox -= OnSpecialBoxHit;
