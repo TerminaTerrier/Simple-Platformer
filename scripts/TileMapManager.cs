@@ -94,4 +94,10 @@ public partial class TileMapManager : TileMap
 		//GD.Print("OnBrickHit: " + tilePosition);
 		//GD.Print("emitted");
 	}
+
+    public override void _ExitTree()
+    {
+        signalBus.SpecialBox -= OnSpecialBoxHit;
+		signalBus.BrickHit -= OnBrickHit;
+    }
 }

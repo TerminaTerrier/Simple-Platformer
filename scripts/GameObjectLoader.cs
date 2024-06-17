@@ -107,8 +107,20 @@ public partial class GameObjectLoader : Node2D
 			}
 		};
 
-	   signalBus.GameOver += () => FreeLevel(currentLevel);
-	   signalBus.GameOver += () => FreeCharacterBody();
+	   signalBus.GameOver += () => 
+	   {
+		  Node levelInstance = (Node)levelInstanceArray[currentLevel];
+		  levelInstance.QueueFree();
+		  levelInstanceArray.Clear();
+		  
+		  LoadLevel(levelOne);
+		  LoadLevel(sublevelOne);
+		  LoadLevel(levelTwo);
+		  LoadLevel(levelThree);
+
+		  playerInstance.CallDeferred("queue_free");
+	   };
+	  
 	}
 
 	private void LoadLevel(PackedScene level)

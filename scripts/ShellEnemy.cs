@@ -39,13 +39,7 @@ public partial class ShellEnemy : CharacterBody2D
 		signalBus = GetNode<SignalBus>("/root/SignalBus");
 
 		healthComponent.Death += Die;
-		signalBus.PitFall += (Node2D body) => 
-		{
-			if(body.IsInGroup("ShellEnemy"))
-			{
-				Die();
-			}
-		}; 
+		signalBus.PitFall += OnPitfall;
 
 		stateMachine.AddState(NormalState);
 		stateMachine.Enter();
@@ -230,5 +224,17 @@ public partial class ShellEnemy : CharacterBody2D
 		QueueFree();
 	}
 
-	
+    private void OnPitfall(Node2D body)
+	{
+		if(body.IsInGroup("ShellEnemy"))
+			{
+				Die();
+			}
+	}
+	public override void _ExitTree()
+    {
+      healthComponent.Death -= Die;
+	  signalBus.PitFall -= OnPitfall;
+		
+    }
 }

@@ -71,4 +71,9 @@ public partial class HealthComponent : Node2D
 	{
 		stats.StartingHealth = healthUpdate;
 	}
+
+    public override void _ExitTree()
+    {
+        hurtBox.HitByHitbox -= OnHitByHitbox;
+    }
 }

@@ -22,11 +22,6 @@ public partial class VelocityComponent : Node2D
 	private Vector2 calculatedVelocity;
 	private KinematicCollision2D kinematicCollision2D;
 	
-	public override void _Ready()
-	{
-		
-	}
-	
 	public void NormalForceCheck(CharacterBody2D characterBody2D)  
 	{
 		if(characterBody2D.IsOnFloor())

@@ -23,13 +23,7 @@ public partial class BasicEnemy : CharacterBody2D
 	{
 		signalBus = GetNode<SignalBus>("/root/SignalBus");
 
-		signalBus.PitFall += (Node2D body) => 
-		{
-			if(body.IsInGroup("BasicEnemy"))
-			{
-				Die();
-			}
-		}; 
+		signalBus.PitFall += OnPitfall;
 
 		healthComponent.Death += Die;
 
@@ -91,10 +85,23 @@ public partial class BasicEnemy : CharacterBody2D
 		velocityComponent.ApplyGravity();
 		//GD.Print(target);
 	}
-
+	private void OnPitfall(Node2D body)
+	{
+		if(body.IsInGroup("BasicEnemy"))
+			{
+				Die();
+			}
+	}
 	private void Die()
 	{
 		 signalBus.EmitSignal(SignalBus.SignalName.SFX, "Squish");
 		QueueFree();
 	}
+
+	public override void _ExitTree()
+    {
+      healthComponent.Death -= Die;
+	  signalBus.PitFall -= OnPitfall;
+		
+    }
 }

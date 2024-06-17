@@ -35,25 +35,10 @@ public partial class Player : CharacterBody2D
 		healthComponent.Damage += OnDamage;
 		signalBus.PowerUp += ModifyPowerUpState;
 		signalBus.GlobalTimeout += Die;
-		signalBus.Warp += (int warpVal, Vector2 telePosition) => 
-		{
-			SetCollisionLayerValue(2, false); 
-			Timer timer = new();
-			AddChild(timer);
-			timer.Start(1);
-			timer.Timeout += () =>  SetCollisionLayerValue(2, true); 
-		}; 
-		
-		signalBus.PitFall += (Node2D body) => 
-		{
-			if(body.IsInGroup("Player"))
-			{
-				Die();
-				powerUpState = 0;
-				ModifyPowerUpState(0);
-			}
-		}; 
-		signalBus.CounterRollover += () => {lives++; signalBus.EmitSignal(SignalBus.SignalName.LivesUpdate, lives);};
+		signalBus.Warp += OnWarp;
+		signalBus.PitFall += OnPitfall;
+
+		signalBus.CounterRollover += OnCounterRollover;
 
 		stateMachine.AddState(IdleState);
 		stateMachine.Enter();
@@ -178,7 +163,7 @@ public partial class Player : CharacterBody2D
 				GodotObject collider = collisionHandler.GetCollisionObject(collisionData);
 				var tileMap = (TileMap)collider;
 				//var tileMap = collisionHandler.CastCollisionObject<TileMap>(collider); -- invalidcastexception error, look into fixing
-				//GD.Print(tileMap.GetCellAtlasCoords(1, tileMap.LocalToMap(collisionData.GetPosition() - new Vector2(0, 10))));
+				GD.Print(tileMap.GetCellAtlasCoords(1, tileMap.LocalToMap(collisionData.GetPosition() - new Vector2(0, 10))));
 				if(tileMap.GetCellAtlasCoords(1, tileMap.LocalToMap(collisionData.GetPosition() - new Vector2(0, 10))) == new Vector2I(1,0) && spawnLock == false)
 				{
 				    signalBus.EmitSignal(SignalBus.SignalName.SpecialBox, tileMap.MapToLocal(tileMap.LocalToMap(collisionData.GetPosition()- new Vector2I(0,25))), powerUpState);
@@ -236,5 +221,41 @@ public partial class Player : CharacterBody2D
 		}
 		GlobalPosition = new Vector2(0, -5);
 		signalBus.EmitSignal(SignalBus.SignalName.LivesUpdate, lives);
+	}
+
+	private void OnPitfall(Node2D body)
+	{
+		if(body.IsInGroup("Player"))
+			{
+				Die();
+				powerUpState = 0;
+				ModifyPowerUpState(0);
+			}
+	}
+
+	private void OnWarp(int warpVal, Vector2 telePosition)
+	{
+		SetCollisionLayerValue(2, false); 
+		Timer timer = new();
+		AddChild(timer);
+		timer.Start(1);
+		timer.Timeout += () =>  SetCollisionLayerValue(2, true); 
+	}
+
+	private void OnCounterRollover()
+	{
+		lives++;
+		signalBus.EmitSignal(SignalBus.SignalName.LivesUpdate, lives);
+	}
+	public override void _ExitTree()
+	{
+		healthComponent.Death -= Die;
+		healthComponent.Damage -= OnDamage;
+
+		signalBus.PowerUp -= ModifyPowerUpState;
+		signalBus.GlobalTimeout -= Die;
+		signalBus.PitFall -= OnPitfall;
+		signalBus.Warp -= OnWarp;
+		signalBus.CounterRollover -= OnCounterRollover;
 	}
 }
