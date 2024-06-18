@@ -12,17 +12,25 @@ public partial class TileMapManager : TileMap
 	private Node2D powerUpInstance;
 	[Export]
 	int tileMapLevel;
-	static int currentLevelID = 1;
+	int currentLevelID = 1;
 	int containerData;
+    public override void _EnterTree()
+    {
+		 signalBus = GetNode<SignalBus>("/root/SignalBus");
+		
+        signalBus.SpecialBox += OnSpecialBoxHit;
+		signalBus.BrickHit += OnBrickHit;
+
+		GD.Print("TILEMAP: " + tileMapLevel);
+		GD.Print("LEVEL_ID: " + currentLevelID);
+
+    }
     public override void _Ready()
     {
 		//GD.Print(IsLayerNavigationEnabled(1));
 		//GD.Print(GetLayerNavigationMap(1).IsValid); -- returns false for some unknown reason, which layer passed does not matter
-        signalBus = GetNode<SignalBus>("/root/SignalBus");
+       
 		
-		signalBus.SpecialBox += OnSpecialBoxHit;
-		signalBus.BrickHit += OnBrickHit;
-
 		signalBus.LevelComplete += OnLevelComplete;
 
 		signalBus.Warp += OnWarp;
@@ -33,6 +41,7 @@ public partial class TileMapManager : TileMap
 	   GD.Print(currentLevelID);
 	  if(tileMapLevel == currentLevelID)
 	  {
+		
 		switch(currentLevelID)
 		{
 			case 1:

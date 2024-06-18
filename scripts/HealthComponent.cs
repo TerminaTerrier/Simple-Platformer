@@ -14,7 +14,7 @@ public partial class HealthComponent : Node2D
 	public int Health {get; private set;}
 	private Boolean didHit;
 	SignalBus signalBus;
-	public override void _Ready()
+	public override void _EnterTree()
 	{
 		Health = stats.StartingHealth;
 		//GD.Print(Health);

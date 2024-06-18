@@ -19,13 +19,15 @@ public partial class BasicEnemy : CharacterBody2D
 	bool directionSwitch = true;	
 	SignalBus signalBus;
 	StateMachine stateMachine = new();
-	public override void _Ready()
-	{
-		signalBus = GetNode<SignalBus>("/root/SignalBus");
+    public override void _EnterTree()
+    {
+        signalBus = GetNode<SignalBus>("/root/SignalBus");
 
 		signalBus.PitFall += OnPitfall;
-
 		healthComponent.Death += Die;
+    }
+    public override void _Ready()
+	{
 
 		stateMachine.AddState(NormalState);
 		stateMachine.Enter();

@@ -27,11 +27,12 @@ public partial class Player : CharacterBody2D
 	int powerUpState = 0;
 	SignalBus signalBus;
 	StateMachine stateMachine = new();
-	public override void _Ready()
-	{
+
+    public override void _EnterTree()
+    {
 		signalBus = GetNode<SignalBus>("/root/SignalBus");
 
-		healthComponent.Death += Die;
+        healthComponent.Death += Die;
 		healthComponent.Damage += OnDamage;
 		signalBus.PowerUp += ModifyPowerUpState;
 		signalBus.GlobalTimeout += Die;
@@ -39,6 +40,11 @@ public partial class Player : CharacterBody2D
 		signalBus.PitFall += OnPitfall;
 
 		signalBus.CounterRollover += OnCounterRollover;
+    }
+    public override void _Ready()
+	{
+		
+		
 
 		stateMachine.AddState(IdleState);
 		stateMachine.Enter();
@@ -56,6 +62,7 @@ public partial class Player : CharacterBody2D
 		{
 			case 0:
 			healthComponent.SetHealth(1);
+			playerController.offensiveState = false;
 			collisionShape2D.Scale = new Vector2(1,1f);
 			hurtboxComponent.Scale = new Vector2(1.01f,1.01f);
 			hitboxComponent.Scale = new Vector2(1,1f);
@@ -65,6 +72,7 @@ public partial class Player : CharacterBody2D
 			if(powerUpState != 1)
 			{
 			healthComponent.SetHealth(2);
+			playerController.offensiveState = false;
 			collisionShape2D.Scale = new Vector2(1,1.5f);
 			hurtboxComponent.Scale = new Vector2(1.01f,1.01f);
 			hitboxComponent.Scale = new Vector2(1,1.25f);
@@ -214,6 +222,8 @@ public partial class Player : CharacterBody2D
 	{
 		
 		lives--;
+		powerUpState = 0;
+		ModifyPowerUpState(0);
 		//GD.Print(lives);
 		if(lives < 0)
 		{
