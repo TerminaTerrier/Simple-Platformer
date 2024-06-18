@@ -12,33 +12,38 @@ public partial class TileMapManager : TileMap
 	private Node2D powerUpInstance;
 	[Export]
 	int tileMapLevel;
-	int currentLevelID = 1;
+	static int currentLevelID = 1;
 	int containerData;
     public override void _EnterTree()
     {
 		 signalBus = GetNode<SignalBus>("/root/SignalBus");
 		
+	
         signalBus.SpecialBox += OnSpecialBoxHit;
 		signalBus.BrickHit += OnBrickHit;
+
+		
 
 		GD.Print("TILEMAP: " + tileMapLevel);
 		GD.Print("LEVEL_ID: " + currentLevelID);
 
     }
+
     public override void _Ready()
     {
-		//GD.Print(IsLayerNavigationEnabled(1));
-		//GD.Print(GetLayerNavigationMap(1).IsValid); -- returns false for some unknown reason, which layer passed does not matter
-       
-		
+        
 		signalBus.LevelComplete += OnLevelComplete;
-
 		signalBus.Warp += OnWarp;
     }
 
-	private void OnSpecialBoxHit(Vector2I spawnPosition, int powerUpState)
+    public override void _Process(double delta)
+    {
+        GD.Print(currentLevelID);
+    }
+    private void OnSpecialBoxHit(Vector2I spawnPosition, int powerUpState)
 	{
 	   GD.Print(currentLevelID);
+	   GD.Print("SPECIAL HIT");
 	  if(tileMapLevel == currentLevelID)
 	  {
 		
@@ -110,6 +115,7 @@ public partial class TileMapManager : TileMap
     private void OnLevelComplete(int levelID)
 	{
 		currentLevelID = levelID;
+		GD.Print("LEVELID UPDATED: " + currentLevelID);
 	}
 	private void OnWarp(int warpID, Vector2 telePosition)
 	{
@@ -117,6 +123,9 @@ public partial class TileMapManager : TileMap
 	}
     public override void _ExitTree()
     {
+		
+
+		signalBus.Warp -= OnWarp;
         signalBus.SpecialBox -= OnSpecialBoxHit;
 		signalBus.BrickHit -= OnBrickHit;
     }

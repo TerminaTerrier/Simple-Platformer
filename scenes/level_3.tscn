@@ -269,4 +269,4 @@ position = Vector2(1792, 874)
 [node name="Warp_Zone" parent="." instance=ExtResource("9_hp177")]
 position = Vector2(-56, 466)
 warpVal = -3
-telePosition = Vector2(-8, 50)
+telePosition = Vector2(-8, 57)
