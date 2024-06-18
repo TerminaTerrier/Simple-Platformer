@@ -235,7 +235,7 @@ public partial class ShellEnemy : CharacterBody2D
 
     private void OnPitfall(Node2D body)
 	{
-		if(body.IsInGroup("ShellEnemy"))
+		if(body.IsInGroup("ShellEnemy") && !IsOnFloor())
 			{
 				Die();
 			}

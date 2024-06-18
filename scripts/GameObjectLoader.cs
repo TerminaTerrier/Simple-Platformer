@@ -158,10 +158,12 @@ public partial class GameObjectLoader : Node2D
 		  levelInstance.QueueFree();
 		  levelInstanceArray.Clear();
 		  
-		  LoadLevel(levelOne);
-		  LoadLevel(sublevelOne);
-		  LoadLevel(levelTwo);
-		  LoadLevel(levelThree);
+		LoadLevel(levelOne);
+		LoadLevel(levelTwo);
+		LoadLevel(levelThree);
+		LoadLevel(sublevelOne);
+		LoadLevel(sublevelTwo);
+		LoadLevel(sublevelThree);
 
 		  playerInstance.CallDeferred("queue_free");
 	   };

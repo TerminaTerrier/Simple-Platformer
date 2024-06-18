@@ -91,7 +91,8 @@ public partial class BasicEnemy : CharacterBody2D
 	}
 	private void OnPitfall(Node2D body)
 	{
-		if(body.IsInGroup("BasicEnemy"))
+		//it would probably be better if the entity detected the fall zone rather than vice versa
+		if(body.IsInGroup("BasicEnemy") && !IsOnFloor())
 			{
 				Die();
 			}

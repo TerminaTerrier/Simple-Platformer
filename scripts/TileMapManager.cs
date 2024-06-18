@@ -36,10 +36,7 @@ public partial class TileMapManager : TileMap
 		signalBus.Warp += OnWarp;
     }
 
-    public override void _Process(double delta)
-    {
-        GD.Print(currentLevelID);
-    }
+    
     private void OnSpecialBoxHit(Vector2I spawnPosition, int powerUpState)
 	{
 	   GD.Print(currentLevelID);
