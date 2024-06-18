@@ -144,7 +144,7 @@ position = Vector2(1173, 632)
 position = Vector2(1305, 632)
 
 [node name="Shell_Enemy5" parent="." instance=ExtResource("7_022s3")]
-position = Vector2(725, 402)
+position = Vector2(776, 404)
 
 [node name="Shell_Enemy6" parent="." instance=ExtResource("7_022s3")]
 position = Vector2(136, 514)
@@ -269,4 +269,4 @@ position = Vector2(1792, 874)
 [node name="Warp_Zone" parent="." instance=ExtResource("9_hp177")]
 position = Vector2(-56, 466)
 warpVal = -3
-telePosition = Vector2(-8, 57)
+telePosition = Vector2(-8, 46)

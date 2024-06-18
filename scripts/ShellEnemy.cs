@@ -5,6 +5,8 @@ public partial class ShellEnemy : CharacterBody2D
 {
 	[Signal]
 	public delegate void EnemyDeathEventHandler();
+	Resource awakeSprite = GD.Load<Resource>("res://assets/art/shell_enemy.png");
+	Resource hideSprite = GD.Load<Resource>("res://assets/art/shell_enemy_hide.png");
 	[Export]
 	VelocityComponent velocityComponent;
 	[Export]
@@ -28,6 +30,8 @@ public partial class ShellEnemy : CharacterBody2D
 	RayCast2D leftRaycast;
 	[Export]
 	RayCast2D rightRaycast;
+	[Export]
+	Sprite2D sprite;
 	bool directionSwitch = true;
 	bool enemyStopped;
 	bool timeoutLock;	
@@ -68,7 +72,7 @@ public partial class ShellEnemy : CharacterBody2D
 				{
 		    		directionSwitch = true;
 				}
-		
+				sprite.FlipH = true;
 		    	//GD.Print(raycastComponent.GetRayCastQuery().Count);
 		 	}
 		 	
@@ -81,7 +85,7 @@ public partial class ShellEnemy : CharacterBody2D
 				{
 		    		directionSwitch = false;
 				}
-				
+				sprite.FlipH = false;
 		 		//GD.Print(raycastComponent.GetRayCastQuery().Count);
 		 	}
 			//GD.Print(directionSwitch);
@@ -117,6 +121,8 @@ public partial class ShellEnemy : CharacterBody2D
 			timeoutLock = true;
 			}
 
+			sprite.Texture = (Texture2D)hideSprite;
+
 			stateMachine.AddState(HideState);
 			stateMachine.Enter();
 
@@ -149,11 +155,13 @@ public partial class ShellEnemy : CharacterBody2D
 				signalBus.EmitSignal(SignalBus.SignalName.SFX, "Shell");
 				velocityComponent.SetVelocity(new Vector2(75, 0));
 				hitboxComponent.Monitorable = true;
+				sprite.FlipH = true;
 				break;
 				case (-1,0):
 				signalBus.EmitSignal(SignalBus.SignalName.SFX, "Shell");
 				velocityComponent.SetVelocity(new Vector2(-75,0));
 				hitboxComponent.Monitorable = true;
+				sprite.FlipH = false;
 				break;
 
 			}
@@ -211,6 +219,7 @@ public partial class ShellEnemy : CharacterBody2D
 
 		hitboxComponent.Monitorable = true; 
 		hurtboxComponent.SetCollisionMaskValue(2, true);
+		sprite.Texture = (Texture2D)awakeSprite;
 
 		stateMachine.AddState(NormalState); 
 		stateMachine.Enter();

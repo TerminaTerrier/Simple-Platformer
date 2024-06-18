@@ -16,6 +16,8 @@ public partial class BasicEnemy : CharacterBody2D
 	RaycastComponent raycastComponent;
 	[Export]
 	HealthComponent healthComponent;
+	[Export]
+	Sprite2D sprite;
 	bool directionSwitch = true;	
 	SignalBus signalBus;
 	StateMachine stateMachine = new();
@@ -57,7 +59,7 @@ public partial class BasicEnemy : CharacterBody2D
 				{
 		    		directionSwitch = true;
 				}
-		
+				sprite.FlipH = true;
 		    	//GD.Print(raycastComponent.GetRayCastQuery().Count);
 		 	}
 		 	
@@ -70,7 +72,7 @@ public partial class BasicEnemy : CharacterBody2D
 				{
 		    		directionSwitch = false;
 				}
-				
+				sprite.FlipH = false;
 		 		//GD.Print(raycastComponent.GetRayCastQuery().Count);
 		 	}
 			//GD.Print(directionSwitch);

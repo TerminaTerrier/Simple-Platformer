@@ -127,17 +127,17 @@ position = Vector2(675, 25)
 position = Vector2(1284, -21)
 
 [node name="Basic_Enemy2" parent="." instance=ExtResource("6_0bfdo")]
-position = Vector2(1088, -45)
+position = Vector2(1034, -18)
 
 [node name="Basic_Enemy3" parent="." instance=ExtResource("6_0bfdo")]
 position = Vector2(146, -140)
 
 [node name="Fall_Zone" parent="." instance=ExtResource("7_mh1bj")]
-position = Vector2(1598, 146)
+position = Vector2(1594, 164)
 scale = Vector2(5, 5)
 
 [node name="Fall_Zone2" parent="." instance=ExtResource("7_mh1bj")]
-position = Vector2(-451, 166)
+position = Vector2(-452, 167)
 scale = Vector2(20, 5)
 
 [node name="Token" parent="." instance=ExtResource("8_ofq2j")]

@@ -1,7 +1,7 @@
 [gd_scene load_steps=8 format=3 uid="uid://1d83rxpbdylg"]
 
 [ext_resource type="Script" path="res://scripts/RegularPowerUp.cs" id="1_ajasx"]
-[ext_resource type="Texture2D" uid="uid://siy1xfgbk4vj" path="res://assets/art/powerup_placeholder.png" id="2_besh7"]
+[ext_resource type="Texture2D" uid="uid://d4gqrgxb423ik" path="res://assets/art/regular_powerup.png" id="2_4hbrh"]
 [ext_resource type="PackedScene" uid="uid://cj61p2pt0xi67" path="res://scenes/velocity_component.tscn" id="3_sknf8"]
 [ext_resource type="PackedScene" uid="uid://d3icphik8drdp" path="res://scenes/raycast_component.tscn" id="5_2616j"]
 [ext_resource type="PackedScene" uid="uid://bfpoog15n78th" path="res://scenes/collision_handler.tscn" id="6_a5x53"]
@@ -21,7 +21,10 @@ collisionHandler = NodePath("Collision_Handler")
 raycastComponent = NodePath("Raycast_Component")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-texture = ExtResource("2_besh7")
+texture_filter = 1
+position = Vector2(0, -9)
+scale = Vector2(2.125, 2.0625)
+texture = ExtResource("2_4hbrh")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, -1)

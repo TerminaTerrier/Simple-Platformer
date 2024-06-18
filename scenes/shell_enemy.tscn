@@ -5,6 +5,7 @@
 [ext_resource type="PackedScene" uid="uid://c35byt6vairv6" path="res://scenes/pathfind_component.tscn" id="3_twold"]
 [ext_resource type="PackedScene" uid="uid://bfpoog15n78th" path="res://scenes/collision_handler.tscn" id="4_md3h7"]
 [ext_resource type="PackedScene" uid="uid://d3icphik8drdp" path="res://scenes/raycast_component.tscn" id="5_d0ye5"]
+[ext_resource type="Texture2D" uid="uid://ch34lycraxxvv" path="res://assets/art/shell_enemy.png" id="5_nvj7d"]
 [ext_resource type="PackedScene" uid="uid://3a5s6ds1pqbd" path="res://scenes/health_component.tscn" id="6_7d227"]
 [ext_resource type="Script" path="res://resources/Stats.cs" id="7_lpnrs"]
 [ext_resource type="PackedScene" uid="uid://bhnefvy53fwyu" path="res://scenes/hitbox_component.tscn" id="8_jaqhd"]
@@ -13,7 +14,7 @@
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_751dj"]
 size = Vector2(15.8431, 12)
 
-[sub_resource type="Resource" id="Resource_36qe2"]
+[sub_resource type="Resource" id="Resource_t05v3"]
 resource_local_to_scene = true
 script = ExtResource("7_lpnrs")
 Damage = 1
@@ -26,16 +27,14 @@ size = Vector2(16.6559, 10.6775)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_5nyv7"]
 size = Vector2(14, 2.125)
 
-[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_2cvro"]
-
-[sub_resource type="Resource" id="Resource_dkdj8"]
+[sub_resource type="Resource" id="Resource_m8rau"]
 resource_local_to_scene = true
 script = ExtResource("7_lpnrs")
 Damage = 1
 MaxHealth = 3
 StartingHealth = 2
 
-[node name="Shell_Enemy" type="CharacterBody2D" node_paths=PackedStringArray("velocityComponent", "pathfindComponent", "collisionHandler", "raycastComponent", "healthComponent", "hitboxComponent", "hurtboxComponent", "navAgent", "upRaycast", "leftRaycast", "rightRaycast") groups=["ShellEnemy"]]
+[node name="Shell_Enemy" type="CharacterBody2D" node_paths=PackedStringArray("velocityComponent", "pathfindComponent", "collisionHandler", "raycastComponent", "healthComponent", "hitboxComponent", "hurtboxComponent", "navAgent", "upRaycast", "leftRaycast", "rightRaycast", "sprite") groups=["ShellEnemy"]]
 collision_layer = 2
 collision_mask = 3
 safe_margin = 0.001
@@ -51,6 +50,7 @@ navAgent = NodePath("NavigationAgent2D")
 upRaycast = NodePath("Up_RayCast")
 leftRaycast = NodePath("Left_RayCast")
 rightRaycast = NodePath("Right_RayCast")
+sprite = NodePath("Sprite2D")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 z_index = 1
@@ -61,7 +61,7 @@ shape = SubResource("RectangleShape2D_751dj")
 scale = Vector2(1.01, 1.01)
 collision_layer = 4
 collision_mask = 22
-stats = SubResource("Resource_36qe2")
+stats = SubResource("Resource_t05v3")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox_Component"]
 z_index = 2
@@ -81,9 +81,10 @@ shape = SubResource("RectangleShape2D_5nyv7")
 debug_color = Color(0.945098, 0.231373, 0.141176, 0.419608)
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-position = Vector2(1.19209e-07, 0)
-scale = Vector2(15.125, 11.5625)
-texture = SubResource("PlaceholderTexture2D_2cvro")
+texture_filter = 1
+position = Vector2(2.38419e-07, -1.04308e-07)
+scale = Vector2(1, 0.75)
+texture = ExtResource("5_nvj7d")
 
 [node name="Velocity_Component" parent="." instance=ExtResource("2_23adh")]
 maxYSpeed = 100.0
@@ -104,7 +105,7 @@ target_desired_distance = 2.0
 
 [node name="Health_Component" parent="." node_paths=PackedStringArray("hurtBox") instance=ExtResource("6_7d227")]
 hurtBox = NodePath("../Hurtbox_Component")
-stats = SubResource("Resource_dkdj8")
+stats = SubResource("Resource_m8rau")
 
 [node name="Up_RayCast" type="RayCast2D" parent="."]
 target_position = Vector2(0, -7)

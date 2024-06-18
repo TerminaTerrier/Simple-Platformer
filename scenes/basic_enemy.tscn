@@ -1,6 +1,7 @@
 [gd_scene load_steps=16 format=3 uid="uid://prdnxngxvcv4"]
 
 [ext_resource type="Script" path="res://scripts/BasicEnemy.cs" id="1_aqww8"]
+[ext_resource type="Texture2D" uid="uid://djwikn4avx1b2" path="res://assets/art/basic_enemy.png" id="2_7c6jk"]
 [ext_resource type="PackedScene" uid="uid://cj61p2pt0xi67" path="res://scenes/velocity_component.tscn" id="2_35kfb"]
 [ext_resource type="PackedScene" uid="uid://c35byt6vairv6" path="res://scenes/pathfind_component.tscn" id="3_xtlm4"]
 [ext_resource type="PackedScene" uid="uid://bfpoog15n78th" path="res://scenes/collision_handler.tscn" id="4_f0ohc"]
@@ -9,8 +10,6 @@
 [ext_resource type="PackedScene" uid="uid://3a5s6ds1pqbd" path="res://scenes/health_component.tscn" id="6_ruqld"]
 [ext_resource type="Script" path="res://resources/Stats.cs" id="7_0dv2t"]
 [ext_resource type="PackedScene" uid="uid://dwduj8cfffhyx" path="res://scenes/hurtbox_component.tscn" id="8_otieq"]
-
-[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_pnmfp"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_hrify"]
 size = Vector2(9, 8)
@@ -35,7 +34,7 @@ size = Vector2(10, 7.25)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_dxsxa"]
 size = Vector2(8, 9.3125)
 
-[node name="Basic_Enemy" type="CharacterBody2D" node_paths=PackedStringArray("velocityComponent", "pathfindComponent", "collisionHandler", "raycastComponent", "healthComponent") groups=["BasicEnemy"]]
+[node name="Basic_Enemy" type="CharacterBody2D" node_paths=PackedStringArray("velocityComponent", "pathfindComponent", "collisionHandler", "raycastComponent", "healthComponent", "sprite") groups=["BasicEnemy"]]
 collision_layer = 2
 script = ExtResource("1_aqww8")
 velocityComponent = NodePath("Velocity_Component")
@@ -43,14 +42,16 @@ pathfindComponent = NodePath("Pathfind_Component")
 collisionHandler = NodePath("Collision_Handler")
 raycastComponent = NodePath("Raycast_Component")
 healthComponent = NodePath("Health_Component")
+sprite = NodePath("Sprite2D")
 metadata/Basic_Enemy = "PhysicsEnabled"
 
 [node name="Timer" type="Timer" parent="."]
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-position = Vector2(0, 2.38419e-07)
-scale = Vector2(9.5, 8.5)
-texture = SubResource("PlaceholderTexture2D_pnmfp")
+texture_filter = 1
+position = Vector2(-2.08616e-07, 0.5)
+scale = Vector2(0.5, 0.4375)
+texture = ExtResource("2_7c6jk")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." groups=["BasicEnemy"]]
 shape = SubResource("RectangleShape2D_hrify")
