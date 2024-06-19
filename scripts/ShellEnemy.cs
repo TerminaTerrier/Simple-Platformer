@@ -19,7 +19,6 @@ public partial class ShellEnemy : CharacterBody2D
 	HealthComponent healthComponent;
 	[Export]
 	HitboxComponent hitboxComponent;
-	//turn off hitbox during hide
 	[Export]
 	HurtboxComponent hurtboxComponent;
 	[Export]
@@ -38,6 +37,7 @@ public partial class ShellEnemy : CharacterBody2D
 	SceneTreeTimer hideTimer;
 	SignalBus signalBus;
 	StateMachine stateMachine = new();
+
 	public override void _Ready()
 	{
 		signalBus = GetNode<SignalBus>("/root/SignalBus");
@@ -49,76 +49,63 @@ public partial class ShellEnemy : CharacterBody2D
 		stateMachine.Enter();
 	}
 
-	 public override void _PhysicsProcess(double delta)
+	public override void _PhysicsProcess(double delta)
     {
         stateMachine.Update();
-		//GD.Print(healthComponent.Health);
     }
 
 	private void NormalState()
 	{
-
 		velocityComponent.NormalForceCheck(this);
-		 if(GetLastSlideCollision() != null)
-		 {
+
+		if(GetLastSlideCollision() != null)
+		{
 		 	var collisionAngle = collisionHandler.GetCollisionAngle(GetLastSlideCollision());
 		 
 	     	if(directionSwitch == false)
 		 	{
 		 		var target = GlobalPosition +  new Vector2(100, 0);
 		  	    pathfindComponent.CallDeferred("SetTargetPosition", target);
-				raycastComponent.SetRaycastParamaters(GlobalPosition, GlobalPosition + new Vector2(12, 0));
+				raycastComponent.SetRaycastParamaters(GlobalPosition, GlobalPosition + new Vector2(12, 0)); 
+
 				if(raycastComponent.GetRayCastQuery().Count != 0)
 				{
 		    		directionSwitch = true;
 				}
+
 				sprite.FlipH = true;
-		    	//GD.Print(raycastComponent.GetRayCastQuery().Count);
 		 	}
 		 	
 			if(directionSwitch == true)
 		 	{
 				var target = GlobalPosition + new Vector2(-100, 0);
 		 		pathfindComponent.CallDeferred("SetTargetPosition", target);
-				raycastComponent.SetRaycastParamaters(GlobalPosition, GlobalPosition + new Vector2(-12, 0));
+				raycastComponent.SetRaycastParamaters(GlobalPosition, GlobalPosition + new Vector2(-12, 0)); 
+
 				if(raycastComponent.GetRayCastQuery().Count != 0)
 				{
 		    		directionSwitch = false;
-				}
+				} 
+
 				sprite.FlipH = false;
-		 		//GD.Print(raycastComponent.GetRayCastQuery().Count);
 		 	}
-			//GD.Print(directionSwitch);
-			  //GD.Print(GetLastSlideCollision().GetNormal());
-		 }
+		}
 		
 		pathfindComponent.FollowPath();
-
-		//if(GetSlideCollisionCount() != 0)
-		//{
-		//	velocityComponent.CollisionCheck(GetLastSlideCollision());
-		//	if(collisionHandler.CheckCollisionObjectType(collisionHandler.GetCollisionObject(GetLastSlideCollision()), typeof(TileMap)))
-		//	{
-		//	velocityComponent.NormalForceCheck(collisionHandler.GetCollisionObject(GetLastSlideCollision()), collisionHandler.GetCollisionPosition(GetLastSlideCollision()), collisionHandler.GetCollisionAngle(GetLastSlideCollision()));
-		//	}
-		//}
 	
 		velocityComponent.Move(this);
 		velocityComponent.ApplyGravity();	
 
-		
-		//GD.Print(velocityComponent.GetVelocity());
 		if(healthComponent.Health == 1)
 		{
-			//GD.Print(healthComponent.Health);
-			//velocityComponent.SetVelocity(Vector2.Zero);
 			signalBus.EmitSignal(SignalBus.SignalName.SFX, "Shell");
 			hideTimer = GetTree().CreateTimer(10);
-			//have do gate this because the entire state runs in a process loop -- need to figure out how to allow delegate states to execute outside of process
+
+			//Have do gate this because the entire state runs in a process loop -- need to figure out how to allow delegate states to execute outside of process.
 			if(timeoutLock == false)
 			{
-			hideTimer.Timeout += OnHideTimerTimeout;  
-			timeoutLock = true;
+			    hideTimer.Timeout += OnHideTimerTimeout;  
+			    timeoutLock = true;
 			}
 
 			sprite.Texture = (Texture2D)hideSprite;
@@ -128,45 +115,33 @@ public partial class ShellEnemy : CharacterBody2D
 
 			hitboxComponent.Monitorable = false;
 			hurtboxComponent.SetCollisionMaskValue(2, false);
-		//	GD.Print("Entering Hide State");
 		}
-		//GD.Print(GetSlideCollisionCount());
-		//GD.Print(hurtboxComponent.Monitoring = true);
-		//GD.Print(healthComponent.Health);
 		
 	}
 
 	private void HideState()
 	{
-		//GD.Print(GetLastSlideCollision());
-		
 		velocityComponent.NormalForceCheck(this);
 
-		//GD.Print(healthComponent.Health);
-		
 		if(GetSlideCollisionCount() != 0)
 		{
 			Vector2 collisionDirection = GetLastSlideCollision().GetNormal();
-			//GD.Print(collisionDirection);
-			//GD.Print(GetSlideCollisionCount());
+	
 			switch(collisionDirection)
 			{
 				case (1,0):
-				signalBus.EmitSignal(SignalBus.SignalName.SFX, "Shell");
-				velocityComponent.SetVelocity(new Vector2(75, 0));
-				hitboxComponent.Monitorable = true;
-				sprite.FlipH = true;
+				    signalBus.EmitSignal(SignalBus.SignalName.SFX, "Shell");
+				    velocityComponent.SetVelocity(new Vector2(75, 0));
+				    hitboxComponent.Monitorable = true;
+				    sprite.FlipH = true;
 				break;
 				case (-1,0):
-				signalBus.EmitSignal(SignalBus.SignalName.SFX, "Shell");
-				velocityComponent.SetVelocity(new Vector2(-75,0));
-				hitboxComponent.Monitorable = true;
-				sprite.FlipH = false;
+				    signalBus.EmitSignal(SignalBus.SignalName.SFX, "Shell");
+				    velocityComponent.SetVelocity(new Vector2(-75,0));
+				    hitboxComponent.Monitorable = true;
+				    sprite.FlipH = false;
 				break;
-
 			}
-
-			
 
 			if(upRaycast.IsColliding() | enemyStopped == true)
 			{
@@ -186,35 +161,19 @@ public partial class ShellEnemy : CharacterBody2D
 						velocityComponent.SetVelocity(new Vector2(75, 0));
 						hitboxComponent.Monitorable = true;
 						enemyStopped = false;
-						//GD.Print("push detected");
 					}
 				}
 				
 			}
 			
-			//var collidierVelocity = GetLastSlideCollision().GetColliderVelocity();
-			//var target = GlobalPosition + new Vector2(collidierVelocity.X, 0);
-			//pathfindComponent.CallDeferred("SetTargetPosition", target);	
-			//GD.Print(collidierVelocity);	
-			//GD.Print(GetLastSlideCollision().GetNormal());
-			//GD.Print( leftRaycast.IsColliding());
+		
 		}
-
-	
-
-		//pathfindComponent.FollowPath();
 
 		velocityComponent.Move(this);
 		velocityComponent.ApplyGravity();
-		
-		
-		//GD.Print(velocityComponent.GetVelocity());
-		
 	}
 	private void OnHideTimerTimeout()
 	{
-	//	GD.Print("Entering Normal State"); 
-		//var callable = new Callable(this, MethodName.OnHideTimerTimeout);
 		healthComponent.SetHealth(2); 
 
 		hitboxComponent.Monitorable = true; 
@@ -224,7 +183,6 @@ public partial class ShellEnemy : CharacterBody2D
 		stateMachine.AddState(NormalState); 
 		stateMachine.Enter();
 
-		//Disconnect("Timeout", callable);
 		timeoutLock = false;
 	}
 	private void Die()
@@ -236,14 +194,13 @@ public partial class ShellEnemy : CharacterBody2D
     private void OnPitfall(Node2D body)
 	{
 		if(body.IsInGroup("ShellEnemy") && !IsOnFloor())
-			{
-				Die();
-			}
+		{
+			Die();
+		}
 	}
 	public override void _ExitTree()
     {
-      healthComponent.Death -= Die;
-	  signalBus.PitFall -= OnPitfall;
-		
+        healthComponent.Death -= Die;
+	    signalBus.PitFall -= OnPitfall;
     }
 }

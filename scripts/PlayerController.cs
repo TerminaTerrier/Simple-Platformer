@@ -48,7 +48,6 @@ public partial class PlayerController : Node2D
 		{
 			if(@event.IsActionPressed("InputDown"))
 			{
-				
 				signalBus.EmitSignal(SignalBus.SignalName.Warp, warpValue, teleportPosition);
 				signalBus.EmitSignal(SignalBus.SignalName.SFX, "Warp");
 			}
@@ -56,12 +55,6 @@ public partial class PlayerController : Node2D
     }
     public override void _Process(double delta)
     {
-
-		//if(Input.IsActionJustPressed("InputUp") == false || Input.IsActionPressed("InputDown") == false || Input.IsActionPressed("InputLeft") == false || Input.IsActionPressed("InputRight") == false)
-		//{
-			//PressFlag = false;
-		//}
-		
 		if(Input.IsActionJustReleased("InputDown") || Input.IsActionJustReleased("InputLeft") || Input.IsActionJustReleased("InputRight"))
 		{
 			PressFlag = false;
@@ -74,22 +67,18 @@ public partial class PlayerController : Node2D
 			//GD.Print("left");
 		}
 		
-
 		if(Input.IsActionPressed("InputRight"))
 		{
 			direction = Vector2.Right;
 			PressFlag = true;
-			//GD.Print("Right");
-		}
 
-		
-		//GD.Print(warpFlag);
-		
+		}
     }
 	
 	private void Jump()
 	{
-		raycastComponent.SetRaycastParamaters(player.GlobalPosition, player.GlobalPosition + new Vector2(7, 15)); //consider making a more complicated formula so that the raycast parameters adapt to the size of the character body
+		//Consider making a more complicated formula so that the raycast parameters adapt to the size of the character body.
+		raycastComponent.SetRaycastParamaters(player.GlobalPosition, player.GlobalPosition + new Vector2(7, 15)); 
 		var rcQuery1 = raycastComponent.GetRayCastQuery();
 
 		raycastComponent.SetRaycastParamaters(player.GlobalPosition, player.GlobalPosition + new Vector2(-7, 15));

@@ -43,9 +43,6 @@ public partial class Player : CharacterBody2D
     }
     public override void _Ready()
 	{
-		
-		
-
 		stateMachine.AddState(IdleState);
 		stateMachine.Enter();
 	}
@@ -53,7 +50,6 @@ public partial class Player : CharacterBody2D
     public override void _PhysicsProcess(double delta)
     {
         stateMachine.Update();
-		
     }
 
     public void ModifyPowerUpState(int ID)
@@ -61,36 +57,42 @@ public partial class Player : CharacterBody2D
 		switch (ID)
 		{
 			case 0:
-			healthComponent.SetHealth(1);
-			playerController.offensiveState = false;
-			collisionShape2D.Scale = new Vector2(1,1f);
-			hurtboxComponent.Scale = new Vector2(1.01f,1.01f);
-			hitboxComponent.Scale = new Vector2(1,1f);
-			sprite.Scale = new Vector2(0.875f,1.188f);
+			    healthComponent.SetHealth(1);
+
+			    playerController.offensiveState = false;
+
+			    collisionShape2D.Scale = new Vector2(1,1f);
+			    hurtboxComponent.Scale = new Vector2(1.01f,1.01f);
+			    hitboxComponent.Scale = new Vector2(1,1f);
+		        sprite.Scale = new Vector2(0.875f,1.188f);
 			break;
 			case 1:
-			if(powerUpState != 1)
-			{
-			healthComponent.SetHealth(2);
-			playerController.offensiveState = false;
-			collisionShape2D.Scale = new Vector2(1,1.5f);
-			hurtboxComponent.Scale = new Vector2(1.01f,1.01f);
-			hitboxComponent.Scale = new Vector2(1,1.25f);
-			sprite.Scale = new Vector2(1.25f,1.875f);
-			powerUpState = 1;
-			}
+			    if(powerUpState != 1)
+			    {
+			        healthComponent.SetHealth(2);
+
+			        playerController.offensiveState = false;
+
+			        collisionShape2D.Scale = new Vector2(1,1.5f);
+			        hurtboxComponent.Scale = new Vector2(1.01f,1.01f);
+			        hitboxComponent.Scale = new Vector2(1,1.25f);
+			        sprite.Scale = new Vector2(1.25f,1.875f);
+			        powerUpState = 1;
+			    }
 			break;
 			case 2:
-			if(powerUpState != 2)
-			{
-				healthComponent.SetHealth(2);
-				collisionShape2D.Scale = new Vector2(1,1.5f);
-				hurtboxComponent.Scale = new Vector2(1.01f,1.01f);
-				hitboxComponent.Scale = new Vector2(1,1.25f);
-				sprite.Scale = new Vector2(1.25f,1.875f);
-				playerController.offensiveState = true;
-				powerUpState = 2;
-			}
+			    if(powerUpState != 2)
+			    {
+				    healthComponent.SetHealth(2);
+
+				    collisionShape2D.Scale = new Vector2(1,1.5f);
+				    hurtboxComponent.Scale = new Vector2(1.01f,1.01f);
+				    hitboxComponent.Scale = new Vector2(1,1.25f);
+				    sprite.Scale = new Vector2(1.25f,1.875f);
+
+				    playerController.offensiveState = true;
+				    powerUpState = 2;
+			    }
 			break;
 			case 3:
 				if(powerUpState != 3)
@@ -98,9 +100,11 @@ public partial class Player : CharacterBody2D
 					Timer timer = new();
 					AddChild(timer);
 					timer.Start(15);
+
 					hurtboxComponent.Monitoring = false;
 					hitboxComponent.SetCollisionLayerValue(5, true);
 					velocityComponent.SetMaxSpeed(250f, 200f);
+
 						if(powerUpState == 0)
 						{
 							hitboxComponent.Scale = new Vector2(1.2f,1f);
@@ -119,33 +123,28 @@ public partial class Player : CharacterBody2D
 	
 	private void IdleState()
 	{
-		
-			velocityComponent.NormalForceCheck(this);
-			
-		
+		velocityComponent.NormalForceCheck(this);
+
 		if(playerController.PressFlag == false)
 		{
-			velocityComponent.Decelerate();
+		    velocityComponent.Decelerate();
 		}
 		else
 		{
 			stateMachine.AddState(WalkState);
 			stateMachine.Enter();
 		}
+
 		spawnLock = false;
+
 		velocityComponent.Move(this);
-		//gravity must be called last to avoid it being added to velocity before a normal force check is completed
+		//Gravity must be called last to avoid it being added to velocity before a normal force check is completed.
 		velocityComponent.ApplyGravity();
-	//	GD.Print(velocityComponent.GetVelocity());
-		//GD.Print(IsOnFloor());
-	//	GD.Print(GetSlideCollisionCount());
 	}
 	private void WalkState()
 	{
 		
-			velocityComponent.NormalForceCheck(this);
-			//GD.Print(GetLastSlideCollision().GetNormal());
-		
+		velocityComponent.NormalForceCheck(this);
 	
 		if(playerController.PressFlag == false)
 		{
@@ -157,53 +156,37 @@ public partial class Player : CharacterBody2D
 			velocityComponent.AccelerateInDirection(playerController.direction, 40f);
 		}
 
-		
-
 		if(GetSlideCollisionCount() != 0)
 		{
-		var collisionData = GetLastSlideCollision();
-		//GD.Print(collisionData.GetNormal());
-		if(collisionData.GetNormal() == Vector2.Down)
-		  {
-			if(collisionHandler.CheckCollisionObjectType(collisionHandler.GetCollisionObject(collisionData), typeof(TileMap)))
-			{
-				
-				GodotObject collider = collisionHandler.GetCollisionObject(collisionData);
-				var tileMap = (TileMap)collider;
-				//var tileMap = collisionHandler.CastCollisionObject<TileMap>(collider); -- invalidcastexception error, look into fixing
-				//GD.Print(tileMap.GetCellAtlasCoords(1, tileMap.LocalToMap(collisionData.GetPosition() - new Vector2(0, 10))));
-				if(tileMap.GetCellAtlasCoords(1, tileMap.LocalToMap(collisionData.GetPosition() - new Vector2(0, 10))) == new Vector2I(1,0) && spawnLock == false)
-				{
-				    signalBus.EmitSignal(SignalBus.SignalName.SpecialBox, tileMap.MapToLocal(tileMap.LocalToMap(collisionData.GetPosition()- new Vector2I(0,25))), powerUpState);
-					//GD.Print("Emitted");
-					spawnLock = true;
-				}
+		    var collisionData = GetLastSlideCollision();
 
-			    
-			   if(powerUpState == 1 || powerUpState == 2)
-			   {
-			     if(tileMap.GetCellAtlasCoords(1, tileMap.LocalToMap(collisionData.GetPosition() - new Vector2(0, 10))) == new Vector2I(2,0) || tileMap.GetCellAtlasCoords(1, tileMap.LocalToMap(collisionData.GetPosition() - new Vector2(0, 10))) == new Vector2I(2,1) || tileMap.GetCellAtlasCoords(1, tileMap.LocalToMap(collisionData.GetPosition() - new Vector2(0, 10))) == new Vector2I(5,0))
-				 {
-			     signalBus.EmitSignal(SignalBus.SignalName.BrickHit, collisionData.GetPosition());
-				// GD.Print(tileMap.GetCellAtlasCoords(1, tileMap.LocalToMap(collisionData.GetPosition() - new Vector2(0, 10))));
-					//GD.Print("emited");
-				 }
+		    if(collisionData.GetNormal() == Vector2.Down)
+		    {
+			    if(collisionHandler.CheckCollisionObjectType(collisionHandler.GetCollisionObject(collisionData), typeof(TileMap)))
+			    {
+				    GodotObject collider = collisionHandler.GetCollisionObject(collisionData);
+				    var tileMap = (TileMap)collider;
+				    //Var tileMap = collisionHandler.CastCollisionObject<TileMap>(collider); -- invalidcastexception error, look into fixing.
+		
+				    if(tileMap.GetCellAtlasCoords(1, tileMap.LocalToMap(collisionData.GetPosition() - new Vector2(0, 10))) == new Vector2I(1,0) && spawnLock == false)
+				    {
+				        signalBus.EmitSignal(SignalBus.SignalName.SpecialBox, tileMap.MapToLocal(tileMap.LocalToMap(collisionData.GetPosition()- new Vector2I(0,25))), powerUpState);
+					    spawnLock = true;
+				    }
 
-			    
-			   }
+			        if(powerUpState == 1 || powerUpState == 2)
+			        {
+			            if(tileMap.GetCellAtlasCoords(1, tileMap.LocalToMap(collisionData.GetPosition() - new Vector2(0, 10))) == new Vector2I(2,0) || tileMap.GetCellAtlasCoords(1, tileMap.LocalToMap(collisionData.GetPosition() - new Vector2(0, 10))) == new Vector2I(2,1) || tileMap.GetCellAtlasCoords(1, tileMap.LocalToMap(collisionData.GetPosition() - new Vector2(0, 10))) == new Vector2I(5,0))
+				        {
+			                signalBus.EmitSignal(SignalBus.SignalName.BrickHit, collisionData.GetPosition());
+				        }
+			        } 
+			    }
 			}
-			}
-		  }
+		}
 		
-	
-		
-		//GD.Print(GetSlideCollisionCount());
-	//	GD.Print(IsOnFloor());
 		velocityComponent.Move(this);
 		velocityComponent.ApplyGravity();
-		//gravity not appearing? GD.Print(Velocity);
-		//GD.Print(velocityComponent.GetVelocity());
-		
 	}
 
 	private void OnDamage()
@@ -211,24 +194,24 @@ public partial class Player : CharacterBody2D
 		hurtboxComponent.SetDeferred("monitoring", false);
 		powerUpState = 0;
 		ModifyPowerUpState(0);
+
 		Timer timer = new();
 		AddChild(timer);
 		timer.OneShot = true;
 		timer.Start(2);
 		timer.Timeout += () => hurtboxComponent.SetDeferred("monitoring", true);
-
 	}
 	private void Die()
 	{
-		
 		lives--;
 		powerUpState = 0;
 		ModifyPowerUpState(0);
-		//GD.Print(lives);
+	
 		if(lives < 0)
 		{
 			signalBus.EmitSignal("GameOver");
 		}
+
 		GlobalPosition = new Vector2(0, -5);
 		signalBus.EmitSignal(SignalBus.SignalName.LivesUpdate, lives);
 	}
@@ -236,21 +219,22 @@ public partial class Player : CharacterBody2D
 	private void OnPitfall(Node2D body)
 	{
 		if(body.IsInGroup("Player"))
-			{
-				Die();
-				powerUpState = 0;
-				ModifyPowerUpState(0);
-			}
+		{
+			Die();
+			powerUpState = 0;
+			ModifyPowerUpState(0);
+		}
 	}
 
 	private void OnWarp(int warpVal, Vector2 telePosition)
 	{
 		SetCollisionLayerValue(2, false); 
+
 		Timer timer = new();
 		AddChild(timer);
 		timer.Start(1);
 		timer.Timeout += () =>  SetCollisionLayerValue(2, true); 
-	}
+	} 
 
 	private void OnCounterRollover()
 	{

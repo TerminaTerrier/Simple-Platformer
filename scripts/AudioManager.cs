@@ -28,76 +28,61 @@ public partial class AudioManager : AudioStreamPlayer2D
 			switch (sfxID)
 			{
 				case "Token":
-				this.Stream = tokenSFX;
-				Play();
+				    this.Stream = tokenSFX;
+				    Play();
 				break;
-
 				case "Jump":
-				this.Stream = jumpSFX;
-				Play();
+				    this.Stream = jumpSFX;
+				    Play();
 				break;
-
 				case "PU-R":
-				this.Stream = regPowerUpSFX;
-				Play();
+				    this.Stream = regPowerUpSFX;
+				    Play();
 				break;
-
 				case "PU-O":
-				this.Stream = offPowerUpSFX;
-				Play();
+				    this.Stream = offPowerUpSFX;
+				    Play();
 				break;
-
 				case "PU-I":
-				this.Stream = invcPowerUpSFX;
-				Play();
+				    this.Stream = invcPowerUpSFX;
+				    Play();
 				break;
-
 				case "Orb_Spawn":
-				this.Stream = orb_spawnSFX;
-				Play();
+				    this.Stream = orb_spawnSFX;
+				    Play();
 				break;
-
 				case "Orb_Explosion":
-				this.Stream = orb_explosionSFX;
-				Play();
+				    this.Stream = orb_explosionSFX;
+				    Play();
 				break;
-
 				case "Warp":
-				this.Stream = warpSFX;
-				Play();
+				    this.Stream = warpSFX;
+				    Play();
 				break;
-
 				case "Level_Clear":
-				this.Stream = lvl_clearSFX;
-				Play();
+				    this.Stream = lvl_clearSFX;
+				    Play();
 				break;
-
 				case "Squish":
-				this.Stream = squishSFX;
-				Play();
+				    this.Stream = squishSFX;
+				    Play();
 				break;
-
 				case "Shell":
-				this.Stream = shellSFX;
-				Play();
+				    this.Stream = shellSFX;
+				    Play();
 				break;
-				
 				case "Brick":
-				this.Stream = brickSFX;
-				Play();
+				    this.Stream = brickSFX;
+				    Play();
 				break;
-
 				case "Special_Block":
-				this.Stream = special_blockSFX;
-				Play();
+				    this.Stream = special_blockSFX;
+				    Play();
 				break;
-
 				case "Victory":
-				this.Stream = victorySFX;
-				Play();
+				    this.Stream = victorySFX;
+				    Play();
 				break;
-
-				
 			}
 		};
 	}

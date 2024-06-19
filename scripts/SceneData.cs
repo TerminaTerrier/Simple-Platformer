@@ -16,7 +16,4 @@ public partial class SceneData : Node2D
 	public PackedScene Player{get; private set;} = GD.Load<PackedScene>("res://scenes/player.tscn");
 	public PackedScene DamageOrb{get; private set;} = GD.Load<PackedScene>("res://scenes/damage_orb.tscn");
 	public PackedScene WinScreen{get; private set;} = GD.Load<PackedScene>("res://scenes/win_screen.tscn");
-
-	
-
 }

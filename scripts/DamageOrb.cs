@@ -15,11 +15,11 @@ public partial class DamageOrb : CharacterBody2D
 	Sprite2D sprite;
 	StateMachine stateMachine = new();
 	SignalBus signalBus;
+
 	public override void _EnterTree()
 	{
 		signalBus = GetNode<SignalBus>("/root/SignalBus");
 		healthComponent.Death += Die;
-		//signalBus.Warp += Die; - needs overload
 		stateMachine.AddState(FallingState);
 		stateMachine.Enter();
 		signalBus.Warp += (warpVal, telePosition) => Die();
@@ -46,18 +46,13 @@ public partial class DamageOrb : CharacterBody2D
 			stateMachine.AddState(ExplodingState);
 			stateMachine.Enter();
 		}
-		
 	}
 
 	private void ExplodingState()
 	{
 		hurtboxComponent.Monitoring = false;
-
-		
-
 		hitboxComponent.Scale = new Vector2(1.2f,2f);
 		sprite.Texture = GD.Load<Texture2D>("res://assets/art/orb_explosion.png");
-		
 	}
 	private void Die()
 	{

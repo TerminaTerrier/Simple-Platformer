@@ -23,23 +23,20 @@ public partial class MusicPlayer : AudioStreamPlayer
 			switch(levelID)
 			{
 				case 2:
-				this.Stream = level2Theme;
-				streamHolder = this.Stream;
-				Play();
+				    this.Stream = level2Theme;
+				    streamHolder = this.Stream;
+				    Play();
 				break;
 				case 3:
-				this.Stream = level3Theme;
-				streamHolder = this.Stream;
-				Play();
+				    this.Stream = level3Theme;
+				    streamHolder = this.Stream;
+				    Play();
 				break;
 			}
-		
-		
 		};
 
 		signalBus.Warp += (int warpVal, Vector2 telePosition) => 
 		{
-			
 			if(warpVal == -1 || warpVal == -2 || warpVal == -3)
 			{
 				this.Stream = sublevelTheme;

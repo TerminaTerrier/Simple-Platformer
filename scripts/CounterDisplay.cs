@@ -8,7 +8,6 @@ public partial class CounterDisplay : Label
 	public override void _Ready()
 	{
 		signalBus = GetNode<SignalBus>("/root/SignalBus");
-
 		signalBus.CounterUpdate += OnCounterUpdate;
 		signalBus.GameOver += OnGameOver;
 	}

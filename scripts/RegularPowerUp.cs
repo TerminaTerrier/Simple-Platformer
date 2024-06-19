@@ -28,7 +28,6 @@ public partial class RegularPowerUp : CharacterBody2D
 	public override void _PhysicsProcess(double delta) 
 	{
 		stateMachine.Update();
-
 	}
 
 	private void MoveState()
@@ -40,41 +39,35 @@ public partial class RegularPowerUp : CharacterBody2D
 		}
 
 
-		 if(GetLastSlideCollision() != null)
-		 {
+		if(GetLastSlideCollision() != null)
+		{
 		 	var collisionAngle = collisionHandler.GetCollisionAngle(GetLastSlideCollision());
 		 
 	     	if(directionSwitch == false)
 		 	{
 				raycastComponent.SetRaycastParamaters(GlobalPosition, GlobalPosition + new Vector2(-12, 0));
+
 				if(raycastComponent.GetRayCastQuery().Count != 0)
 				{
 		    		directionSwitch = true;
 					velocityComponent.SetVelocity(new Vector2(75, 50));
 					GD.Print("moving");
 				}
-
-				
-		    	//GD.Print(raycastComponent.GetRayCastQuery().Count);
 		 	}
 		 	
 			if(directionSwitch == true)
 		 	{
 				raycastComponent.SetRaycastParamaters(GlobalPosition, GlobalPosition + new Vector2(12, 0));
+
 				if(raycastComponent.GetRayCastQuery().Count != 0)
 				{
 		    		directionSwitch = false;
 					velocityComponent.SetVelocity(new Vector2(-75, 50));
 				}
-				
-				
-		 		//GD.Print(raycastComponent.GetRayCastQuery().Count);
 		 	}
-		 }
+		}
 
 		velocityComponent.Move(this);
-		//GD.Print(directionSwitch);
-		//GD.Print(velocityComponent.GetVelocity());
 	}
 		
 	public void OnBodyEntered(Node2D body)

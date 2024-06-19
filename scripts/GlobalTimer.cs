@@ -5,6 +5,7 @@ public partial class GlobalTimer : Node
 {
 	SignalBus signalBus;
 	Timer globalTimer;
+
 	public override void _Ready()
 	{
 		signalBus = GetNode<SignalBus>("/root/SignalBus");

@@ -14,27 +14,20 @@ public partial class HealthComponent : Node2D
 	public int Health {get; private set;}
 	private Boolean didHit;
 	SignalBus signalBus;
+	
 	public override void _EnterTree()
 	{
 		Health = stats.StartingHealth;
-		//GD.Print(Health);
 		hurtBox.HitByHitbox += OnHitByHitbox;
-
-		
 	}
 
 	public void OnHitByHitbox(HitboxComponent hitBox)
 	{
-		GD.Print(didHit);
-		GD.Print(hitBox.GetParent().Name);
 		if(didHit == false)
 		{
 			didHit = true;
 			CalculateHealth(-hitBox.stats.Damage);
-			
 		}
-		
-		
 	}
 
     public void CalculateHealth(int healthUpdate)
@@ -44,7 +37,6 @@ public partial class HealthComponent : Node2D
 			GD.Print(Health);
 			Health = Health + healthUpdate;
 			didHit = false;
-			
 		}
 
 		if(Health <= 0)
@@ -58,9 +50,6 @@ public partial class HealthComponent : Node2D
 		{
 			EmitSignal("Damage");
 		}
-		
-		
-		//GD.Print(Health);
 	}
 
     public void SetHealth(int healthUpdate)

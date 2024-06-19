@@ -21,11 +21,12 @@ public partial class BasicEnemy : CharacterBody2D
 	bool directionSwitch = true;	
 	SignalBus signalBus;
 	StateMachine stateMachine = new();
+	
     public override void _EnterTree()
     {
         signalBus = GetNode<SignalBus>("/root/SignalBus");
-
 		signalBus.PitFall += OnPitfall;
+
 		healthComponent.Death += Die;
     }
     public override void _Ready()
@@ -42,71 +43,63 @@ public partial class BasicEnemy : CharacterBody2D
 
 	private void NormalState()
 	{
-		
 
-			
-
-		 if(GetLastSlideCollision() != null)
-		 {
-		 	var collisionAngle = collisionHandler.GetCollisionAngle(GetLastSlideCollision());
+	    if(GetLastSlideCollision() != null)
+		    {
+		 	    var collisionAngle = collisionHandler.GetCollisionAngle(GetLastSlideCollision());
 		 
-	     	if(directionSwitch == false)
-		 	{
-		 		var target = GlobalPosition +  new Vector2(100, 0);
-		  	    pathfindComponent.CallDeferred("SetTargetPosition", target);
-				raycastComponent.SetRaycastParamaters(GlobalPosition, GlobalPosition + new Vector2(12, 0));
-				if(raycastComponent.GetRayCastQuery().Count != 0)
-				{
-		    		directionSwitch = true;
-				}
-				sprite.FlipH = true;
-		    	//GD.Print(raycastComponent.GetRayCastQuery().Count);
-		 	}
-		 	
-			if(directionSwitch == true)
-		 	{
-				var target = GlobalPosition + new Vector2(-100, 0);
-		 		pathfindComponent.CallDeferred("SetTargetPosition", target);
-				raycastComponent.SetRaycastParamaters(GlobalPosition, GlobalPosition + new Vector2(-12, 0));
-				if(raycastComponent.GetRayCastQuery().Count != 0)
-				{
-		    		directionSwitch = false;
-				}
-				sprite.FlipH = false;
-		 		//GD.Print(raycastComponent.GetRayCastQuery().Count);
-		 	}
-			//GD.Print(directionSwitch);
-			
-		 }
-		
-		pathfindComponent.FollowPath();
+	     	        if(directionSwitch == false)
+		 	        {
+		 		        var target = GlobalPosition +  new Vector2(100, 0);
+		  	            pathfindComponent.CallDeferred("SetTargetPosition", target);
+				        raycastComponent.SetRaycastParamaters(GlobalPosition, GlobalPosition + new Vector2(12, 0));
 
-	
-		velocityComponent.NormalForceCheck(this);
+				        if(raycastComponent.GetRayCastQuery().Count != 0)
+				        { 
+		    		        directionSwitch = true;
+				        }
+
+				        sprite.FlipH = true;
+		 	        }
+		 	
+                    if(directionSwitch == true)
+		            {
+                        var target = GlobalPosition + new Vector2(-100, 0);
+		 	            pathfindComponent.CallDeferred("SetTargetPosition", target);
+			            raycastComponent.SetRaycastParamaters(GlobalPosition, GlobalPosition + new Vector2(-12, 0));
+
+			            if(raycastComponent.GetRayCastQuery().Count != 0)
+				        {
+		    	            directionSwitch = false;
+				        }
+
+			            sprite.FlipH = false;	
+		            } 
+		    }
 		
-	
+	    pathfindComponent.FollowPath();
+
+		velocityComponent.NormalForceCheck(this);
 		velocityComponent.Move(this);
 		velocityComponent.ApplyGravity();
-		//GD.Print(target);
 	}
 	private void OnPitfall(Node2D body)
 	{
-		//it would probably be better if the entity detected the fall zone rather than vice versa
-		if(body.IsInGroup("BasicEnemy") && !IsOnFloor())
-			{
-				Die();
-			}
+		//It would probably be better if the entity detected the fall zone rather than vice versa.
+	    if(body.IsInGroup("BasicEnemy") && !IsOnFloor())
+		{ 
+			Die();
+		}
 	}
 	private void Die()
 	{
-		 signalBus.EmitSignal(SignalBus.SignalName.SFX, "Squish");
+	    signalBus.EmitSignal(SignalBus.SignalName.SFX, "Squish");
 		QueueFree();
 	}
 
 	public override void _ExitTree()
     {
-      healthComponent.Death -= Die;
-	  signalBus.PitFall -= OnPitfall;
-		
+        healthComponent.Death -= Die;
+	    signalBus.PitFall -= OnPitfall;
     }
 }

@@ -8,7 +8,6 @@ public partial class RaycastComponent : Node2D
 	public Vector2 raycastFrom {get; private set;}
 	public Vector2 raycastTo {get; private set;}
 	
-
 	public Dictionary GetRayCastQuery()
 	{
 		var spaceState = GetWorld2D().DirectSpaceState;
@@ -20,9 +19,7 @@ public partial class RaycastComponent : Node2D
 
     public void SetRaycastParamaters(Vector2 from, Vector2 to)
 	{
-		
 		raycastFrom = from;
 		raycastTo = to;
-		//GD.Print(raycastFrom, raycastTo);
 	}
 }

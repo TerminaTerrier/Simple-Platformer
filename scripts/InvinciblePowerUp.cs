@@ -9,10 +9,10 @@ public partial class InvinciblePowerUp : CharacterBody2D
 	Timer lifeTimer;
 	SignalBus signalBus;
 	StateMachine stateMachine = new();
+
 	public override void _Ready()
 	{
 		signalBus = GetNode<SignalBus>("/root/SignalBus");
-
 		stateMachine.AddState(MoveState);
 		stateMachine.Enter();
 
@@ -22,7 +22,7 @@ public partial class InvinciblePowerUp : CharacterBody2D
 
     public override void _PhysicsProcess(double delta)
     {
-       stateMachine.Update();
+        stateMachine.Update();
     }
     private void MoveState()
 	{
@@ -42,9 +42,9 @@ public partial class InvinciblePowerUp : CharacterBody2D
 	{
 		if(body.IsInGroup("Player"))
 		{
-		signalBus.EmitSignal(SignalBus.SignalName.PowerUp, 3);
-		signalBus.EmitSignal(SignalBus.SignalName.SFX, "PU-I");
-		QueueFree();
+		    signalBus.EmitSignal(SignalBus.SignalName.PowerUp, 3);
+		    signalBus.EmitSignal(SignalBus.SignalName.SFX, "PU-I");
+		    QueueFree();
 		}
 	}
 }

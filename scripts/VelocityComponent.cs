@@ -33,8 +33,6 @@ public partial class VelocityComponent : Node2D
 		if(!characterBody2D.IsOnFloor())
 		{
 			gravity = new Vector2(0, 25);
-			//calculatedVelocity.Y *= 0.9f;
-			//GD.Print("Not on floor");
 		}
 		
 		if(characterBody2D.IsOnWall())
@@ -46,16 +44,13 @@ public partial class VelocityComponent : Node2D
 		{
 			calculatedVelocity.Y += 50f;
 		}
-
-		
-		
 	}	
-	
-	
+
 	public void ApplyGravity()
 	{
-			AddForce(gravity);
+		AddForce(gravity);
 	}
+
 	public void AccelerateInDirection(Vector2 direction, float accScalar)
 	{
 		AddForce(direction * accScalar);
@@ -80,7 +75,6 @@ public partial class VelocityComponent : Node2D
 		{
 			calculatedVelocity.X *= friction * (float)GetProcessDeltaTime();
 		}
-		//GD.Print(GetProcessDeltaTime());
 	}
 
 	public void SetMaxSpeed(float newXSpeed, float newYSpeed)
@@ -91,7 +85,6 @@ public partial class VelocityComponent : Node2D
 
 	public void SetSpeedModifier(float newModifier)
 	{
-	 
 		speedModifier = newModifier;
 	}
 
@@ -101,19 +94,12 @@ public partial class VelocityComponent : Node2D
 		Velocity = calculatedVelocity.Clamp(new Vector2(-maxXSpeed, -maxYSpeed), new Vector2(maxXSpeed, maxYSpeed));
 		characterBody2D.Velocity = Velocity;
 		characterBody2D.MoveAndSlide();
-		//GD.Print(Velocity);
-		
-		//GD.Print(characterBody2D.Velocity);
 	}
 
 	public void CollisionCheck(KinematicCollision2D collisionData)
 	{
-		//GD.Print(collisionData.GetColliderVelocity());
 		var collisionVelocity = collisionData.GetColliderVelocity();
-		calculatedVelocity += new Vector2(collisionVelocity.X, 0);
-		//GD.Print(collisionVelocity);
-		
-		
+		calculatedVelocity += new Vector2(collisionVelocity.X, 0);	
 	}
 
 	public Vector2 GetVelocity()

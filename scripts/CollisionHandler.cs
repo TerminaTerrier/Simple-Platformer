@@ -5,21 +5,9 @@ using System.Runtime.InteropServices;
 
 public partial class CollisionHandler : Node2D
 {
-	
-	
-	public override void _Ready()
-	{
-		
-	}
-
-	public void GetCollision()
-	{
-		
-	}
-
 	public GodotObject GetCollisionObject(KinematicCollision2D collisionData)
 	{
-		 return collisionData.GetCollider();
+		return collisionData.GetCollider();
 	}
 
 	public bool CheckCollisionObjectType(GodotObject collisionObject, Type type)

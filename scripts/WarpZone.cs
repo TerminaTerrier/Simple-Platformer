@@ -8,10 +8,10 @@ public partial class WarpZone : Area2D
 	[Export]
 	Vector2 telePosition;
 	SignalBus signalBus;
+
 	public override void _Ready()
 	{
 		signalBus = GetNode<SignalBus>("/root/SignalBus");
-
 		this.BodyEntered += OnBodyEntered;
 		this.BodyExited += OnBodyExited;
 	}

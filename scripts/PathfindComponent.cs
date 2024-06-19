@@ -8,15 +8,10 @@ public partial class PathfindComponent : Node2D
 	VelocityComponent velocityComponent;
 	[Export]
 	public NavigationAgent2D navAgent;
-	public override void _Ready()
-	{
-
-	}
-
+	
 	public void SetTargetPosition(Vector2 target)
 	{
 		navAgent.TargetPosition = target;
-
 	}
 	
 	public void FollowPath()
@@ -29,8 +24,5 @@ public partial class PathfindComponent : Node2D
 		var direction = (navAgent.GetNextPathPosition() - GlobalPosition).Normalized();
 		velocityComponent.AccelerateInDirection(direction, 1f);
 		navAgent.SetVelocityForced(velocityComponent.Velocity);
-
-		//GD.Print(navAgent.IsNavigationFinished());
-		//GD.Print(navAgent.GetNextPathPosition());
 	}
 }

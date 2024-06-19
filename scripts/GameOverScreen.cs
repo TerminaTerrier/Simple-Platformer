@@ -4,6 +4,7 @@ using System;
 public partial class GameOverScreen : Control
 {
 	SignalBus signalBus;
+	
 	public override void _Ready()
 	{
 		signalBus = GetNode<SignalBus>("/root/SignalBus");

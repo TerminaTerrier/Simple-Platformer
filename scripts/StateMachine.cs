@@ -6,12 +6,12 @@ public partial class StateMachine : Node
 {
 	public Action currentState;
 	Stack statesStack = new Stack();
+
 	public void Enter()
 	{
 		currentState = (Action)statesStack.Peek();
 	}
 
-	
 	public void Update()
 	{
 		currentState();
@@ -21,8 +21,6 @@ public partial class StateMachine : Node
 	{
 		statesStack.Push(state);
 	}
-
-	//use while loop to search through stack and easily switch between states?
 
 	public void Exit()
 	{
